@@ -1,0 +1,23 @@
+.socials {
+    display: flex;
+
+    margin: 0 auto;
+
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+}
+
+.socials a, .socials button {
+    background: transparent;
+
+    border: none;
+    text-decoration: none;
+
+    cursor: pointer;
+
+    margin: 0 10px;
+    padding: 10px;
+
+    color: #fff
+}

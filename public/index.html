@@ -1,13 +1,65 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>rar.vg</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="//a.rar.vg"/>
+    <link rel="dns-prefetch" href="//a.rar.vg"/>
+    <title>rar.vg</title>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap');
+
+        html, body {
+            padding: 0;
+            margin: 0 auto;
+        }
+
+        noscript {
+            padding: 0;
+            margin: auto;
+            display: flex;
+            flex-direction: column;
+            align-content: space-around;
+            font-family: "Poppins", serif;
+            width: 100%;
+            height: 100vh;
+            background: linear-gradient(-45deg, #471303, #52142c, #0d3646, #0c473a)
+        }
+
+        noscript .no-javascript {
+            margin: auto;
+            text-align: center;
+            background: white;
+            border-radius: 30px;
+            padding: 30px;
+        }
+
+        noscript h1 {
+            font-size: calc(1.2vw + 1vh);
+            font-weight: 800;
+            margin-block-end: 0;
+            margin-inline-end: 0;
+        }
+
+        noscript h2 {
+            margin-block-start: 0;
+            margin-inline-start: 0;
+            font-size: calc(0.5vw + 1vh);
+            font-weight: 700;
+        }
+    </style>
+
 </head>
 <body>
-  <noscript>You need to enable JavaScript to run this app.</noscript>
-  <div id="root"></div>
+<noscript>
+    <div class="no-javascript">
+        <h1>👋</h1>
+        <h1>We've detected that JavaScript is disabled in this browser.</h1>
+        <h2>You'll need to enable it, or to switch to a supported browser in order to view this website.</h2>
+    </div>
+</noscript>
+<div id="root"></div>
 </body>
 </html>

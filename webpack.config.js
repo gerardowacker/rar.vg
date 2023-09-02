@@ -4,15 +4,18 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const webpack = require("webpack");
 const TerserWebpackPlugin = require("terser-webpack-plugin");
 const OptimizeCssAssetsPlugin = require("optimize-css-assets-webpack-plugin");
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const {CleanWebpackPlugin} = require('clean-webpack-plugin');
 
-module.exports = function (_env, argv) {
+require('dotenv').config({ path: './.env/production.env' });
+
+module.exports = function (_env, argv)
+{
     const isProduction = argv.mode === "production";
 
     return {
         target: "web",
         devtool: 'source-map',
-        entry: argv.mode == "none" ? "./example/index.jsx" : "./src/index.js",
+        entry: argv.mode == "none" ? "./example/index.js" : "./src/index.js",
         output: {
             path: path.resolve(__dirname, "dist"),
             filename: "assets/js/[name].[contenthash:8].js",
@@ -21,7 +24,7 @@ module.exports = function (_env, argv) {
         module: {
             rules: [
                 {
-                    test: /\.(jsx|js)$/i,
+                    test: /\.(jsx|js)?$/,
                     exclude: /node_modules/,
                     use: {
                         loader: "babel-loader",
@@ -33,12 +36,11 @@ module.exports = function (_env, argv) {
                     }
                 },
                 {
-                    test: /\.s[ac]ss$/i,
+                    test: /\.css$/,
                     use: [
                         isProduction ? MiniCssExtractPlugin.loader : "style-loader",
-                        "css-loader",
-                        "sass-loader",
-                    ],
+                        "css-loader"
+                    ]
                 },
                 {
                     test: /\.(png|jpg|jpeg|gif)$/i,
@@ -51,7 +53,8 @@ module.exports = function (_env, argv) {
                     }
                 },
                 {
-                    test: /\.(eot|otf|ttf|woff|woff2)$/, // If you encounter any transpilation errors, please add the file extension here >w
+                    test: /\.(eot|otf|ttf|woff|woff2)$/, // If you encounter any transpilation errors, please add the
+                                                         // file extension here >w
                     loader: require.resolve("file-loader"),
                     options: {
                         name: "static/media/[name].[hash:8].[ext]"
@@ -75,6 +78,9 @@ module.exports = function (_env, argv) {
             new HtmlWebpackPlugin({
                 template: path.resolve(__dirname, "public/index.html"),
                 inject: true
+            }),
+            new webpack.DefinePlugin({
+                "process.env": JSON.stringify(process.env),
             }),
             new webpack.DefinePlugin({
                 "process.env.NODE_ENV": JSON.stringify(
@@ -111,7 +117,8 @@ module.exports = function (_env, argv) {
                 cacheGroups: {
                     vendors: {
                         test: /[\\/]node_modules[\\/]/,
-                        name(module, chunks, cacheGroupKey) {
+                        name(module, chunks, cacheGroupKey)
+                        {
                             const packageName = module.context.match(
                                 /[\\/]node_modules[\\/](.*?)([\\/]|$)/
                             )[1];

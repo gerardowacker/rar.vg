@@ -1,0 +1,123 @@
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+html {
+
+    overflow-y: hidden;
+    font-family: 'Raleway', sans-serif;
+
+}
+
+.register-body {
+    background: linear-gradient(-45deg, #424116, #194111, #0a2833, #630f0f);
+    background-size: 400% 400%;
+    animation: gradient 15s ease infinite;
+    height: 100vh;
+}
+
+.placeholder{
+    position: relative;
+    
+
+}
+
+.smaller-input{
+    max-width: 200px;
+}
+.placeholder::after {
+    position: absolute;
+    top: 16px;
+    content: attr(data-placeholder);
+    pointer-events: none;
+    opacity: 0.6;
+}
+
+.animated {
+    animation: gradient 15s ease infinite;
+}
+
+.error-message {
+    background-color: #ff8484;
+    color: #8f2929;
+    margin-top: 20px;
+    border-radius: 5px;
+    padding: 10px 40px;
+    font-family: 'Raleway', sans-serif;
+    border-radius: 20px;
+}
+
+.container {
+    display: flex;
+    margin: 0 auto;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    height: 90vh;
+    flex-direction: column;
+}
+
+.logotype {
+    color: #ddd;
+    font-size: 24px;
+    font-weight: 700;
+    padding: 25px 0px;
+}
+
+.login-form {
+    border-radius: 30px;
+    padding: 50px;
+    background-color: white;
+    display: block;
+    width: 30%;
+}
+
+.login-form .title {
+    font-size: 48px;
+    font-weight: 700;
+}
+
+.login-form input {
+    width: 90%;
+    height: 20px;
+    border: solid 3px black;
+    background: #eee;
+    color: #aa60db;
+    border-radius: 15px;
+    font-weight: 500;
+    font-size: 17px;
+    padding: 14px;
+    margin-bottom: 15px;
+}
+
+.input-no-margin {
+    margin-bottom: 0px !important;
+}
+
+.login-button {
+    margin-top: 25px;
+    padding: 10px 40px;
+    font-family: 'Raleway', sans-serif;
+    border-radius: 20px;
+    font-weight: 600;
+    font-size: 20px;
+    background-color: #6a28d3;
+    color: white;
+    border: none
+}
+
+.code-title {
+    font-size: 15px;
+}
+
+@keyframes gradient {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}

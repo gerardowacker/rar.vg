@@ -1,6 +1,6 @@
 {
     "name": "rarvg",
-    "version": "2023.325.0",
+    "version": "2023.626.0",
     "description": "Create an universal showcase for your identity",
     "main": "index.js",
     "scripts": {
@@ -44,8 +44,6 @@
         "querystringify": "^2.2.0",
         "react": "^17.0.2",
         "react-dom": "^17.0.2",
-        "sass": "^1.32.12",
-        "sass-loader": "^11.0.1",
         "style-loader": "^2.0.0",
         "terser-webpack-plugin": "^5.1.1",
         "url-loader": "^4.1.1",
@@ -56,6 +54,12 @@
     "dependencies": {
         "@babel/plugin-proposal-class-properties": "^7.13.0",
         "@babel/plugin-syntax-dynamic-import": "^7.8.3",
-        "@babel/plugin-transform-runtime": "^7.13.10"
+        "@babel/plugin-transform-runtime": "^7.13.10",
+        "dotenv": "^16.3.1",
+        "dotenv-webpack": "^8.0.1",
+        "react-drag-listview": "^2.0.0",
+        "react-icons": "^4.3.1",
+        "react-markdown": "^8.0.7",
+        "remark-gfm": "^3.0.1"
     }
 }
