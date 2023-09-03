@@ -29,7 +29,7 @@
         "@babel/preset-env": "^7.13.12",
         "@babel/preset-react": "^7.13.13",
         "@babel/runtime": "^7.13.10",
-        "@svgr/webpack": "^5.5.0",
+        "@svgr/webpack": "^8.1.0",
         "babel-loader": "^8.2.2",
         "clean-webpack-plugin": "^3.0.0",
         "css-loader": "^5.2.0",
