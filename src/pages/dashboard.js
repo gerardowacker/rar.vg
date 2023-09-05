@@ -237,6 +237,28 @@ export default class Dashboard extends React.Component
                 <div>Logged in as</div><hr></hr>
                 <button className="cancel-button">Logout</button> 
             </dialog>
+            <dialog className={"logout-modal"} ref={ref => this.logoutConfirmation = ref}>
+                <div className="question-logout">  
+                    <strong>Do you want to logout?</strong>
+                </div>
+                <button className="logout-device-only"> 
+                    <button className="circle-opt-select1"></button>
+                    <strong>Log out device only</strong>
+                </button>
+                <button className="logout-all-devices">
+                    <button className="circle-opt-select2"></button>
+                    <strong>Log out of all devices (will close all of your sessions!)</strong>
+                </button>
+                <div className="logout-modal-buttons-container">
+                    <button className="logout-modal-button cancel">Cancel</button>
+                    <button className="logout-modal-button done">Done</button>
+                </div>
+                <div class="logout-modal-buttons-container">
+                    <button class="logout-modal-button cancel">Cancel</button>
+                    <button class="logout-modal-button done">Done</button>
+                </div>
+                </dialog>
+
                 <div className="left-component">
                     <EditPanel updateLocally={this.updateComponentLocally}
                                updateLocallyWithoutCancelling={this.updateComponentLocallyWithoutCancelling}

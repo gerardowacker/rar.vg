@@ -249,3 +249,115 @@ h3 {
     background-color: #CFCFCF;
     
 }
+
+.logout-modal {
+    position: absolute;
+    text-align: center;
+    top: 33%;
+    left: 0%;
+    width: 600px;
+    height: 175px;
+    border: 2px solid coral;
+    border-radius: 25px;
+    padding-top: 20px;
+    padding-bottom: 60px;
+    display: block;
+}
+
+.question-logout {
+    font-family: 'Raleway', sans-serif;
+    text-align:left;
+    font-size: 20px;
+    margin-bottom: 20px;
+    margin-left: 15px;
+    margin-top: 10px;
+}
+
+.circle-opt-select1 {
+    height: 20px;
+    width: 20px;
+    background-color: #bbb;
+    border-radius: 50%;
+    display: inline-block;
+    position: absolute;
+    top: 50%;
+    left: 10px;
+    transform: translateY(-50%);
+}
+
+.circle-opt-select2 {
+    height: 20px;
+    width: 20px;
+    background-color: #bbb;
+    border-radius: 50%;
+    display: inline-block;
+    position: absolute;
+    top: 50%;
+    left: 10px;
+    transform: translateY(-50%);
+}
+
+.logout-device-only {
+    padding: 15px;
+    margin: 0px 0;
+    width: calc(100% - 40px);
+    background: white;
+    border-radius: 10px;
+    position: relative;
+    
+}
+
+.logout-all-devices {
+    padding: 15px;
+    margin: 5px 0;
+    width: calc(100% - 40px);
+    background: white;
+    border-radius: 10px;
+    position: relative;
+}
+
+.logout-modal .logout-all-devices .logout-device-only {
+    padding: 20px;
+    margin: 20px 0;
+    width: calc(100% - 40px);
+    background: #eee;
+    border-radius: 20px;
+}
+
+.logout-modal-button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-family: 'Raleway', sans-serif;
+    font-size: 16px;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+.logout-modal-button.cancel {
+    padding: 10px;
+    font-family: 'Raleway', sans-serif;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 15px;
+    background-color: lightgray;
+    color: slategrey;
+    border: none;
+}
+
+.logout-modal-button.done {
+    padding: 10px;
+    font-family: 'Raleway', sans-serif;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 15px;
+    background-color: #6a28d3;
+    color: white;
+    border: none;
+}
+
+.logout-modal-buttons-container {
+    position: absolute;
+    bottom: 20px;
+    right:  20px;
+}
