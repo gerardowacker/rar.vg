@@ -258,6 +258,16 @@ export default class Dashboard extends React.Component
                     <button class="logout-modal-button done">Done</button>
                 </div>
                 </dialog>
+                <dialog className={"remove-component-modal"} ref={ref => this.logoutConfirmation = ref}>
+                <div className="question-remove">  
+                    <strong>Do you want to delete this component?</strong>
+                </div>
+                <div class="remove-component-modal-buttons-container">
+                    <button class="remove-component-modal-button cancel">No, keep it</button>
+                    <button class="remove-component-modal-button done">Yes, delete</button>
+                </div>
+                </dialog>
+
 
                 <div className="left-component">
                     <EditPanel updateLocally={this.updateComponentLocally}

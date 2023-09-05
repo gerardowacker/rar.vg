@@ -261,7 +261,7 @@ h3 {
     border-radius: 25px;
     padding-top: 20px;
     padding-bottom: 60px;
-    display: block;
+    display: none;
 }
 
 .question-logout {
@@ -359,5 +359,62 @@ h3 {
 .logout-modal-buttons-container {
     position: absolute;
     bottom: 20px;
+    right:  20px;
+}
+
+.remove-component-modal {
+    position: absolute;
+    text-align: center;
+    top: 33%;
+    left: 0%;
+    width: 600px;
+    height: 175px;
+    border: 2px solid coral;
+    border-radius: 25px;
+    padding-top: 20px;
+    padding-bottom: 60px;
+    display: block;
+}
+
+.question-remove {
+    font-family: 'Raleway', sans-serif;
+    text-align:left;
+    font-size: 25px;
+    margin-bottom: 20px;
+    margin-left: 55px;
+    margin-top: 20px;
+}
+
+
+.remove-component-modal-button.cancel {
+    padding: 10px;
+    font-family: 'Raleway', sans-serif;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 15px;
+    background-color: gray;
+    color: black;
+    border: none;
+    width: 200px;
+    margin-left: 50px;
+}
+
+.remove-component-modal-button.done{
+    padding: 10px;
+    font-family: 'Raleway', sans-serif;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 17px;
+    background-color: #6a28d3;
+    color: white;
+    border: none;
+    width: 200px;
+    margin-left: 100px;
+    margin-right: 50px;
+}
+
+.remove-component-modal-buttons-container {
+    position: absolute;
+    bottom: 80px;
     right:  20px;
 }
