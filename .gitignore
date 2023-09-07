@@ -110,3 +110,6 @@ dist
 
 # vs-code
 .vscode
+
+# Yarn lock file
+yarn.lock

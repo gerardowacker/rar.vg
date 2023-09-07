@@ -235,11 +235,11 @@ export default class Dashboard extends React.Component
             <div className="dash-container2">
             <dialog className={"dialog"} ref={ref => this.profOptions = ref}>
                 <div>Logged in as</div><hr></hr>
-                <button className="cancel-button">Logout</button> 
+                <button className="cancel-button">Log out</button> 
             </dialog>
             <dialog className={"logout-modal"} ref={ref => this.logoutConfirmation = ref}>
                 <div className="question-logout">  
-                    <strong>Do you want to logout?</strong>
+                    <strong>Do you want to log out?</strong>
                 </div>
                 <button className="logout-device-only"> 
                     <button className="circle-opt-select1"></button>
