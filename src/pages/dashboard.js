@@ -243,7 +243,7 @@ export default class Dashboard extends React.Component
                 </div>
                 <button className="logout-device-only"> 
                     <button className="circle-opt-select1"></button>
-                    <strong>Log out device only</strong>
+                    <strong>Log out of this device only</strong>
                 </button>
                 <button className="logout-all-devices">
                     <button className="circle-opt-select2"></button>
