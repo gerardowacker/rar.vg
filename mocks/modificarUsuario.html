@@ -2,54 +2,82 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Panel de control</title>
+    <title>Modificar Usuario</title>
     <link rel="stylesheet" href="index.css">
     <link rel="stylesheet" href="estilos2.css">
     <link rel="stylesheet" href="modificarUsuario.css">
 
 </head>
 <body class="container">
-<div class="Home-Container">
-    <div class="left">
-        <span class="mmm p-no-margin-bottom p-no-margin-top welcome">👋 Welcome back, /name/!</span>
-        <div class="notice">You have unsaved changes!</div>
-    </div>
-    <div class="right">
-        <button class="login-button">Publish</button>
-        <button class="profile-button">👤</button>
-    </div>
-</div>
-<div class="Home-Container2">
-    <div class="left-component">
-        <div class="outer-mock">
-            <h3 class="m p-no-margin-top p-no-margin-bottom">Modificar usuario</h3>
-            <div class="top">
-                <div class="button-center">
-                    <button class="user-button" >
-                        <img  class="image"
-                              onmouseout="this.src='https://assets.stickpng.com/images/585e4beacb11b227491c3399.png';" 
-                              onmouseover="this.src='https://cdn.icon-icons.com/icons2/2161/PNG/512/interface_edit_pencil_writing_school_circle_icon_132994.png';" 
-                              src="https://assets.stickpng.com/images/585e4beacb11b227491c3399.png" />
-                    </button>
-                </div>
-                <h2 class="mm p-no-margin-bottom p-no-margin-top">Nombre a mostrar:</h2>
-            </div>
-            <div class="bottom">
-                <input class="input" type="text" value="Nombre anterior">
-                <button class="delete-button">Eliminar cuenta</button>
-                <button class="done-button" >Done</button>
-            </div>
+    <div class="Home-Container">
+        <div class="left">
+            <span class="mmm p-no-margin-bottom p-no-margin-top welcome">👋 Welcome back, /name/!</span>
+            <div class="notice">You have unsaved changes!</div>
+        </div>
+        <div class="right">
+            <button class="login-button">Publish</button>
+            <button class="profile-button">👤</button>
         </div>
     </div>
-    <div class="right-component">
-        <div class="profile-container">asd</div>
+    <div class="Home-Container2">
+        <div class="left-component">
+             <div class="outer-mock">
+                <div class="scrollable-container">
+                    <h3 class="m p-no-margin-top p-no-margin-bottom">Modificar usuario</h3>
+                    <div class="top">
+                        <div class="button-center">
+                            <button class="user-button">
+                                <img class="image" src="https://assets.stickpng.com/images/585e4beacb11b227491c3399.png"
+                                    alt="Edit Profile Image" onmouseout="resetImage(this)"
+                                    onmouseover="changeImage(this, 'https://cdn.icon-icons.com/icons2/2161/PNG/512/interface_edit_pencil_writing_school_circle_icon_132994.png');" />
+                            </button>
+                        </div>
+                        <h2 class="mm p-no-margin-bottom p-no-margin-top">Nombre a mostrar:</h2>
+                        <input class="input" type="text" value="Nombre anterior">
+                    </div>
+                    <h1 class="m p-no-margin-top p-no-margin-bottom">Change Profile Design</h1>
+                    <div class="list-button-container">
+                        <button class="button unraised link-img" type="button">
+                            <img src="profile-type1.png" alt="Profile Type 1">
+                        </button>
+                        <button class="button unraised link-img" style="margin-left: 10%;">
+                            <img src="profile-type2.png" alt="Profile Type 2">
+                        </button>
+                    </div>
+                    <div class="color-selection">
+                        <div id="color1" class="color-circle image-circle"></div>
+                        <div id="color2" class="color-circle image-circle"></div>
+                        <div id="color3" class="color-circle image-circle"></div>
+                        <div id="color4" class="color-circle image-circle"></div>
+                        <div id="color5" class="color-circle image-circle"></div>
+                    </div>
+                    <div class="bottom">
+                        <button class="done-button">Done</button>
+                        <button class="cancel-button">Cancel</button>
+                    </div>
+                    <div class="bottom">
+                        <div class="danger-zone">
+                            <h2 class="m p-no-margin-top p-no-margin-bottom">Danger zone</h2>
+                            <button class="delete-button danger-button">Eliminar cuenta</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="right-component">
+            <div class="profile-container">asd</div>
+        </div>
     </div>
-</div>
-
-
-
-
 </body>
+<script>
+    function changeImage(imageElement, newImageSrc) {
+        imageElement.src = newImageSrc;
+    }
+
+
+    function resetImage(imageElement) {
+        imageElement.src = 'https://assets.stickpng.com/images/585e4beacb11b227491c3399.png';
+    }
+</script>
 </html>

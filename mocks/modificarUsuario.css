@@ -1,31 +1,48 @@
-.outer-mock h3{
-    margin-bottom:20px ;
-}
-.top{
+/* modificarUsuario.css */
+
+/* Estilos generales */
+.outer-mock h3 {
     margin-bottom: 20px;
 }
-.button-center{
-    text-align: center; 
+
+.top {
+    margin-bottom: 20px;
+}
+
+.button-center {
+    text-align: center;
     margin-top: 40px;
     margin-bottom: 40px;
 }
-.user-button{
+
+.bottom {
+    height: calc(50% - 100px);
+}
+
+.container-done-button,
+.container-cancel-button {
+    height: calc(100% - 150px);
+    text-align: right;
+    padding-top: 50px;
+}
+
+/* Estilos para botones y elementos relacionados */
+.user-button {
     padding: 0px;
     border-radius: 60px;
     width: 120px;
     height: 120px;
-    border:none;
-    background-color: #cccccc;     
+    border: none;
+    background-color: #cccccc;
 }
-.image{
+
+.user-button .image {
     width: 100%;
     height: 100%;
 }
-.bottom{
-    height: calc(50% - 100px);
-}
-.outer-mock .input{
-    width:calc(100% - 25px);
+
+.outer-mock .input {
+    width: calc(100% - 25px);
     height: 14px;
     border: solid 3px black;
     background: #fff;
@@ -35,8 +52,9 @@
     font-size: 15px;
     padding: 10px;
 }
-.bottom .delete-button{
-    width:140px;
+
+.bottom .delete-button {
+    width: 140px;
     padding: 10px;
     font-family: 'Raleway', sans-serif;
     border-radius: 8px;
@@ -47,21 +65,121 @@
     border: none;
     margin-top: 20px;
 }
-.container-done-button{
-    height: calc(100% - 150px);
-    text-align: right;
-    padding-top: 50px;
-}
-.done-button{
-    width:75px;
+
+.cancel-button,
+.done-button {
+    width: 75px;
     padding: 10px;
     font-family: 'Raleway', sans-serif;
     border-radius: 8px;
     font-weight: 600;
     font-size: 15px;
+    border: none;
+    margin: 0 10px;
+    float: right;
+    transition: all 0.2s ease;
+}
+.cancel-button:active {
+    transform: scale(0.96);
+}
+.done-button:active {
+    transform: scale(0.96);
+}
+.cancel-button {
+    background-color: #a8a3b6;
+    color: white;
+}
+
+.done-button {
     background-color: #6a28d3;
     color: white;
-    border: none;
-    margin-left: calc(100% - 75px);
-    margin-top: 50px;
+}
+
+.danger-zone {
+    clear: both;
+}
+
+/* Estilos para la barra desplazable */
+.scrollable-container {
+    max-height: calc(100%);
+    overflow-y: auto;
+    overflow-x: hidden;
+    margin-left: auto;
+    margin-right: 0;
+    position: relative;
+}
+
+
+/* Estilos para los círculos de selección de colores */
+.color-circle {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin: 5px;
+    cursor: pointer;
+    display: inline-block;
+}
+
+/* Estilos para los cuadros seleccionables */
+.selection-box {
+    width: 100px;
+    height: 100x; 
+    border: 2px solid #000;
+    margin: 5px;
+    cursor: pointer;
+    display: inline-block;
+}
+
+.image-circle {
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+#color1.image-circle {
+    background-image: url('');
+}
+
+#color2.image-circle {
+    background-image: url('');
+}
+
+#color3.image-circle {
+background-image: url('');
+}
+
+#color4.image-circle {
+background-image: url('');
+}
+
+#color5.image-circle {
+background-image: url('');
+}
+.color-circle{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin: 5px;
+    cursor: pointer;
+    display: inline-block;
+    border: 2px solid #000;
+}
+/* Estilos para los botones de lista con imágenes */
+.link-img {
+    text-align: left;
+    width: 45% !important;
+    padding: 10px !important;
+    margin-top: 20px !important;
+    margin-left: 5px;
+    display: flex;
+    align-items: center;
+}
+
+.link-img img {
+    max-width: 100%;
+    height: auto;
+}
+
+.list-button-container {
+    display: flex;
 }
