@@ -29,7 +29,8 @@
     color: white;
     border: none;  
 }
-.margin-button{
+.margin-button>.delete-button{
+    margin-right: 10px;
     text-align: right;
 }
 .delete-button{
@@ -43,6 +44,27 @@
     background-color: red;
     color: white;
     border: none
+}
+.margin-button{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    text-align: right;
+    margin-top: 10px;
+}
+.delete-component{
+    /*text-align: center;*/
+    text-align:center;
+    padding: 10px;
+    margin-right: auto;
+    font-family: 'Raleway', sans-serif;
+    border-radius: 4px;
+    font-weight: 600;
+    font-size: 15px;
+    background-color: red;
+    color: white;
+    border: none;
+    border-radius: 8px;
 }
 .done-button{
     text-align:center;

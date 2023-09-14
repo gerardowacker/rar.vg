@@ -21,9 +21,27 @@
 .pdf object {
     height: 100%;
 }
+
 .margin-button{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
     text-align: right;
     margin-top: 10px;
+}
+.delete-component{
+    /*text-align: center;*/
+    text-align:center;
+    padding: 10px;
+    margin-right: auto;
+    font-family: 'Raleway', sans-serif;
+    border-radius: 4px;
+    font-weight: 600;
+    font-size: 15px;
+    background-color: red;
+    color: white;
+    border: none;
+    border-radius: 8px;
 }
 .done-button{
     width:75px;
