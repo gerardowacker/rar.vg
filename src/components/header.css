@@ -1,0 +1,21 @@
+.page-header {
+    display: flex;
+    justify-content: space-between;
+
+    padding: 0 30px;
+
+    width: calc(100% - 60px);
+    height: 70px;
+
+    background-color: white;
+    color: var(--push-bg1);
+
+    align-items: center;
+
+    box-shadow: 0 1px 5px 0 rgba(0, 0, 0, .2), 0 6px 8px 0 rgba(0, 0, 0, .19);
+}
+
+.page-header a:hover {
+    color: var(--push-bg1);
+    cursor: pointer;
+}

@@ -59,7 +59,7 @@ html {
     justify-content: center;
     align-items: center;
     text-align: center;
-    height: 90vh;
+    min-height: 90vh !important;
     flex-direction: column;
 }
 

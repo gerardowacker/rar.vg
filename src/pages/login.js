@@ -46,6 +46,16 @@ export default class Login extends React.Component
                     type: 'success',
                     message: 'It\'s sad to watch you go. Your account has been deleted.'
                 })
+            case '4':
+                return this.displayMessage({
+                    type: 'success',
+                    message: 'You\'ve logged out of all devices. Wait up until 30 minutes for the changes to take effect.'
+                })
+            case '5':
+                return this.displayMessage({
+                    type: 'success',
+                    message: 'You\'ve logged out. The session was deleted successfully.'
+                })
             default:
                 return
         }

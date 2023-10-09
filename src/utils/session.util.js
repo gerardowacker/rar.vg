@@ -86,6 +86,25 @@ function tryLogin(email, password)
     })
 }
 
+function tryLogout(single)
+{
+    return new Promise(res =>
+    {
+        const session = getCurrentSession()
+        if(!session.token || !session.clientToken)
+        {
+            destroySession()
+            return res({success: false})
+        }
+
+        performRequest('logout', {...session, single: single}).then(response =>
+        {
+            destroySession()
+            return res(response)
+        })
+    })
+}
+
 function tryUserLoading()
 {
     return new Promise(res =>
@@ -291,5 +310,5 @@ function validateSession()
 
 export {
     tryLogin, tryRegister, validateSession, tryUserLoading, hasActiveSession, updateProfile, upload, verifyAccount,
-    updatePassword, requestPasswordChange, verifyPasswordToken, deletionRequest, verifyDeletionToken, deleteAccount
+    updatePassword, requestPasswordChange, verifyPasswordToken, deletionRequest, verifyDeletionToken, deleteAccount, tryLogout
 }

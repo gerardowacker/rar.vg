@@ -5,8 +5,9 @@ const webpack = require("webpack");
 const TerserWebpackPlugin = require("terser-webpack-plugin");
 const OptimizeCssAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 const {CleanWebpackPlugin} = require('clean-webpack-plugin');
+const RemarkHTML = "remark-html";
 
-require('dotenv').config({ path: './.env/production.env' });
+require('dotenv').config({path: './.env/production.env'});
 
 module.exports = function (_env, argv)
 {
@@ -34,6 +35,12 @@ module.exports = function (_env, argv)
                             envName: isProduction ? "production" : "development"
                         }
                     }
+                },
+                {
+                    test: /\.md$/,
+                    use: {
+                        loader: "raw-loader",
+                    },
                 },
                 {
                     test: /\.css$/,

@@ -1,0 +1,45 @@
+.posts-container {
+    max-width: 1000px;
+    margin: 70px auto;
+}
+
+.posts-container .page-name {
+    padding: 20px;
+    margin: 40px auto;
+    background: linear-gradient(135deg, rgba(61, 34, 125, 1) 0%, rgba(110, 46, 154, 1) 78%);
+    box-shadow: 0 1px 5px 0 rgba(0, 0, 0, .2), 0 6px 8px 0 rgba(0, 0, 0, .19);
+    border-radius: 30px;
+    text-align: center;
+}
+
+.posts {
+    display: block;
+    background-color: white;
+
+    border-radius: 30px;
+
+    align-self: flex-start;
+    margin: 0 auto;
+
+    color: var(--push-bg1);
+
+    box-shadow: 0 1px 5px 0 rgba(0, 0, 0, .2), 0 6px 8px 0 rgba(0, 0, 0, .19);
+}
+
+.posts-header {
+    padding: 18px 30px;
+}
+
+.posts .posts-content {
+    border-radius: 0 0 30px 30px;
+    padding: 15px 30px;
+    background-color: var(--push-text);
+}
+
+.posts .posts-content .post-post {
+    color: white;
+    width: calc(100% - 60px);
+    padding: 30px;
+    border-radius: 15px;
+    margin: 15px 0;
+}

@@ -152,6 +152,9 @@ TEMPORARLY REMOVING FILE BUTTON STYLE
 }
 
 .margin-button {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
     text-align: right;
     margin-top: 10px;
 }
@@ -219,17 +222,9 @@ TEMPORARLY REMOVING FILE BUTTON STYLE
     padding: 10px;
 }
 
-.user-bottom .delete-button {
-    width: 140px;
-    padding: 10px;
-    font-family: 'Raleway', sans-serif;
-    border-radius: 8px;
-    font-weight: 600;
-    font-size: 15px;
-    background-color: #cb0e0e;
-    color: white;
-    border: none;
-    margin-top: 10px;
+.delete-button {
+    background-color: #cb0e0e !important;
+    min-width: 140px;
 }
 
 .container-done-button {
@@ -238,14 +233,36 @@ TEMPORARLY REMOVING FILE BUTTON STYLE
     padding-top: 50px;
 }
 
-.button-container {
+.link-list-btn-container {
     display: flex;
     text-align: right;
     justify-content: right;
 }
 
+.link-list-btn-container .button {
+    margin-left: 10px !important;
+}
+
+.button-container {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.button-container div {
+    justify-content: flex-end;
+    align-content: flex-end;
+    width: 100%;
+    display: inline-flex;
+}
+
 .button-container .button {
     margin-left: 10px !important;
+}
+
+.button-container .delete-button {
+    margin: 15px auto 0 0 !important;
+    width: auto;
 }
 
 .special-mock {
@@ -314,4 +331,34 @@ TEMPORARLY REMOVING FILE BUTTON STYLE
     margin-bottom: 20px;
     display: block;
     text-align: center;
+}
+
+.link-img {
+    text-align: center;
+    width: 45% !important;
+    padding: 5px !important;
+    margin-top: 20px !important;
+}
+
+.link-img img {
+    width: 100%
+}
+
+.list-button-container {
+    display: flex;
+}
+
+.default .entry {
+    color: white;
+    margin: 15px auto;
+    background-size: cover;
+    background-position: center;
+    padding: 25px;
+    box-shadow: 0 1px 5px 0 rgba(0, 0, 0, .2), 0 6px 8px 0 rgba(0, 0, 0, .19);
+    border-radius: 20px;
+    text-align: center;
+}
+
+.default .alternative {
+    background: linear-gradient(135deg, rgba(117, 159, 6, 1) 0%, rgba(17, 101, 87, 1) 78%) !important;
 }

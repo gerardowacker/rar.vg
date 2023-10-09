@@ -1,0 +1,112 @@
+body {
+    background-color: white;
+}
+
+.post-container {
+    display: flex;
+    justify-content: space-around;
+}
+
+.post {
+    display: block;
+    background-color: white;
+
+    border-radius: 30px;
+
+    align-self: flex-start;
+    margin: 70px 10px 70px auto;
+
+    width: 1000px;
+    color: var(--push-bg1);
+
+    box-shadow: 0 1px 5px 0 rgba(0, 0, 0, .2), 0 6px 8px 0 rgba(0, 0, 0, .19);
+}
+
+.post-header {
+    margin: 18px 30px;
+}
+
+.post .banner {
+    padding: 30px;
+    color: var(--push-text);
+}
+
+.post .banner a {
+    color: var(--push-text);
+    text-decoration: underline;
+}
+
+.post .post-content {
+    border-radius: 0 0 30px 30px;
+    padding: 30px;
+    background-color: var(--push-text);
+}
+
+.post .post-content p {
+    padding-bottom: 10px;
+}
+
+.post .post-content a {
+    color: var(--push-link)
+}
+
+.post .post-content ul {
+    margin-left: 20px;
+    padding-bottom: 10px;
+}
+
+.post .post-content hr {
+    color: #a7b0c3;
+    margin: 15px 0px;
+}
+
+.post .post-content h1 {
+    font-size: 38px;
+}
+
+.post .post-content h2 {
+    font-size: 31px;
+}
+
+.post .post-content h3 {
+    font-size: 24px;
+}
+
+.post .post-content img {
+    margin: 0 auto;
+}
+
+.latest-posts {
+    min-width: 300px;
+    align-self: flex-start;
+    display: block;
+    background-color: var(--push-text);
+    color: var(--push-bg1);
+    border-radius: 30px;
+    margin: 70px auto 70px 10px;
+    box-shadow: 0 1px 5px 0 rgba(0, 0, 0, .2), 0 6px 8px 0 rgba(0, 0, 0, .19);
+}
+
+.latest-posts .lp-header {
+    background-color: white;
+    padding: 18px 30px;
+    border-radius: 30px 30px 0 0;
+}
+
+.latest-posts .lp-cont {
+    margin: 20px 10px;
+}
+
+.latest-posts .entry {
+    color: white;
+    border-radius: 20px;
+    padding: 15px;
+    margin: 10px 10px;
+    border: rgba(255, 255, 255, 0.3) solid 2px;
+
+    background: linear-gradient(135deg, rgba(117, 159, 6, 1) 0%, rgba(17, 101, 87, 1) 78%);
+}
+
+.latest-posts .alternative {
+    background: linear-gradient(135deg, rgba(61, 34, 125, 1) 0%, rgba(110, 46, 154, 1) 78%) !important;
+}
