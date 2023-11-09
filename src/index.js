@@ -30,7 +30,7 @@ export const WebRoutes = [
     },
     {
         path: "/posts",
-        component: <News />
+        component: <News/>
     },
     {
         path: "/login",

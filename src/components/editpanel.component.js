@@ -1,5 +1,5 @@
-import linkV from '../static/linklist-type1.png'
-import linkH from '../static/linklist-type2.png'
+import linkH from '../static/linklist-type1.png'
+import linkV from '../static/linklist-type2.png'
 import React from "react";
 import {AiFillEdit, AiOutlineClose, AiOutlineCheck} from "react-icons/ai"
 import {
@@ -62,6 +62,12 @@ export default class EditPanel extends React.Component
             linkItemURLField: "",
             linkItemSelectedImage: null,
             linkItemMessage: null,
+            // Spotify
+            spotifyMessage: null,
+            spotifyLink: "",
+            // YouTube
+            youtubeMessage: null,
+            youtubeLink: "",
         }
 
         this.handleTitleChange = this.handleTitleChange.bind(this)
@@ -70,6 +76,8 @@ export default class EditPanel extends React.Component
         this.handleDisplayNameChange = this.handleDisplayNameChange.bind(this)
         this.handleLinkItemURLChange = this.handleLinkItemURLChange.bind(this)
         this.handleLinkItemTitleChange = this.handleLinkItemTitleChange.bind(this)
+        this.handleSpotifyLinkChange = this.handleSpotifyLinkChange.bind(this)
+        this.handleYouTubeLinkChange = this.handleYouTubeLinkChange.bind(this)
     }
 
     async componentDidMount()
@@ -121,6 +129,10 @@ export default class EditPanel extends React.Component
             linkItemURLField: "",
             linkItemSelectedImage: null,
             linkItemMessage: null,
+            spotifyMessage: null,
+            spotifyLink: "",
+            youtubeMessage: null,
+            youtubeLink: "",
         })
     }
 
@@ -344,6 +356,18 @@ export default class EditPanel extends React.Component
         setTimeout(() => this.setState({genericMessage: null}), 5000)
     }
 
+    displaySpotifyMessage = (message) =>
+    {
+        this.setState({spotifyMessage: message})
+        setTimeout(() => this.setState({spotifyMessage: null}), 5000)
+    }
+
+    displayYouTubeMessage = (message) =>
+    {
+        this.setState({youtubeMessage: message})
+        setTimeout(() => this.setState({youtubeMessage: null}), 5000)
+    }
+
     drawMessage(message)
     {
         if (message) return (
@@ -518,6 +542,16 @@ export default class EditPanel extends React.Component
         this.setState({linkItemURLField: event.target.value})
     }
 
+    handleSpotifyLinkChange(event)
+    {
+        this.setState({spotifyLink: event.target.value})
+    }
+
+    handleYouTubeLinkChange(event)
+    {
+        this.setState({youtubeLink: event.target.value})
+    }
+
     onProfilePictureChange = (event) =>
     {
         const allowedFiles = ['jpg', 'jpeg', 'png']
@@ -557,6 +591,33 @@ export default class EditPanel extends React.Component
             return this.displayGenericMessage({type: 'error', message: 'Description should not be empty!'})
 
         this.saveLocally({title: title, description: description})
+    }
+
+    updateSpotifyLink = (link) =>
+    {
+        const regex = /^(https:\/\/open.spotify.com\/playlist\/|https:\/\/open.spotify.com\/user\/[a-zA-Z0-9]+\/playlist\/|spotify:user:[a-zA-Z0-9]+:playlist:|spotify:playlist:37i9dQZF1DZ06evO2ZpGiQ)([a-zA-Z0-9]+)(.*)$/
+        let match = link.match(regex)
+        if (!match)
+            return this.displaySpotifyMessage({type: 'error', message: 'The provided Spotify link is invalid.'})
+
+        this.props.updateLocallyWithoutCancelling(match[2])
+    }
+
+    updateYouTubeLink = (link) =>
+    {
+        const regex = /^((?:https?:)?\/\/)?((?:www|m)\.)?((?:youtube(-nocookie)?\.com|youtu.be))(\/(?:[\w\-]+\?v=|embed\/|live\/|v\/)?)([\w\-]+)(\S+)?$/
+        let match = link.match(regex)
+        if (!match)
+            return this.displayYouTubeMessage({type: 'error', message: 'The provided YouTube link is invalid.'})
+
+        this.props.updateLocallyWithoutCancelling(match[6])
+    }
+
+    setLinkListVertical = (vertical) =>
+    {
+        let content = this.props.selectedComponent.content
+        content.vertical = vertical
+        this.props.updateLocallyWithoutCancelling(content)
     }
 
     saveLocally = (content) =>
@@ -695,21 +756,71 @@ export default class EditPanel extends React.Component
                         <button className="inner-mock3" onClick={() => this.addNewLinkItem(component)}>
                             <span className="mm p-no-margin-bottom p-no-margin-top">+</span>
                         </button> : <></>}
-                    {/**
-                     <p className="mm p-no-margin-top p-no-margin-bottom">Change list design</p>
-                     <div className='list-button-container'>
-                     <button className="button unraised link-img" type="button">
-                     <img src={linkH}/>
-                     </button>
-                     <button style={{marginLeft: "10%"}} className="button unraised link-img">
-                     <img src={linkV}/>
-                     </button>
-                     </div> **/}
+                    <p className="mm p-no-margin-top p-no-margin-bottom">Change list design</p>
+                    <div className='list-button-container'>
+                        <button className="button unraised link-img" type="button"
+                                onClick={() => this.setLinkListVertical(false)}>
+                            <img src={linkH} alt={'Horizontal'}/>
+                        </button>
+                        <button style={{marginLeft: "10%"}} className="button unraised link-img"
+                                onClick={() => this.setLinkListVertical(true)}>
+                            <img src={linkV} alt={'Vertical'}/>
+                        </button>
+                    </div>
                     <div className={"button-container"}>
                         <button className="button delete-button"
                                 onClick={() => this.props.deleteSelectedComponent()}>Delete component
                         </button>
                         <button className="button" onClick={() => this.cancel()}>Done</button>
+                    </div>
+                </>
+            case 'youtube':
+                return <>
+                    <h3 className="m p-no-margin-top p-no-margin-bottom">Edit YouTube video</h3>
+                    {this.drawMessage(this.state.youtubeMessage)}
+                    <h2 className="s p-no-margin-bottom p-no-margin-top title">Import a YouTube video link:</h2>
+                    <input className="input" type="text" placeholder="https://www.youtube.com/watch?v=DgKpLoz29jo"
+                           value={this.state.youtubeLink} onChange={this.handleYouTubeLinkChange}/>
+                    <div>
+                        <button className="load-button"
+                                onClick={() => this.updateYouTubeLink(this.state.youtubeLink)}>Load video
+                        </button>
+                    </div>
+                    <iframe style={{borderRadius: "12px"}}
+                            src={"https://www.youtube-nocookie.com/embed/" + component.content}
+                            width={"100%"} height={400} frameBorder={"0"} allowFullScreen={true}
+                            allow={"autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"}
+                            loading={"lazy"}></iframe>
+                    <div class="margin-button">
+                        <button className="delete-component"
+                                onClick={() => this.props.deleteSelectedComponent()}>Delete component
+                        </button>
+                        <button className="done-button" onClick={() => this.cancel()}>Done</button>
+                    </div>
+                </>
+            case "spotify":
+                return <>
+                    <h3 className="m p-no-margin-top p-no-margin-bottom">Edit Spotify playlist</h3>
+                    {this.drawMessage(this.state.spotifyMessage)}
+                    <h2 className="s p-no-margin-bottom p-no-margin-top title">Import a Spotify playlist link:</h2>
+                    <input className="input" type="text"
+                           placeholder="https://open.spotify.com/playlist/37i9dQZF1DXcBWIGoYBM5M?si=6d5152d5b4454b4f"
+                           value={this.state.spotifyLink} onChange={this.handleSpotifyLinkChange}/>
+                    <div>
+                        <button className="load-button"
+                                onClick={() => this.updateSpotifyLink(this.state.spotifyLink)}>Load playlist
+                        </button>
+                    </div>
+                    <iframe style={{borderRadius: "12px"}}
+                            src={"https://open.spotify.com/embed/playlist/" + component.content}
+                            width={"100%"} frameBorder={0} height={"400"} allowFullScreen={true}
+                            allow={"autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"}
+                            loading={"lazy"}></iframe>
+                    <div className="margin-button">
+                        <button className="delete-component"
+                                onClick={() => this.props.deleteSelectedComponent()}>Delete component
+                        </button>
+                        <button className="done-button" onClick={() => this.cancel()}>Done</button>
                     </div>
                 </>
         }

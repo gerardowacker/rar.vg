@@ -1,6 +1,6 @@
 {
     "name": "rarvg",
-    "version": "2023.626.0",
+    "version": "2023.1012.0",
     "description": "Create an universal showcase for your identity",
     "main": "index.js",
     "scripts": {

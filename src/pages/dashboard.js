@@ -158,10 +158,10 @@ export default class Dashboard extends React.Component
                     title: "This is a generic component",
                     description: "You can edit me by filling the fields on the edition panel."
                 }
-                break;
+                break
             case 'pdf':
                 newComponent.content = {fileId: null}
-                break;
+                break
             case 'linklist':
                 newComponent.content = {
                     links: [{
@@ -170,7 +170,13 @@ export default class Dashboard extends React.Component
                         "title": "This is a link"
                     }]
                 }
-                break;
+                break
+            case 'youtube':
+                newComponent.content = 'dQw4w9WgXcQ'
+                break
+            case 'spotify':
+                newComponent.content = '37i9dQZF1DXcBWIGoYBM5M'
+                break
             default:
                 return;
         }
@@ -265,8 +271,12 @@ export default class Dashboard extends React.Component
                     <strong>Do you want to delete this component?</strong>
                 </div>
                 <div className="remove-component-modal-buttons-container">
-                    <button className="remove-component-modal-button cancel" onClick={() => this.toggleRemoveComponentModal()}>No, keep it</button>
-                    <button className="remove-component-modal-button done" onClick={() => this.deleteSelectedComponent()}>Yes, delete</button>
+                    <button className="remove-component-modal-button cancel"
+                            onClick={() => this.toggleRemoveComponentModal()}>No, keep it
+                    </button>
+                    <button className="remove-component-modal-button done"
+                            onClick={() => this.deleteSelectedComponent()}>Yes, delete
+                    </button>
                 </div>
             </dialog>
             <dialog className={"logout-modal"} ref={ref => this.logoutConfirmation = ref}>
@@ -307,6 +317,12 @@ export default class Dashboard extends React.Component
                         </button>
                         <button onClick={() => this.addComponent('linklist')} className={"component-to-select s"}>Custom
                             link list
+                        </button>
+                        <button onClick={() => this.addComponent('youtube')} className={"component-to-select s"}>YouTube
+                            video player
+                        </button>
+                        <button onClick={() => this.addComponent('spotify')} className={"component-to-select s"}>Spotify
+                            playlist player
                         </button>
                     </div>
                     <button className={"publish-button"} onClick={() => this.toggleModal()}>Cancel</button>

@@ -280,10 +280,6 @@ TEMPORARLY REMOVING FILE BUTTON STYLE
     border-radius: 50px;
 }
 
-.margin-button {
-    text-align: right;
-}
-
 .delete {
     background-color: red !important;
 }
@@ -334,10 +330,75 @@ TEMPORARLY REMOVING FILE BUTTON STYLE
 }
 
 .link-img {
+    border-radius: 13px !important;
     text-align: center;
     width: 45% !important;
     padding: 5px !important;
     margin-top: 20px !important;
+}
+
+.list-button-container {
+    display: flex;
+}
+
+.border-color {
+    background-color: #000000 !important;
+}
+
+.delete-component {
+    /*text-align: center;*/
+    text-align: center;
+    padding: 10px;
+    margin-right: auto;
+    font-family: 'Raleway', sans-serif;
+    border-radius: 4px;
+    font-weight: 600;
+    font-size: 15px;
+    background-color: #cb0e0e;
+    color: white;
+    border: none;
+    border-radius: 8px;
+}
+
+.cancel-button {
+    text-align: center;
+    width: 75px;
+    padding: 10px;
+    font-family: 'Raleway', sans-serif;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 15px;
+    background-color: #CFCFCF;
+    border: none
+}
+
+.done-button {
+    text-align: center;
+    width: 75px;
+    padding: 10px;
+    font-family: 'Raleway', sans-serif;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 15px;
+    background-color: #6a28d3;
+    color: white;
+    border: none
+}
+
+.load-button {
+    text-align: center;
+    width: 75px;
+    padding: 10px;
+    margin: 10px 0;
+    display: block;
+    width: 100%;
+    font-family: 'Raleway', sans-serif;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 15px;
+    background-color: #6a28d3;
+    color: white;
+    border: none
 }
 
 .link-img img {

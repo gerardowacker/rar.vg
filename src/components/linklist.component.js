@@ -12,8 +12,12 @@ export default class LinklistComponent extends React.Component
     render()
     {
         return <div className={this.props.editing ? 'component editing' : 'component'}>
-            {this.props.links.map((link, key) => <LinkListItemComponent editing={this.props.editing} icon={link.icon} url={link.url}
-                                                                        title={link.title} key={key}/>)}
+            <div className={this.props.vertical ? "v-link-wrapper" : ""}>
+                {this.props.links.map((link, key) => <LinkListItemComponent editing={this.props.editing}
+                                                                            vertical={this.props.vertical}
+                                                                            icon={link.icon} url={link.url}
+                                                                            title={link.title} key={key}/>)}
+            </div>
         </div>
     }
 }
