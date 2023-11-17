@@ -5,6 +5,7 @@ import config from '../utils/config.util'
 import './dashboard.css'
 import EditableProfile from "../components/editableprofile.component";
 import EditPanel from "../components/editpanel.component";
+import {colours} from "./profileDesigns/colour.util";
 
 export default class Dashboard extends React.Component
 {
@@ -68,7 +69,8 @@ export default class Dashboard extends React.Component
 
     updateProfile = () =>
     {
-        updateProfile(this.state.user.displayName, JSON.stringify(this.state.user.components), JSON.stringify(this.state.user.sociallinks))
+        updateProfile(this.state.user.displayName, JSON.stringify(this.state.user.components),
+            JSON.stringify(this.state.user.sociallinks), JSON.stringify(this.state.user.profileDesign))
             .then(response =>
             {
                 if (!response.success)
@@ -117,6 +119,34 @@ export default class Dashboard extends React.Component
         oldUser.components[this.state.component].content = content
         this.setState({user: oldUser})
         this.displayMessage({type: 'important', message: "You've got unsaved changes!"}, true)
+    }
+
+    updateProfileDesign = (design) =>
+    {
+        if (design > 0 && design < 3)
+        {
+            this.setState({
+                user: {
+                    ...this.state.user,
+                    profileDesign: {...this.state.user.profileDesign, design: design}
+                }
+            })
+            this.displayMessage({type: 'important', message: "You've got unsaved changes!"}, true)
+        }
+    }
+
+    updateProfileColours = (theme) =>
+    {
+        if (theme >= 0 && theme < colours.length)
+        {
+            this.setState({
+                user: {
+                    ...this.state.user,
+                    profileDesign: {...this.state.user.profileDesign, colour: theme}
+                }
+            })
+            this.displayMessage({type: 'important', message: "You've got unsaved changes!"}, true)
+        }
     }
 
     updateDisplayName = (displayName) =>
@@ -226,7 +256,6 @@ export default class Dashboard extends React.Component
 
     toggleLogOutModal = () =>
     {
-        this.profOptions.close()
         this.logoutConfirmation.open ? this.logoutConfirmation.close() : this.logoutConfirmation.showModal()
     }
 
@@ -279,30 +308,34 @@ export default class Dashboard extends React.Component
                     </button>
                 </div>
             </dialog>
-            <dialog className={"logout-modal"} ref={ref => this.logoutConfirmation = ref}>
-                <div className="question-logout">
-                    <span className={"m"}>Do you want to log out?</span>
-                </div>
+            <dialog className={"logout-modal"} onClick={() => this.toggleLogOutModal()}
+                    ref={ref => this.logoutConfirmation = ref}>
+                <div onClick={e => e.stopPropagation()}>
+                    <div className="question-logout">
+                        <span className={"m"}>Do you want to log out?</span>
+                    </div>
 
-                <div className={"inner-mock2"}>
-                    <label className="logout-option">
-                        <input onChange={this.changeInputValueRadio} value={"only"}
-                               checked={this.state.single === "only"} type={"radio"} name={"logout-options"}
-                               className="circle-opt"></input>
-                        <span className={"s"}>Log out of this device only</span>
-                    </label>
-                    <label className="logout-option">
-                        <input onChange={this.changeInputValueRadio} value={"all"} checked={this.state.single === "all"}
-                               type={"radio"} name={"logout-options"} className="circle-opt"></input>
-                        <span className={"s"}>Log out of all devices (will close all of your sessions!)</span>
-                    </label>
-                </div>
-                <div className="logout-modal-buttons-container">
-                    <button className="logout-modal-button cancel" onClick={() => this.toggleLogOutModal()}>Cancel
-                    </button>
-                    <button className="logout-modal-button done"
-                            onClick={() => this.logout()}>Done
-                    </button>
+                    <div className={"inner-mock2"}>
+                        <label className="logout-option">
+                            <input onChange={this.changeInputValueRadio} value={"only"}
+                                   checked={this.state.single === "only"} type={"radio"} name={"logout-options"}
+                                   className="circle-opt"></input>
+                            <span className={"s"}>Log out of this device only</span>
+                        </label>
+                        <label className="logout-option">
+                            <input onChange={this.changeInputValueRadio} value={"all"}
+                                   checked={this.state.single === "all"}
+                                   type={"radio"} name={"logout-options"} className="circle-opt"></input>
+                            <span className={"s"}>Log out of all devices (will close all of your sessions!)</span>
+                        </label>
+                    </div>
+                    <div className="logout-modal-buttons-container">
+                        <button className="logout-modal-button cancel" onClick={() => this.toggleLogOutModal()}>Cancel
+                        </button>
+                        <button className="logout-modal-button done"
+                                onClick={() => this.logout()}>Done
+                        </button>
+                    </div>
                 </div>
             </dialog>
             <div className="dash-container">
@@ -340,28 +373,31 @@ export default class Dashboard extends React.Component
                 </div>
             </div>
             <div className="dash-container2">
-                <dialog className="profile-popup" ref={ref => this.profOptions = ref}>
-                    <div className="photo-dialog-div">
-                        <button className="profile-button-dialog button unraised" onClick={() =>
-                        {
-                            this.selectComponent(-2)
-                            this.profOptions.close()
-                        }}
-                                style={{backgroundImage: "url(" + config('HOST') + "/avatar/" + this.state.user.id + ".png?lr=" + this.state.lastReloaded}}>.
-                        </button>
-                    </div>
-                    <br></br>
-                    <div className="user-info">
-                        <span className="mm">{this.state.user.displayName}</span>
-                        <span className="s">@{this.state.user.username}</span>
-                        <span className="ss"
-                              style={{color: '#666'}}>{this.state.user.email.length < 25 ? this.state.user.email : this.state.user.email.slice(0, 25)}</span>
-                    </div>
-                    <hr style={{width: '100%'}}/>
-                    <div>
-                        <button className="button unraised cancel-button-dialog"
-                                onClick={() => this.toggleLogOutModal()}>Log out
-                        </button>
+                <dialog className="profile-popup" onClick={() => this.showProfOptions()}
+                        ref={ref => this.profOptions = ref}>
+                    <div onClick={e => e.stopPropagation()}>
+                        <div className="photo-dialog-div">
+                            <button className="profile-button-dialog button unraised" onClick={() =>
+                            {
+                                this.selectComponent(-2)
+                                this.profOptions.close()
+                            }}
+                                    style={{backgroundImage: "url(" + config('HOST') + "/avatar/" + this.state.user.id + ".png?lr=" + this.state.lastReloaded}}>.
+                            </button>
+                        </div>
+                        <br></br>
+                        <div className="user-info">
+                            <span className="mm">{this.state.user.displayName}</span>
+                            <span className="s">@{this.state.user.username}</span>
+                            <span className="ss"
+                                  style={{color: '#666'}}>{this.state.user.email.length < 25 ? this.state.user.email : this.state.user.email.slice(0, 25)}</span>
+                        </div>
+                        <hr style={{width: '100%'}}/>
+                        <div>
+                            <button className="button unraised cancel-button-dialog"
+                                    onClick={() => this.toggleLogOutModal()}>Log out
+                            </button>
+                        </div>
                     </div>
                 </dialog>
                 <div className="left-component">
@@ -372,7 +408,9 @@ export default class Dashboard extends React.Component
                                user={this.state.user} updateDisplayName={this.updateDisplayName}
                                reloadImage={this.reloadImage} ref={this.editPanel}
                                selectedComponent={this.getSelectedComponent(this.state.component)}
-                               deleteSelectedComponent={this.toggleRemoveComponentModal}/>
+                               deleteSelectedComponent={this.toggleRemoveComponentModal}
+                               updateProfileDesign={this.updateProfileDesign}
+                               updateProfileColours={this.updateProfileColours}/>
                 </div>
                 <div className="right-component">
                     <div className="profile-container">

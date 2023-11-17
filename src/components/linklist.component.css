@@ -9,11 +9,11 @@
 
     align-items: center;
 
-    background: linear-gradient(310deg, #181623, #1e1b2d);
+    background: var(--link-background);
 
     border-radius: 30px;
 
-    color: var(--push-text);
+    color: var(--profile-text-accent);
 }
 
 .card .component .vitem {
@@ -67,4 +67,15 @@
 
 .card .component .hitem .title {
     margin: 0 0 0 30px;
+}
+
+@media only screen and (max-width: 480px) {
+    .card .component .hitem {
+        height: 90px !important;
+    }
+
+    .card .component .hitem .image {
+        width: 90px !important;
+        height: 90px !important;
+    }
 }

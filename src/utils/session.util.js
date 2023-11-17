@@ -124,7 +124,7 @@ function tryUserLoading()
     })
 }
 
-function updateProfile(displayName, components, sociallinks)
+function updateProfile(displayName, components, sociallinks, profileDesign)
 {
     return new Promise(res =>
     {
@@ -132,7 +132,7 @@ function updateProfile(displayName, components, sociallinks)
         if (!session.token || !session.clientToken)
             return res({success: false})
 
-        performRequest('update', {...session, displayName: displayName, components: components, sociallinks: sociallinks}).then(response =>
+        performRequest('update', {...session, displayName: displayName, components: components, sociallinks: sociallinks, profileDesign: profileDesign}).then(response =>
         {
             if (response.status === 498)
                 destroySession()

@@ -1,5 +1,8 @@
 import linkH from '../static/linklist-type1.png'
 import linkV from '../static/linklist-type2.png'
+import prof1 from '../static/profile-type1.png'
+import prof2 from '../static/profile-type2.png'
+
 import React from "react";
 import {AiFillEdit, AiOutlineClose, AiOutlineCheck} from "react-icons/ai"
 import {
@@ -27,6 +30,7 @@ import {upload} from "../utils/session.util";
 import config from '../utils/config.util'
 import Link from "../router/link";
 import parseMD from "parse-md";
+import {colours} from "../pages/profileDesigns/colour.util";
 
 const importAll = (r) => r.keys().map(r);
 const postFiles = importAll(require.context("../news/", true, /\.md$/))
@@ -91,6 +95,21 @@ export default class EditPanel extends React.Component
 
             this.setState((state) => ({...state, posts}));
         }
+    }
+
+
+    colourButton = (theme, key) =>
+    {
+        return <button className={"colour-theme-button"} key={key} style={{
+            background: `linear-gradient(135deg, ${theme.background} 50%, ${theme.card} 50%)`
+        }} onClick={() => this.props.updateProfileColours(key)}/>
+    }
+
+    colourButtons = (themes) =>
+    {
+        return themes.map((theme, key) => (
+            this.colourButton(theme, key)
+        ))
     }
 
     latestPosts = (posts) =>
@@ -680,10 +699,26 @@ export default class EditPanel extends React.Component
                                     onClick={() => this.updateDisplayName(this.state.displayName)}>Done
                             </button>
                         </div>
+                        <h3 style={{marginBottom: "0", paddingBottom: "0"}} className="mm p-no-margin-bottom">Change
+                            profile design</h3>
+                        <div className='list-button-container'>
+                            <button className="button unraised link-img" type="button"
+                                    onClick={() => this.props.updateProfileDesign(1)}>
+                                <img src={prof1} alt={'Profile type 1'}/>
+                            </button>
+                            <button style={{marginLeft: "10%"}} className="button unraised link-img"
+                                    onClick={() => this.props.updateProfileDesign(2)}>
+                                <img src={prof2} alt={'Profile type 2'}/>
+                            </button>
+                        </div>
+                        <div className={"theme-picker-buttons"}>
+                            {this.colourButtons(colours)}
+                        </div>
                         <h4 className={'mm p-no-margin-bottom'}>Danger zone</h4>
                         <Link to={"/delete-account"}>
                             <button className="button delete-button">Delete account</button>
                         </Link>
+                        <br/>
                     </div>
                 </>
             case 'generic':

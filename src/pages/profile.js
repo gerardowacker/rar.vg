@@ -5,7 +5,10 @@ import GenericComponent from "../components/generic.component";
 import PDFComponent from "../components/pdf.component";
 import LinklistComponent from "../components/linklist.component";
 
-import './profile.css'
+import './profileDesigns/profile1.css'
+import './profileDesigns/profile2.css'
+import {colours, styles} from './profileDesigns/colour.util'
+
 import '../index.css'
 import SpotifyComponent from "../components/spotify.component";
 import YouTubeComponent from "../components/youtube.component";
@@ -60,26 +63,30 @@ export default class Profile extends React.Component
         {
             return <div>Loading...</div>
         }
-        return <div className={"content"}>
-            <div className="card">
-                <div className={"header"}>
-                    <div className={"banner"}/>
-                    <img
-                        className={"profile-picture"}
-                        src={config('HOST') + "/avatar/" + this.state.user.id + ".png"}
-                        alt={"Profile picture"}
-                    />
-                    <h1 className={"p-no-margin-bottom"}>{this.state.user.displayName}</h1>
-                    <h3 className={"username p-no-margin-top"}>@{this.props.username}</h3>
-                    <ProfileLinks socials={this.state.user.sociallinks}/>
-                </div>
+        else
+            return <div className={"content"} style={styles(this.state.user.profileDesign.colour || 0)}>
+                <div className="card">
+                    <div className={"header-d" + this.state.user.profileDesign.design}>
+                        <div className={"banner-d" + this.state.user.profileDesign.design}/>
+                        <img
+                            className={"profile-picture-d" + this.state.user.profileDesign.design}
+                            src={config('HOST') + "/avatar/" + this.state.user.id + ".png"}
+                            alt={"Profile picture"}
+                        />
+                        <div style={{display: "block"}}>
+                            <h1 className={"p-no-margin-bottom"}>{this.state.user.displayName}</h1>
+                            <h3 className={"username p-no-margin-top"}>@{this.props.username}</h3>
+                            <ProfileLinks socials={this.state.user.sociallinks}
+                                          design={this.state.user.profileDesign.design}/>
+                        </div>
+                    </div>
 
-                {this.state.user.components.map((component, key) => this.component(component, key))}
+                    {this.state.user.components.map((component, key) => this.component(component, key))}
 
-                <div className={"footer"}>
-                    <a href={"https://rar.vg"} style={{color: "#fff"}}>rar.vg</a> powered 2023
+                    <div className={"footer"}>
+                        <a href={"https://rar.vg"} style={{color: "var(--profile-text-accent)"}}>rar.vg</a> powered 2023
+                    </div>
                 </div>
             </div>
-        </div>
     }
 }

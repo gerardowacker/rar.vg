@@ -1,0 +1,106 @@
+html, body {
+    background: var(--profile-background);
+    color: var(--profile-text-accent);
+}
+
+h1 {
+    font-size: 40px;
+}
+
+h2 {
+    font-size: 30px;
+}
+
+a {
+    text-decoration: none;
+}
+
+a:hover {
+    color: var(--push-link);
+}
+
+.content {
+    padding: 70px 0;
+    margin: 0
+}
+
+.card {
+    user-select: none;
+    margin: 0 auto;
+
+    background: var(--card-background);
+    color: var(--profile-text-accent);
+
+    width: 60%;
+    max-width: 750px;
+
+    border-radius: 40px;
+}
+
+.card .header-d2 {
+    padding: 50px 50px 0 50px;
+    display: flex;
+    text-align: center;
+}
+
+.card .header-d2 .banner-d2 {
+    display: none;
+}
+
+.card .header-d2 .profile-picture-d2 {
+    width: 75px;
+    height: 75px;
+    border-radius: 25px;
+    margin-right: 15px;
+}
+
+.card .header-d2 h1 {
+    font-size: 30px;
+    margin-block-start: 0;
+    margin-inline-start: 0;
+}
+
+.card .header-d2 .username {
+    display: none;
+}
+
+.card .component {
+    padding: 10px 0;
+    margin: 0 50px;
+}
+
+.card .component img {
+    max-width: 100%;
+}
+
+.card .component-no-dividers {
+    border-top: none !important;
+}
+
+.card .add-component-button-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 30px 0 50px 0;
+}
+
+.card .selectableComponent:hover {
+    background: var(--select-component);
+    cursor: pointer;
+}
+
+.card .metadata {
+    padding-bottom: 1em;
+}
+
+.card .footer {
+    padding: 35px 0;
+    margin: 0 50px;
+
+    color: var(--accent-lines);
+
+    text-align: end;
+    font-size: 14px;
+
+    border-top: solid 1px var(--accent-lines);
+}

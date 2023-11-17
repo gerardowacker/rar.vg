@@ -87,7 +87,7 @@ export default class ProfileLinks extends React.Component
     {
         const socials = this.props.socials;
         return (
-            <div className={"socials"}>
+            <div className={"socials socials-d" + this.props.design}>
                 {socials.map((social) => this.iconLink(social))}
                 {this.props.editing ? <button><IoIosAdd size={30}/></button> : <></>}
             </div>

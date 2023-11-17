@@ -423,3 +423,18 @@ TEMPORARLY REMOVING FILE BUTTON STYLE
 .default .alternative {
     background: linear-gradient(135deg, rgba(117, 159, 6, 1) 0%, rgba(17, 101, 87, 1) 78%) !important;
 }
+
+.theme-picker-buttons {
+    margin: 20px 0;
+    background: rgba(0, 0, 0, 0.05);
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.theme-picker-buttons .colour-theme-button {
+    width: 30px;
+    height: 30px;
+    border-radius: 15px;
+    border: solid 2px #999;
+    margin: 0 10px;
+}

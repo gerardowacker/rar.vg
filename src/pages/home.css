@@ -127,6 +127,7 @@
 }
 
 .Home-Container .right .right-card .right-posts-header {
+    color: var(--push-text);
     margin: 20px 0;
     text-align: center;
 }
