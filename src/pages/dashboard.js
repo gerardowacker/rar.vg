@@ -7,6 +7,8 @@ import EditableProfile from "../components/editableprofile.component";
 import EditPanel from "../components/editpanel.component";
 import {colours} from "./profileDesigns/colour.util";
 
+import { IoMdOpen } from "react-icons/io";
+
 export default class Dashboard extends React.Component
 {
     constructor(props)
@@ -366,6 +368,8 @@ export default class Dashboard extends React.Component
                     {this.drawMessage(this.state.unpublished)}
                 </div>
                 <div className="right">
+                    <button className="publish-button" onClick={() => window.open('https://' + this.state.user.username + '.rar.vg','_blank')}
+                            style={{marginRight: "10px"}}><IoMdOpen size={10} style={{marginRight: "5px"}}/>Open profile</button>
                     <button className="publish-button" onClick={() => this.updateProfile()}>Publish</button>
                     <button className="profile-button" onClick={() => this.showProfOptions()}
                             style={{backgroundImage: "url(" + config('HOST') + "/avatar/" + this.state.user.id + ".png?lr=" + this.state.lastReloaded}}>.
