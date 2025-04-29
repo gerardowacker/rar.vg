@@ -230,8 +230,8 @@ export default class EditPanel extends React.Component
             return
         const content = component.content
         content.links.push({"url": "https://www.rar.vg", "icon": null, "title": "Lorem ipsum dolor sit amet"})
-        this.props.updateLocallyWithoutCancelling(content)
-        this.selectLinkItem(component, content.links.length - 1)
+        this.props.updateLocallyWithoutCancelling(content).then(r =>
+        this.selectLinkItem(component, content.links.length - 1))
     }
 
     checkURLValidity(url)
@@ -246,7 +246,7 @@ export default class EditPanel extends React.Component
             return false;
         }
 
-        return url.protocol === "http:" || url.protocol === "https:";
+        return url_.protocol === "http:" || url_.protocol === "https:";
     }
 
     updateLinkItem = (component, link) =>
@@ -273,24 +273,26 @@ export default class EditPanel extends React.Component
                         newLink.icon = config('HOST') + "/uploads/" + result
                         const content = component.content
                         content.links[this.state.selectedLinkListItem] = newLink
-                        this.props.updateLocallyWithoutCancelling(content)
-                        return this.setState({
-                            selectedLinkListItem: null,
-                            linkItemTitleField: null,
-                            linkItemURLField: null,
-                            linkItemSelectedImage: null
+                        this.props.updateLocallyWithoutCancelling(content).then(res => {
+                            return this.setState({
+                                selectedLinkListItem: null,
+                                linkItemTitleField: null,
+                                linkItemURLField: null,
+                                linkItemSelectedImage: null
+                            })
                         })
                     }
                 )
             }
             const content = component.content
             content.links[this.state.selectedLinkListItem] = newLink
-            this.props.updateLocallyWithoutCancelling(content)
-            return this.setState({
-                selectedLinkListItem: null,
-                linkItemTitleField: null,
-                linkItemURLField: null,
-                linkItemSelectedImage: null
+            this.props.updateLocallyWithoutCancelling(content).then(res => {
+                return this.setState({
+                    selectedLinkListItem: null,
+                    linkItemTitleField: null,
+                    linkItemURLField: null,
+                    linkItemSelectedImage: null
+                })
             })
         }
     }
@@ -299,11 +301,12 @@ export default class EditPanel extends React.Component
     {
         const content = component.content
         content.links.splice(key, 1)
-        this.props.updateLocallyWithoutCancelling(content)
-        this.setState({
-            selectedLinkListItem: null,
-            linkItemTitleField: null,
-            linkItemURLField: null
+        this.props.updateLocallyWithoutCancelling(content).then(res => {
+            this.setState({
+                selectedLinkListItem: null,
+                linkItemTitleField: null,
+                linkItemURLField: null
+            })
         })
     }
 
@@ -629,7 +632,7 @@ export default class EditPanel extends React.Component
         if (!match)
             return this.displaySpotifyMessage({type: 'error', message: 'The provided Spotify link is invalid.'})
 
-        this.props.updateLocallyWithoutCancelling(match[2])
+        this.props.updateLocallyWithoutCancelling(match[2]).then(result => {})
     }
 
     updateYouTubeLink = (link) =>
@@ -639,14 +642,14 @@ export default class EditPanel extends React.Component
         if (!match)
             return this.displayYouTubeMessage({type: 'error', message: 'The provided YouTube link is invalid.'})
 
-        this.props.updateLocallyWithoutCancelling(match[6])
+        this.props.updateLocallyWithoutCancelling(match[6]).then(result => {})
     }
 
     setLinkListVertical = (vertical) =>
     {
         let content = this.props.selectedComponent.content
         content.vertical = vertical
-        this.props.updateLocallyWithoutCancelling(content)
+        this.props.updateLocallyWithoutCancelling(content).then(result => {})
     }
 
     saveLocally = (content) =>

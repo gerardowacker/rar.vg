@@ -10,10 +10,8 @@ import {colours} from "./profileDesigns/colour.util";
 import {IoMdOpen, IoMdAdd, IoIosList, IoMdCloudUpload} from "react-icons/io";
 import {BsStars} from "react-icons/bs";
 
-export default class Dashboard extends React.Component
-{
-    constructor(props)
-    {
+export default class Dashboard extends React.Component {
+    constructor(props) {
         super(props);
 
         this.state = {
@@ -23,6 +21,9 @@ export default class Dashboard extends React.Component
             showModal: false,
             reordering: false,
             lastReloaded: Date.now(),
+
+            // Version history
+            hist: [],
 
             // Logout options
             single: "only",
@@ -34,34 +35,41 @@ export default class Dashboard extends React.Component
 
     }
 
-    handleClickOutside(event)
-    {
-        if (this.profOptions.current && !this.profOptions.current.contains(event.target))
-        {
+    pushIterationInHistory = (oldUser) => {
+        return new Promise(res => {
+            const newUser = JSON.parse(JSON.stringify(oldUser));
+            this.state.hist.push(newUser)
+            res(0)
+        })
+    }
+
+    setLatestHistoryIteration = () => {
+        if(this.state.hist.length === 0) return
+        const lastItem = this.state.hist.pop()
+        this.setState({user: lastItem})
+    }
+
+    handleClickOutside(event) {
+        if (this.profOptions.current && !this.profOptions.current.contains(event.target)) {
             this.props.onClickOutside && this.props.onClickOutside();
         }
     };
 
-    onUnload = e =>
-    {
-        if (this.state.unpublished)
-        {
+    onUnload = e => {
+        if (this.state.unpublished) {
             e.preventDefault();
             e.returnValue = 'You\'ve got unsaved changes! Are your sure you want to close?';
         }
     }
 
-    componentWillUnmount()
-    {
+    componentWillUnmount() {
         window.removeEventListener("beforeunload", this.onUnload);
         document.addEventListener('click', this.handleClickOutside, true);
     }
 
-    componentDidMount()
-    {
+    componentDidMount() {
         window.addEventListener("beforeunload", this.onUnload);
-        tryUserLoading().then(response =>
-        {
+        tryUserLoading().then(response => {
             if (!response.success)
                 return window.location.href = "/login"
 
@@ -70,12 +78,10 @@ export default class Dashboard extends React.Component
         document.addEventListener('click', this.handleClickOutside, true);
     }
 
-    updateProfile = () =>
-    {
+    updateProfile = () => {
         updateProfile(this.state.user.displayName, JSON.stringify(this.state.user.components),
             JSON.stringify(this.state.user.sociallinks), JSON.stringify(this.state.user.profileDesign))
-            .then(response =>
-            {
+            .then(response => {
                 if (!response.success)
                     console.error(response.content)
 
@@ -83,95 +89,99 @@ export default class Dashboard extends React.Component
             })
     }
 
-    updateComponentOrder = (from, to) =>
-    {
+    updateComponentOrder = (from, to) => {
         if (this.state.reordering === false) return
         const oldUser = this.state.user
-        let f = oldUser.components.splice(from, 1)[0];
-        oldUser.components.splice(to, 0, f);
-        this.setState({
-            user: oldUser,
+        this.pushIterationInHistory(oldUser).then(res => {
+            let f = oldUser.components.splice(from, 1)[0];
+            oldUser.components.splice(to, 0, f);
+            this.setState({
+                user: oldUser,
+            })
+            this.displayMessage({type: 'important', message: "You've got unsaved changes!"}, true)
         })
-        this.displayMessage({type: 'important', message: "You've got unsaved changes!"}, true)
     }
 
-    selectComponent = (key) =>
-    {
+    selectComponent = (key) => {
         if (this.state.reordering === true) return
         this.editPanel.current.clearState()
         this.setState({component: key})
         this.editPanel.current.handleNecessaryUpdates(this.getSelectedComponent(key))
     }
 
-    toggleReordering = () =>
-    {
+    toggleReordering = () => {
         this.editPanel.current.clearState()
         const oldOrder = !this.state.reordering
         this.setState({reordering: oldOrder})
     }
 
-    cancelSelection = () =>
-    {
+    cancelSelection = () => {
         this.editPanel.current.clearState()
         this.setState({component: null})
     }
 
-    updateComponentLocally = (content) =>
-    {
-        this.updateComponentLocallyWithoutCancelling(content)
+    updateComponentLocally = (content) => {
+        this.updateComponentLocallyWithoutCancelling(content).then(response => {
+            this.cancelSelection()
+        })
+    }
+
+    updateComponentLocallyWithoutCancelling = (content) => {
+        return new Promise(rep => {
+            const oldUser = this.state.user
+            this.pushIterationInHistory(oldUser).then(res => {
+                oldUser.components[this.state.component].content = null
+                this.setState({user: oldUser})
+                oldUser.components[this.state.component].content = content
+                this.setState({user: oldUser})
+                this.displayMessage({type: 'important', message: "You've got unsaved changes!"}, true)
+                rep(1)
+            })
+        })
+   }
+
+    updateProfileDesign = (design) => {
+        if (design > 0 && design < 3) {
+            const oldUser = this.state.user
+            this.pushIterationInHistory(oldUser).then(res => {
+                this.setState({
+                    user: {
+                        ...this.state.user,
+                        profileDesign: {...this.state.user.profileDesign, design: design}
+                    }
+                })
+                this.displayMessage({type: 'important', message: "You've got unsaved changes!"}, true)
+            })
+        }
+    }
+
+    updateProfileColours = (theme) => {
+        if (theme >= 0 && theme < colours.length) {
+            const oldUser = this.state.user
+            this.pushIterationInHistory(oldUser).then(res => {
+                this.setState({
+                    user: {
+                        ...this.state.user,
+                        profileDesign: {...this.state.user.profileDesign, colour: theme}
+                    }
+                })
+                this.displayMessage({type: 'important', message: "You've got unsaved changes!"}, true)
+            })
+        }
+    }
+
+    updateDisplayName = (displayName) => {
+        if (displayName !== "") {
+            const oldUser = this.state.user
+            this.pushIterationInHistory(oldUser).then(res => {
+                this.setState({user: {...this.state.user, displayName: displayName}})
+                this.displayMessage({type: 'important', message: "You've got unsaved changes!"}, true)
+            })
+       }
         this.cancelSelection()
     }
 
-    updateComponentLocallyWithoutCancelling = (content) =>
-    {
-        const oldUser = this.state.user
-        oldUser.components[this.state.component].content = null
-        this.setState({user: oldUser})
-        oldUser.components[this.state.component].content = content
-        this.setState({user: oldUser})
-        this.displayMessage({type: 'important', message: "You've got unsaved changes!"}, true)
-    }
-
-    updateProfileDesign = (design) =>
-    {
-        if (design > 0 && design < 3)
-        {
-            this.setState({
-                user: {
-                    ...this.state.user,
-                    profileDesign: {...this.state.user.profileDesign, design: design}
-                }
-            })
-            this.displayMessage({type: 'important', message: "You've got unsaved changes!"}, true)
-        }
-    }
-
-    updateProfileColours = (theme) =>
-    {
-        if (theme >= 0 && theme < colours.length)
-        {
-            this.setState({
-                user: {
-                    ...this.state.user,
-                    profileDesign: {...this.state.user.profileDesign, colour: theme}
-                }
-            })
-            this.displayMessage({type: 'important', message: "You've got unsaved changes!"}, true)
-        }
-    }
-
-    updateDisplayName = (displayName) =>
-    {
-        if (displayName !== "")
-        {
-            this.setState({user: {...this.state.user, displayName: displayName}})
-            this.displayMessage({type: 'important', message: "You've got unsaved changes!"}, true)
-        }
-        this.cancelSelection()
-    }
-
-    drawMessage(message)
-    {
+    drawMessage(message) {
         if (message) return (
             <div className={"notice " + message.type}>
                 {message.message}
@@ -179,21 +189,20 @@ export default class Dashboard extends React.Component
         )
     }
 
-    deleteSelectedComponent = () =>
-    {
-        const oldUser = this.state.user;
-        oldUser.components.splice(this.state.component, 1);
-        this.setState({user: oldUser});
-        this.displayMessage({type: 'important', message: "You've got unsaved changes!"}, true)
-        this.cancelSelection()
-        this.toggleRemoveComponentModal()
+    deleteSelectedComponent = () => {
+        const oldUser = this.state.user
+        this.pushIterationInHistory(oldUser).then(res => {
+            oldUser.components.splice(this.state.component, 1);
+            this.setState({user: oldUser});
+            this.displayMessage({type: 'important', message: "You've got unsaved changes!"}, true)
+            this.cancelSelection()
+            this.toggleRemoveComponentModal()
+        })
     }
 
-    addComponent(type)
-    {
+    addComponent(type) {
         let newComponent = {type: type, content: null}
-        switch (type)
-        {
+        switch (type) {
             case 'generic':
                 newComponent.content = {
                     title: "This is a generic component",
@@ -221,31 +230,31 @@ export default class Dashboard extends React.Component
             default:
                 return;
         }
-        const oldUser = this.state.user;
-        oldUser.components.push(newComponent)
-        this.setState({user: oldUser})
-        this.displayMessage({type: 'important', message: "You've got unsaved changes!"}, true)
-        this.toggleModal()
-        this.selectComponent(this.state.user.components.length - 1)
-    }
-
-    updateLinks = (links) =>
-    {
         const oldUser = this.state.user
-        oldUser.sociallinks = links
-        this.setState({user: oldUser})
+        this.pushIterationInHistory(oldUser).then(res => {
+            oldUser.components.push(newComponent)
+            this.setState({user: oldUser})
+            this.displayMessage({type: 'important', message: "You've got unsaved changes!"}, true)
+            this.toggleModal()
+            this.selectComponent(this.state.user.components.length - 1)
+        })
     }
 
-    displayMessage = (message, persistent) =>
-    {
+    updateLinks = (links) => {
+        const oldUser = this.state.user
+        this.pushIterationInHistory(oldUser).then(res => {
+            oldUser.sociallinks = links
+            this.setState({user: oldUser})
+        })
+    }
+
+    displayMessage = (message, persistent) => {
         this.setState({unpublished: message})
         if (!persistent) setTimeout(() => this.setState({unpublished: null}), 5000)
     }
 
-    getSelectedComponent(id)
-    {
-        switch (id)
-        {
+    getSelectedComponent(id) {
+        switch (id) {
             case -2:
                 return {type: 'user'}
             case -1:
@@ -255,28 +264,23 @@ export default class Dashboard extends React.Component
         }
     }
 
-    showProfOptions = () =>
-    {
+    showProfOptions = () => {
         this.profOptions.open ? this.profOptions.close() : this.profOptions.showModal()
     }
 
-    toggleModal = () =>
-    {
+    toggleModal = () => {
         this.dialog.open ? this.dialog.close() : this.dialog.showModal()
     }
 
-    toggleLogOutModal = () =>
-    {
+    toggleLogOutModal = () => {
         this.logoutConfirmation.open ? this.logoutConfirmation.close() : this.logoutConfirmation.showModal()
     }
 
-    toggleRemoveComponentModal = () =>
-    {
+    toggleRemoveComponentModal = () => {
         this.removeComponentModal.open ? this.removeComponentModal.close() : this.removeComponentModal.showModal()
     }
 
-    reloadImage = () =>
-    {
+    reloadImage = () => {
         this.setState({lastReloaded: Date.now()})
     }
 
@@ -288,22 +292,18 @@ export default class Dashboard extends React.Component
         }
     };*/
 
-    changeInputValueRadio(event)
-    {
+    changeInputValueRadio(event) {
         console.log(event.target.value)
         this.setState({single: event.target.value})
     }
 
-    logout()
-    {
-        tryLogout(this.state.single === 'only').then(response =>
-        {
+    logout() {
+        tryLogout(this.state.single === 'only').then(response => {
             window.location.href = '/login?jr=' + (response.content.code || 4)
         })
     }
 
-    render()
-    {
+    render() {
         if (!this.state.user) return 'Loading...'
         return <div className="dashboard-container">
             <dialog className={"remove-component-modal"} ref={ref => this.removeComponentModal = ref}>
@@ -377,6 +377,9 @@ export default class Dashboard extends React.Component
                     {this.drawMessage(this.state.unpublished)}
                 </div>
                 <div className="right">
+                    <button className="publish-button" onClick={() => this.setLatestHistoryIteration()}
+                            style={{marginRight: '5px'}}>Undo
+                    </button>
                     <button className="publish-button"
                             onClick={() => window.open('https://' + this.state.user.username + '.rar.vg', '_blank')}
                             style={{marginRight: "10px"}}><IoMdOpen size={10} style={{marginRight: "5px"}}/>Open profile
@@ -392,8 +395,7 @@ export default class Dashboard extends React.Component
                         ref={ref => this.profOptions = ref}>
                     <div onClick={e => e.stopPropagation()}>
                         <div className="photo-dialog-div">
-                            <button className="profile-button-dialog button unraised" onClick={() =>
-                            {
+                            <button className="profile-button-dialog button unraised" onClick={() => {
                                 this.selectComponent(-2)
                                 this.profOptions.close()
                             }}
