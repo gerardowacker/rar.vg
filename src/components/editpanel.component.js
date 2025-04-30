@@ -32,6 +32,7 @@ import {IoIosList, IoMdAdd, IoMdCloudUpload} from "react-icons/io";
 import GenericPanel from "./panels/generic.panel.component";
 import LinkListPanel from "./panels/linklist.panel.component";
 import YoutubePanel from "./panels/youtube.panel.component";
+import SpotifyPanel from "./panels/spotify.panel.component";
 
 const importAll = (r) => r.keys().map(r);
 const postFiles = importAll(require.context("../news/", true, /\.md$/))
@@ -57,16 +58,13 @@ export default class EditPanel extends React.Component
             displayName: "",
             userMessage: null,
             lastReloaded: Date.now(),
-            // Spotify
-            spotifyMessage: null,
-            spotifyLink: "",
+
 
         }
 
         this.handleLinkFieldChange = this.handleLinkFieldChange.bind(this)
         this.handleDisplayNameChange = this.handleDisplayNameChange.bind(this)
 
-        this.handleSpotifyLinkChange = this.handleSpotifyLinkChange.bind(this)
     }
 
     async componentDidMount()
@@ -211,11 +209,7 @@ export default class EditPanel extends React.Component
     }
 
 
-    displaySpotifyMessage = (message) =>
-    {
-        this.setState({spotifyMessage: message})
-        setTimeout(() => this.setState({spotifyMessage: null}), 5000)
-    }
+
 
 
     drawMessage(message)
@@ -328,11 +322,6 @@ export default class EditPanel extends React.Component
         this.setState({displayName: event.target.value})
     }
 
-
-    handleSpotifyLinkChange(event)
-    {
-        this.setState({spotifyLink: event.target.value})
-    }
     onProfilePictureChange = (event) =>
     {
         const allowedFiles = ['jpg', 'jpeg', 'png']
@@ -367,17 +356,7 @@ export default class EditPanel extends React.Component
     }
 
 
-    updateSpotifyLink = (link) =>
-    {
-        const regex = /^(https:\/\/open.spotify.com\/playlist\/|https:\/\/open.spotify.com\/user\/[a-zA-Z0-9]+\/playlist\/|spotify:user:[a-zA-Z0-9]+:playlist:|spotify:playlist:37i9dQZF1DZ06evO2ZpGiQ)([a-zA-Z0-9]+)(.*)$/
-        let match = link.match(regex)
-        if (!match)
-            return this.displaySpotifyMessage({type: 'error', message: 'The provided Spotify link is invalid.'})
 
-        this.props.updateLocallyWithoutCancelling(match[2]).then(result =>
-        {
-        })
-    }
     setLinkListVertical = (vertical) =>
     {
         let content = this.props.selectedComponent.content
@@ -565,30 +544,12 @@ export default class EditPanel extends React.Component
                                       updateLocallyWithoutCancelling={this.props.updateLocallyWithoutCancelling}
                 />
             case "spotify":
-                return <>
-                    <h3 className="m p-no-margin-top p-no-margin-bottom">Edit Spotify playlist</h3>
-                    {this.drawMessage(this.state.spotifyMessage)}
-                    <h2 className="s p-no-margin-bottom p-no-margin-top title">Import a Spotify playlist link:</h2>
-                    <input className="input" type="text"
-                           placeholder="https://open.spotify.com/playlist/37i9dQZF1DXcBWIGoYBM5M?si=6d5152d5b4454b4f"
-                           value={this.state.spotifyLink} onChange={this.handleSpotifyLinkChange}/>
-                    <div>
-                        <button className="load-button"
-                                onClick={() => this.updateSpotifyLink(this.state.spotifyLink)}>Load playlist
-                        </button>
-                    </div>
-                    <iframe style={{borderRadius: "12px"}}
-                            src={"https://open.spotify.com/embed/playlist/" + component.content}
-                            width={"100%"} frameBorder={0} height={"400"} allowFullScreen={true}
-                            allow={"autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"}
-                            loading={"lazy"}></iframe>
-                    <div className="margin-button">
-                        <button className="delete-component"
-                                onClick={() => this.props.deleteSelectedComponent()}>Delete component
-                        </button>
-                        <button className="done-button" onClick={() => this.cancel()}>Done</button>
-                    </div>
-                </>
+                return <SpotifyPanel component={this.props.selectedComponent}
+                                     drawMessage={this.drawMessage}
+                                     deleteSelectedComponent={this.props.deleteSelectedComponent}
+                                     cancel={this.cancel} saveLocally={this.saveLocally}
+                                     updateLocallyWithoutCancelling={this.props.updateLocallyWithoutCancelling}
+                />
         }
     }
 
