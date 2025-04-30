@@ -31,6 +31,7 @@ import config from '../utils/config.util'
 import Link from "../router/link";
 import {colours, styles} from "../pages/profileDesigns/colour.util";
 import {IoIosList, IoMdAdd, IoMdCloudUpload} from "react-icons/io";
+import GenericPanel from "./panels/generic.panel.component";
 
 const importAll = (r) => r.keys().map(r);
 const postFiles = importAll(require.context("../news/", true, /\.md$/))
@@ -45,10 +46,6 @@ export default class EditPanel extends React.Component
         this.state = {
             // Posts
             posts: null,
-            // Generic component.
-            title: "",
-            description: "",
-            genericMessage: null,
             // Social links.
             linkField: "",
             selectedLink: null,
@@ -74,8 +71,6 @@ export default class EditPanel extends React.Component
             youtubeLink: "",
         }
 
-        this.handleTitleChange = this.handleTitleChange.bind(this)
-        this.handleDescriptionChange = this.handleDescriptionChange.bind(this)
         this.handleLinkFieldChange = this.handleLinkFieldChange.bind(this)
         this.handleDisplayNameChange = this.handleDisplayNameChange.bind(this)
         this.handleLinkItemURLChange = this.handleLinkItemURLChange.bind(this)
@@ -149,11 +144,6 @@ export default class EditPanel extends React.Component
 
     handleNecessaryUpdates = (component) =>
     {
-        switch (component.type)
-        {
-            case 'generic':
-                this.setState({title: component.content.title, description: component.content.description})
-        }
     }
 
     icons = {
@@ -231,7 +221,7 @@ export default class EditPanel extends React.Component
         const content = component.content
         content.links.push({"url": "https://www.rar.vg", "icon": null, "title": "Lorem ipsum dolor sit amet"})
         this.props.updateLocallyWithoutCancelling(content).then(r =>
-        this.selectLinkItem(component, content.links.length - 1))
+            this.selectLinkItem(component, content.links.length - 1))
     }
 
     checkURLValidity(url)
@@ -257,7 +247,7 @@ export default class EditPanel extends React.Component
             {
                 return this.displayLinkItemMessage({type: 'error', message: 'Link field must not be empty!'})
             }
-            if(this.checkURLValidity(this.state.linkItemURLField) === false)
+            if (this.checkURLValidity(this.state.linkItemURLField) === false)
             {
                 return this.displayLinkItemMessage({type: 'error', message: 'Use the correct link format!'})
             }
@@ -273,7 +263,8 @@ export default class EditPanel extends React.Component
                         newLink.icon = config('HOST') + "/uploads/" + result
                         const content = component.content
                         content.links[this.state.selectedLinkListItem] = newLink
-                        this.props.updateLocallyWithoutCancelling(content).then(res => {
+                        this.props.updateLocallyWithoutCancelling(content).then(res =>
+                        {
                             return this.setState({
                                 selectedLinkListItem: null,
                                 linkItemTitleField: null,
@@ -286,7 +277,8 @@ export default class EditPanel extends React.Component
             }
             const content = component.content
             content.links[this.state.selectedLinkListItem] = newLink
-            this.props.updateLocallyWithoutCancelling(content).then(res => {
+            this.props.updateLocallyWithoutCancelling(content).then(res =>
+            {
                 return this.setState({
                     selectedLinkListItem: null,
                     linkItemTitleField: null,
@@ -301,7 +293,8 @@ export default class EditPanel extends React.Component
     {
         const content = component.content
         content.links.splice(key, 1)
-        this.props.updateLocallyWithoutCancelling(content).then(res => {
+        this.props.updateLocallyWithoutCancelling(content).then(res =>
+        {
             this.setState({
                 selectedLinkListItem: null,
                 linkItemTitleField: null,
@@ -382,11 +375,7 @@ export default class EditPanel extends React.Component
         setTimeout(() => this.setState({userMessage: null}), 5000)
     }
 
-    displayGenericMessage = (message) =>
-    {
-        this.setState({genericMessage: message})
-        setTimeout(() => this.setState({genericMessage: null}), 5000)
-    }
+
 
     displaySpotifyMessage = (message) =>
     {
@@ -544,16 +533,6 @@ export default class EditPanel extends React.Component
         })
     }
 
-    handleTitleChange(event)
-    {
-        this.setState({title: event.target.value})
-    }
-
-    handleDescriptionChange(event)
-    {
-        this.setState({description: event.target.value})
-    }
-
     handleLinkFieldChange(event)
     {
         this.setState({linkField: event.target.value})
@@ -617,13 +596,6 @@ export default class EditPanel extends React.Component
         this.props.updateDisplayName(displayName)
     }
 
-    updateGenericComponent = (title, description) =>
-    {
-        if (!description)
-            return this.displayGenericMessage({type: 'error', message: 'Description should not be empty!'})
-
-        this.saveLocally({title: title, description: description})
-    }
 
     updateSpotifyLink = (link) =>
     {
@@ -632,7 +604,9 @@ export default class EditPanel extends React.Component
         if (!match)
             return this.displaySpotifyMessage({type: 'error', message: 'The provided Spotify link is invalid.'})
 
-        this.props.updateLocallyWithoutCancelling(match[2]).then(result => {})
+        this.props.updateLocallyWithoutCancelling(match[2]).then(result =>
+        {
+        })
     }
 
     updateYouTubeLink = (link) =>
@@ -642,14 +616,18 @@ export default class EditPanel extends React.Component
         if (!match)
             return this.displayYouTubeMessage({type: 'error', message: 'The provided YouTube link is invalid.'})
 
-        this.props.updateLocallyWithoutCancelling(match[6]).then(result => {})
+        this.props.updateLocallyWithoutCancelling(match[6]).then(result =>
+        {
+        })
     }
 
     setLinkListVertical = (vertical) =>
     {
         let content = this.props.selectedComponent.content
         content.vertical = vertical
-        this.props.updateLocallyWithoutCancelling(content).then(result => {})
+        this.props.updateLocallyWithoutCancelling(content).then(result =>
+        {
+        })
     }
 
     saveLocally = (content) =>
@@ -771,25 +749,10 @@ export default class EditPanel extends React.Component
                     </div>
                 </>
             case 'generic':
-                return <>
-                    <h3 className="m p-no-margin-top p-no-margin-bottom">Edit generic component</h3>
-                    {this.drawMessage(this.state.genericMessage)}
-                    <h2 className="s p-no-margin-bottom p-no-margin-top title">Title:</h2>
-                    <input className="input" type="text" placeholder="Title" value={this.state.title}
-                           onChange={this.handleTitleChange}/>
-                    <h2 className="s p-no-margin-bottom p-no-margin-top description">Description:</h2>
-                    <textarea className="description-text-box-size" value={this.state.description}
-                              placeholder="Description" onChange={this.handleDescriptionChange}/>
-                    <div className={"button-container"}>
-                        <button className="button delete-button"
-                                onClick={() => this.props.deleteSelectedComponent()}>Delete component
-                        </button>
-                        <button className="button unraised" onClick={() => this.cancel()}>Cancel</button>
-                        <button className="button"
-                                onClick={() => this.updateGenericComponent(this.state.title, this.state.description)}>Done
-                        </button>
-                    </div>
-                </>
+                return <GenericPanel component={this.props.selectedComponent}
+                    drawMessage={this.drawMessage} deleteSelectedComponent={this.props.deleteSelectedComponent}
+                    cancel={this.cancel} saveLocally={this.saveLocally}
+                />
             case 'sociallinks':
                 return <>
                     <h3 className="m p-no-margin-top p-no-margin-bottom">Edit social links</h3>
