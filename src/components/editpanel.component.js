@@ -55,8 +55,6 @@ export default class EditPanel extends React.Component
             displayName: "",
             userMessage: null,
             lastReloaded: Date.now(),
-
-
         }
 
         this.handleLinkFieldChange = this.handleLinkFieldChange.bind(this)
@@ -178,18 +176,11 @@ export default class EditPanel extends React.Component
         </div>
     }
 
-
-
-
     displayUserMessage = (message) =>
     {
         this.setState({userMessage: message})
         setTimeout(() => this.setState({userMessage: null}), 5000)
     }
-
-
-
-
 
     drawMessage(message)
     {
@@ -199,7 +190,6 @@ export default class EditPanel extends React.Component
             </div>
         )
     }
-
 
     deselectItem = () =>
     {
@@ -272,8 +262,6 @@ export default class EditPanel extends React.Component
         }
     }
 
-
-
     handleLinkFieldChange(event)
     {
         this.setState({linkField: event.target.value})
@@ -316,9 +304,6 @@ export default class EditPanel extends React.Component
 
         this.props.updateDisplayName(displayName)
     }
-
-
-
 
 
     saveLocally = (content) =>
@@ -447,24 +432,24 @@ export default class EditPanel extends React.Component
                 />
             case 'sociallinks':
                 return <>
-                <h3 className="m p-no-margin-top p-no-margin-bottom">Edit social links</h3>
-                <div className="icon-list-div">{this.drawIcons()}</div>
-                <h2 className="s p-no-margin-bottom p-no-margin-top title">Links:</h2>
-                {this.props.user.sociallinks.map((link, key) => (
-                    <div>{this.socialLinkEditItem(link, key, this.state.selectedLink === key)}</div>))}
-                <div className={"button-container"}>
-                    <button className="button delete-button"
-                            onClick={() => this.props.deleteSelectedComponent()}>Delete component
-                    </button>
-                    <button className="button" onClick={() => this.cancel()}>Done</button>
-                </div>
+                    <h3 className="m p-no-margin-top p-no-margin-bottom">Edit social links</h3>
+                    <div className="icon-list-div">{this.drawIcons()}</div>
+                    <h2 className="s p-no-margin-bottom p-no-margin-top title">Links:</h2>
+                    {this.props.user.sociallinks.map((link, key) => (
+                        <div>{this.socialLinkEditItem(link, key, this.state.selectedLink === key)}</div>))}
+                    <div className={"button-container"}>
+                        <button className="button delete-button"
+                                onClick={() => this.props.deleteSelectedComponent()}>Delete component
+                        </button>
+                        <button className="button" onClick={() => this.cancel()}>Done</button>
+                    </div>
                 </>
             case 'pdf':
                 return <PDFPanel component={this.props.selectedComponent}
-                                     drawMessage={this.drawMessage}
-                                     deleteSelectedComponent={this.props.deleteSelectedComponent}
-                                     cancel={this.cancel} saveLocally={this.saveLocally}
-                                     updateLocallyWithoutCancelling={this.props.updateLocallyWithoutCancelling}
+                                 drawMessage={this.drawMessage}
+                                 deleteSelectedComponent={this.props.deleteSelectedComponent}
+                                 cancel={this.cancel} saveLocally={this.saveLocally}
+                                 updateLocallyWithoutCancelling={this.props.updateLocallyWithoutCancelling}
                 />
             case 'linklist':
                 return <LinkListPanel component={this.props.selectedComponent}
@@ -475,10 +460,10 @@ export default class EditPanel extends React.Component
                 />
             case 'youtube':
                 return <YoutubePanel component={this.props.selectedComponent}
-                                      drawMessage={this.drawMessage}
-                                      deleteSelectedComponent={this.props.deleteSelectedComponent}
-                                      cancel={this.cancel} saveLocally={this.saveLocally}
-                                      updateLocallyWithoutCancelling={this.props.updateLocallyWithoutCancelling}
+                                     drawMessage={this.drawMessage}
+                                     deleteSelectedComponent={this.props.deleteSelectedComponent}
+                                     cancel={this.cancel} saveLocally={this.saveLocally}
+                                     updateLocallyWithoutCancelling={this.props.updateLocallyWithoutCancelling}
                 />
             case "spotify":
                 return <SpotifyPanel component={this.props.selectedComponent}
