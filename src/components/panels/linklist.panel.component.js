@@ -52,6 +52,15 @@ export default class LinkListPanel extends React.Component
             this.selectLinkItem(component, content.links.length - 1))
     }
 
+    setLinkListVertical = (vertical) =>
+    {
+        let content = this.props.component.content
+        content.vertical = vertical
+        this.props.updateLocallyWithoutCancelling(content).then(result =>
+        {
+        })
+    }
+
     checkURLValidity(url)
     {
         let url_;
@@ -157,6 +166,7 @@ export default class LinkListPanel extends React.Component
             fetch(this.state.linkItemSelectedImage).then(r => r.blob()).then(blob =>
             {
                 const result = new File([blob], "image.png", {type: 'application/png'})
+                this.uploadingDialog.showModal()
                 upload(result, false).then(result =>
                 {
                     if (result.success)
@@ -190,6 +200,7 @@ export default class LinkListPanel extends React.Component
         this.setState({linkItemMessage: message})
         setTimeout(() => this.setState({linkItemMessage: null}), 5000)
     }
+
     linkEditItem = (link, key, selected, component) =>
     {
         if (selected)
@@ -263,7 +274,7 @@ export default class LinkListPanel extends React.Component
                 <button className="button delete-button"
                         onClick={() => this.props.deleteSelectedComponent()}>Delete component
                 </button>
-                <button className="button" onClick={() => this.cancel()}>Done</button>
+                <button className="button" onClick={() => this.props.cancel()}>Done</button>
             </div>
         </>
     }
