@@ -46,8 +46,6 @@ export default class EditPanel extends React.Component
     {
         super(props);
         this.state = {
-            // Posts
-            posts: null,
             // Social links.
             linkField: "",
             selectedLink: null,
@@ -65,20 +63,6 @@ export default class EditPanel extends React.Component
         this.handleDisplayNameChange = this.handleDisplayNameChange.bind(this)
 
     }
-
-    async componentDidMount()
-    {
-        if (this.state.posts == null)
-        {
-            let _posts = await Promise.all(postFiles.map((file) => file.default)
-            ).catch((err) => console.error(err));
-
-            let posts = _posts.slice(0, 4)
-
-            this.setState((state) => ({...state, posts}));
-        }
-    }
-
 
     colourButton = (theme, key) =>
     {
