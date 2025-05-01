@@ -18,6 +18,7 @@ export default class PDFPanel extends React.Component
         this.setState({fileMessage: message})
         setTimeout(() => this.setState({fileMessage: null}), 5000)
     }
+
     uploadPDF = () =>
     {
         this.uploadingDialog.showModal()
@@ -35,6 +36,17 @@ export default class PDFPanel extends React.Component
                 }
             })
         })
+    }
+    onFileChange = (event) =>
+    {
+        if (event.target.files && event.target.files[0])
+        {
+            if (event.target.files[0].name.split('.').pop() !== 'pdf')
+                return this.displayPDFMessage({type: 'error', message: 'The selected file is not a PDF file!'})
+            if (event.target.files[0].size / 1024 / 1024 > 1)
+                return this.displayPDFMessage({type: 'error', message: 'The selected file is too large!'})
+            this.setState({selectedFile: URL.createObjectURL(event.target.files[0])});
+        }
     }
 
     render()
