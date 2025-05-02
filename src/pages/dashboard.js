@@ -377,9 +377,6 @@ export default class Dashboard extends React.Component {
                     {this.drawMessage(this.state.unpublished)}
                 </div>
                 <div className="right">
-                    <button className="publish-button" onClick={() => this.setLatestHistoryIteration()}
-                            style={{marginRight: '5px'}}>Undo
-                    </button>
                     <button className="publish-button"
                             onClick={() => window.open('https://' + this.state.user.username + '.rar.vg', '_blank')}
                             style={{marginRight: "10px"}}><IoMdOpen size={10} style={{marginRight: "5px"}}/>Open profile
