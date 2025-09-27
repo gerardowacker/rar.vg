@@ -7,6 +7,7 @@ import mobileImage from '../static/mobile.png'
 import './home.css'
 import '../index.css'
 import Link from "../router/link";
+import Button from "../components/button";
 
 export default class Home extends React.Component
 {
@@ -22,7 +23,7 @@ export default class Home extends React.Component
                         </div>
                         <div className={"bottom"}>
                             <Link to={"/register"}>
-                                <button className="btn mm">Create your page!</button>
+                                <Button className="mm" variant="secondary">Create your page!</Button>
                             </Link>
                             <br/>
                             <div className="link-log-in">

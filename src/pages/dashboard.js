@@ -7,6 +7,7 @@ import EditableProfile from "../components/editableprofile.component";
 import EditPanel from "../components/editpanel.component";
 import AIChatComponent from "../components/aichat.component";
 import {colours} from "./profileDesigns/colour.util";
+import Button from "../components/button";
 
 import { IoMdOpen, IoMdAdd, IoIosList, IoMdCloudUpload } from "react-icons/io";
 import { BsStars } from "react-icons/bs";
@@ -468,12 +469,8 @@ export default class Dashboard extends React.Component {
                     <span className={'m'}>Do you want to delete this component?</span>
                 </div>
                 <div className="remove-component-modal-buttons-container">
-                    <button className="remove-component-modal-button cancel"
-                        onClick={() => this.toggleRemoveComponentModal()}>No, keep it
-                    </button>
-                    <button className="remove-component-modal-button done"
-                        onClick={() => this.deleteSelectedComponent()}>Yes, delete
-                    </button>
+                    <Button className="remove-component-modal-button cancel" variant="gray" onClick={() => this.toggleRemoveComponentModal()}>No, keep it</Button>
+                    <Button className="remove-component-modal-button done" variant="primary" onClick={() => this.deleteSelectedComponent()}>Yes, delete</Button>
                 </div>
             </dialog>
             <dialog className={"logout-modal"} onClick={() => this.toggleLogOutModal()}
@@ -498,11 +495,8 @@ export default class Dashboard extends React.Component {
                         </label>
                     </div>
                     <div className="logout-modal-buttons-container">
-                        <button className="logout-modal-button cancel" onClick={() => this.toggleLogOutModal()}>Cancel
-                        </button>
-                        <button className="logout-modal-button done"
-                            onClick={() => this.logout()}>Done
-                        </button>
+                        <Button className="logout-modal-button cancel" variant="gray" onClick={() => this.toggleLogOutModal()}>Cancel</Button>
+                        <Button className="logout-modal-button done" variant="primary" onClick={() => this.logout()}>Done</Button>
                     </div>
                 </div>
             </dialog>
@@ -510,23 +504,13 @@ export default class Dashboard extends React.Component {
                 <dialog className={"dashboard-modal"} ref={ref => this.dialog = ref}>
                     <span className={"m"}>Select component to add:</span>
                     <div className={"component-types-container"}>
-                        <button onClick={() => this.addComponent('generic')} className={"component-to-select s"}>Generic
-                            component
-                        </button>
-                        <button onClick={() => this.addComponent('pdf')} className={"component-to-select s"}>PDF
-                            reader
-                        </button>
-                        <button onClick={() => this.addComponent('linklist')} className={"component-to-select s"}>Custom
-                            link list
-                        </button>
-                        <button onClick={() => this.addComponent('youtube')} className={"component-to-select s"}>YouTube
-                            video player
-                        </button>
-                        <button onClick={() => this.addComponent('spotify')} className={"component-to-select s"}>Spotify
-                            playlist player
-                        </button>
+                        <Button onClick={() => this.addComponent('generic')} className={"component-to-select s"} variant="secondary">Generic component</Button>
+                        <Button onClick={() => this.addComponent('pdf')} className={"component-to-select s"} variant="secondary">PDF reader</Button>
+                        <Button onClick={() => this.addComponent('linklist')} className={"component-to-select s"} variant="secondary">Custom link list</Button>
+                        <Button onClick={() => this.addComponent('youtube')} className={"component-to-select s"} variant="secondary">YouTube video player</Button>
+                        <Button onClick={() => this.addComponent('spotify')} className={"component-to-select s"} variant="secondary">Spotify playlist player</Button>
                     </div>
-                    <button className={"publish-button"} onClick={() => this.toggleModal()}>Cancel</button>
+                    <Button className={"publish-button"} variant="primary" onClick={() => this.toggleModal()}>Cancel</Button>
                 </dialog>
                 <div className="left">
                     <span
@@ -534,11 +518,8 @@ export default class Dashboard extends React.Component {
                     {this.drawMessage(this.state.unpublished)}
                 </div>
                 <div className="right">
-                    <button className="publish-button"
-                        onClick={() => window.open('https://' + this.state.user.username + '.rar.vg', '_blank')}
-                        style={{ marginRight: "10px" }}><IoMdOpen size={10} style={{ marginRight: "5px" }} />Open profile
-                    </button>
-                    <button className="publish-button" onClick={() => this.updateProfile()}>Publish</button>
+                    <Button className="publish-button" variant="primary" onClick={() => window.open('https://' + this.state.user.username + '.rar.vg', '_blank')} style={{ marginRight: "10px" }}><IoMdOpen size={10} style={{ marginRight: "5px" }} />Open profile</Button>
+                    <Button className="publish-button" variant="primary" onClick={() => this.updateProfile()}>Publish</Button>
                     <button className="profile-button" onClick={() => this.showProfOptions()}
                         style={{ backgroundImage: "url(" + config('HOST') + "/avatar/" + this.state.user.id + ".png?lr=" + this.state.lastReloaded }}>.
                     </button>

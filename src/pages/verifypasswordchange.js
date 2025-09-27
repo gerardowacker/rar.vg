@@ -1,5 +1,6 @@
 import React from 'react'
 import {updatePassword, verifyPasswordToken} from "../utils/session.util";
+import Button from "../components/button";
 
 import '../index.css'
 import './form.css'
@@ -99,7 +100,7 @@ export default class VerifyPasswordChange extends React.Component
                        onChange={this.handlePassChange}/>
                 <input className={"m"} type="password" placeholder="Repeat your password"
                        onChange={this.handlePassConfChange}/>
-                <button className="mm login-button">Confirm</button>
+                <Button className="mm login-button" variant="primary">Confirm</Button>
             </form>
         else
             return <div className="login-form">
