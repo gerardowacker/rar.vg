@@ -23,7 +23,7 @@ export default class Home extends React.Component
                         </div>
                         <div className={"bottom"}>
                             <Link to={"/register"}>
-                                <Button className="mm" variant="secondary">Create your page!</Button>
+                                <Button className="mm home-create-btn" variant="secondary">Create your page!</Button>
                             </Link>
                             <br/>
                             <div className="link-log-in">

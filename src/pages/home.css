@@ -64,13 +64,6 @@
     line-height: 0.8;
 }
 
-.btn-base {
-    font-size: calc(1vw + 1vh) !important;
-    font-weight: 700 !important;
-    height: 70px;
-    width: 100%;
-    margin-bottom: 10px;
-}
 
 .link-log-in {
     margin-top: 10px;
@@ -510,4 +503,12 @@
     .home-container .left, .home-container .right {
         height: calc(100% - 10px) !important;
     }
+}
+
+.home-create-btn {
+    font-size: calc(1vw + 1vh) !important;
+    font-weight: 700 !important;
+    height: 70px;
+    width: 100%;
+    margin-bottom: 10px;
 }
