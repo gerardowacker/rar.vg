@@ -27,7 +27,7 @@ export default class Home extends React.Component
                             </Link>
                             <br/>
                             <div className="link-log-in">
-                                <Link to={"/login"}><a className="s">Already have one? Log in!</a></Link>
+                                <Link to={"/login"} className="s">Already have one? Log in!</Link>
                             </div>
                         </div>
                     </div>
