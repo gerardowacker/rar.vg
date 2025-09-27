@@ -109,9 +109,6 @@ export default class Dashboard extends React.Component {
         });
     };
 
-    // =========================
-    // Toast dinámico
-    // =========================
     displayToast = (text, { duration = 4000 } = {}) => {
         if (this.toastTimer) clearTimeout(this.toastTimer);
 
@@ -125,9 +122,6 @@ export default class Dashboard extends React.Component {
         }
     };
 
-    // =========================
-    // General
-    // =========================
     handleClickOutside(event) {
         // ref almacenado como elemento (no .current)
         if (this.profOptions && !this.profOptions.contains(event.target)) {
