@@ -88,7 +88,6 @@ export default class Dashboard extends React.Component {
             redo: [...redo, current],
         }, () => {
             this.applySnapshot(prev);
-            this.displayMessage({ type: 'important', message: "Undid last change (unsaved)." }, true);
             this.displayToast("You undid the last change");
         });
     };
@@ -105,7 +104,7 @@ export default class Dashboard extends React.Component {
             redo: redo.slice(0, -1),
         }, () => {
             this.applySnapshot(next);
-            
+
             this.displayToast("You redid the last change");
         });
     };
@@ -153,7 +152,7 @@ export default class Dashboard extends React.Component {
         })
         document.addEventListener('click', this.handleClickOutside, true);
         document.addEventListener('keydown', this.handleKeyDown);
-      
+
         // Auto-open AI chat once per session on any device (desktop and mobile)
         try {
             const hasAutoOpened = sessionStorage.getItem('aiChatAutoOpened') === '1';
@@ -423,10 +422,10 @@ export default class Dashboard extends React.Component {
 
     handleAcceptDesign = (acceptedDesign) => {
         console.log('Accepting design in Dashboard:', acceptedDesign);
-        
+
         // Save current state for undo/redo
         this.pushHistory();
-        
+
         // Update local state with the accepted design
         const updatedUser = {
             ...this.state.user,
@@ -435,13 +434,13 @@ export default class Dashboard extends React.Component {
         };
 
         this.setState({ user: updatedUser });
-        
+
         // Show toast notification for AI design loaded
         this.displayToast("AI design loaded!");
-        
+
         // Show persistent message that changes are ready to be saved
         this.displayMessage({type: 'important', message: "You've got unsaved changes."}, true);
-        
+
         // Cancel any current component selection to show the full updated profile
         this.cancelSelection();
     }
@@ -604,7 +603,7 @@ export default class Dashboard extends React.Component {
                     </div>
                 </div>
             </div>
-            <AIChatComponent 
+            <AIChatComponent
                 isVisible={this.state.showAIChat}
                 onClose={this.toggleAIChat}
                 user={this.state.user}
