@@ -63,22 +63,22 @@ export default class ProfileLinks extends React.Component
         },
     };
 
-    iconLink = (social) =>
+    iconLink = (social, key) =>
     {
-        if (!this.icons[social.name]) return <div></div>;
+        if (!this.icons[social.name]) return <div key={key}></div>;
 
         const icon = this.icons[social.name];
 
         if (icon.popup)
         {
             return (
-                <button onClick={() => console.log(social.content)}>{icon.icon}</button>
+                <button key={key} onClick={() => console.log(social.content)}>{icon.icon}</button>
             );
         }
         else
         {
             return (
-                <a href={this.props.editing ? '#' : (this.icons[social.name].link + social.content)}>{icon.icon}</a>
+                <a key={key} href={this.props.editing ? '#' : (this.icons[social.name].link + social.content)}>{icon.icon}</a>
             );
         }
     };
@@ -88,7 +88,9 @@ export default class ProfileLinks extends React.Component
         const socials = this.props.socials;
         return (
             <div className={"socials socials-d" + this.props.design}>
-                {socials.map((social) => this.iconLink(social))}
+                {socials.map((social) => (
+                    this.iconLink(social, social.name)
+                ))}
                 {this.props.editing ? <button><IoIosAdd size={30}/></button> : <></>}
             </div>
         );

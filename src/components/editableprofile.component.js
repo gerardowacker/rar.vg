@@ -64,7 +64,7 @@ export default class EditableProfile extends React.Component
         return <ReactDragListView {...dragProps}>
             <ul style={{listStyle: "none", paddingInlineStart: 0}}>
                 {this.props.user.components.map((component, key) => (
-                    <li className={"selectableComponent" + (this.props.reordering ? " reordering" : "")}
+                    <li key={key} className={"selectableComponent" + (this.props.reordering ? " reordering" : "")}
                         onClick={() => this.selectComponent(key)}>
                         {this.component(component, key)}
                         <div className={'reorder-buttons'}>
