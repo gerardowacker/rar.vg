@@ -1,5 +1,5 @@
 .container {
-    background-color: #CFCFCF;
+    background-color: var(--color-gold);
     background-size: 400% 400%;
     animation: gradient 7s ease infinite;
     width: 100%;
@@ -23,12 +23,12 @@
     width: calc(100% - 80px);
     padding: 40px;
     display: flex;
-    color: white;
+    color: var(--color-white);
 }
 
 .home-container .left {
     display: flex;
-    background-color: rgb(255, 255, 255);
+    background-color: var(--color-white);
     color: var(--push-bg1);
     height: 100%;
     width: 30%;
@@ -39,7 +39,7 @@
 
 .home-container .right {
     display: flex;
-    background-color: #0e0c16;
+    background-color: var(--color-blue-dark);
     height: 100%;
     width: 70%;
     margin: 0 10px;

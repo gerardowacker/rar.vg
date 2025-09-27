@@ -5,8 +5,8 @@ body, html {
 }
 
 .dashboard-container {
-    background-color: #CFCFCF;
-    color: #111;
+    background-color: var(--color-gold);
+    color: var(--color-black);
     height: 100vh;
 }
 
@@ -15,7 +15,7 @@ body, html {
     justify-content: space-between;
     height: 70px;
     width: 100%;
-    background-color: rgb(255, 255, 255);
+    background-color: var(--color-white);
     display: flex;
     box-shadow: 0 1px 5px 0 rgba(0, 0, 0, .2), 0 6px 8px 0 rgba(0, 0, 0, .19);
 }
@@ -30,7 +30,7 @@ body, html {
 }
 
 .dashboard-container .dash-container .right {
-    background-color: rgb(255, 255, 255);
+    background-color: var(--color-white);
     display: block;
 }
 
@@ -44,7 +44,7 @@ body, html {
     padding: 20px;
     margin: 20px 0;
     width: calc(100% - 40px);
-    background: #eee;
+    background: var(--color-gray-light);
     border-radius: 20px;
 }
 
@@ -685,4 +685,3 @@ dialog:-internal-dialog-in-top-layer::backdrop {
     font-size: 16px;     /* texto un poco más grande para mobile */
   }
 }
-
