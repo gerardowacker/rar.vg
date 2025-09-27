@@ -1,5 +1,6 @@
 import React from 'react'
 import {hasActiveSession, tryRegister} from "../utils/session.util";
+import Button from "../components/button";
 
 import '../index.css'
 import './form.css'
@@ -178,7 +179,7 @@ export default class Register extends React.Component
             <input className="input-no-margin" type="password" placeholder="Repeat your password"
                    value={this.state.passConfField} onChange={this.handlePassConfChange}
                    disabled={!this.state.requestDone}/>
-            <button className="mm login-button" disabled={!this.state.requestDone}>Submit</button>
+            <Button className="mm login-button" variant="primary" disabled={!this.state.requestDone}>Submit</Button>
             <div className={"links"}>
                 <Link to={"/login"}><span className={"ss"}>Already have an account?</span></Link><br/>
             </div>

@@ -198,7 +198,7 @@ a:hover {
     text-align: end;
     font-size: 14px;
 
-    border-top: solid 1px var(--accent-lines);
+    border-top: solid 1px var(--color-gray-dark);
 }
 
 @media only screen and (max-width: 880px) {

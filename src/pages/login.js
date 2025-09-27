@@ -1,5 +1,6 @@
 import React from 'react'
 import {hasActiveSession, tryLogin} from "../utils/session.util";
+import Button from "../components/button";
 
 import '../index.css'
 import './form.css'
@@ -129,7 +130,7 @@ export default class Login extends React.Component
                            placeholder="Email"/>
                     <input type="password" onChange={this.handlePassChange}
                            placeholder="Password"/>
-                    <button className="mm login-button">Submit</button>
+                    <Button className="mm login-button" variant="primary">Submit</Button>
                     <div className={"links"}>
                         <Link to={"/forgot-password"}><span className={"ss"}>Forgot your password?</span></Link><br/>
                         <Link to={"/register"}><span className={"ss"}>Don't have an account?</span></Link><br/>

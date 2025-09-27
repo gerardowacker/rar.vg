@@ -12,7 +12,7 @@ html {
 }
 
 .register-body {
-    background: linear-gradient(-45deg, #424116, #194111, #0a2833, #630f0f);
+    background: linear-gradient(-45deg, var(--color-brown), var(--color-green-dark), var(--color-blue-accent), var(--color-brown));
     background-size: 400% 400%;
     animation: gradient 15s ease infinite;
     height: 100vh;
@@ -35,8 +35,8 @@ html {
 
 
 .error {
-    background-color: #ff8484;
-    color: #8f2929;
+    background-color: var(--color-red-accent);
+    color: var(--color-accent2);
 }
 
 .message {
@@ -48,8 +48,8 @@ html {
 }
 
 .success {
-    background: #a0ff7e;
-    color: #157e00;
+    background: var(--color-green-accent);
+    color: var(--color-green-dark);
 }
 
 .animated .container {

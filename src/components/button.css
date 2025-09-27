@@ -1,0 +1,39 @@
+/* Estilos base para el botón reutilizable */
+.btn-base {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Raleway', sans-serif;
+  font-weight: 600;
+  font-size: 15px;
+  border-radius: 25px;
+  border: none;
+  padding: 10px 24px;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s, opacity 0.2s;
+}
+
+.btn-primary {
+  background-color: var(--color-violet);
+  color: var(--color-white);
+}
+
+.btn-primary:disabled {
+  background-color: var(--color-gray);
+  color: var(--color-white);
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.btn-secondary {
+  background-color: var(--color-accent1);
+  color: var(--color-white);
+}
+
+.btn-gray {
+  background-color: var(--color-gray-light);
+  color: var(--color-black);
+}
+
+/* Permite sobrescribir detalles con clases extra */
+

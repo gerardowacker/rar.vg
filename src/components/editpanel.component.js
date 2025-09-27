@@ -143,8 +143,8 @@ export default class EditPanel extends React.Component
                         <IoMdAdd size={20}/>
                         <span className={'s'}>Add</span>
                     </button>
-                    <button className={'entry special-generate'}>
-                        <BsStars size={20}/><span className={'s'}>Generate</span>
+                    <button className={'entry special-generate'} onClick={this.props.onOpenAIChat}>
+                        <BsStars size={20}/><span className={'s'}>AI Chat</span>
                     </button>
                 </div>
             </div>

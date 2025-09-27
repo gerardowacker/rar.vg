@@ -16,6 +16,7 @@ import DeleteAccount from "./pages/deleteaccount";
 import VerifyAccountDeletion from "./pages/verifyaccountdeletion";
 import Post from "./pages/post";
 import News from "./pages/news";
+import {createRoot} from "react-dom/client";
 
 // Get the subdomain.
 const host = window.location.host.split('.')
@@ -80,36 +81,31 @@ const AppRoutes = () => <RouterProvider>
                                         path={route.path}>{route.component}</Route>)}
 </RouterProvider>
 
-if (host[1] === 'b' || host[0] === 'b')
+const rootContainer = document.getElementById("root");
+const root = createRoot(rootContainer);
+
+if (host[1] === "b" || host[0] === "b")
 {
-    // Testing environment.
-    if (((host.length === 3 && host[2].includes('localhost')) || (host.length === 4)) && host[0] !== 'www')
+    if (((host.length === 3 && host[2].includes("localhost")) || host.length === 4) && host[0] !== "www")
     {
-        const subdomain = host[0]
-        ReactDOM.render(<Profile username={subdomain}/>, document.getElementById('root'))
+        const subdomain = host[0];
+        root.render(<Profile username={subdomain}/>);
     }
     else
     {
-        ReactDOM.render(
-            <AppRoutes></AppRoutes>,
-            document.getElementById("root")
-        );
+        root.render(<AppRoutes/>);
     }
 }
 else
 {
-
-    if (((host.length === 2 && host[1].includes('localhost')) || (host.length === 3)) && host[0] !== 'www')
+    if (((host.length === 2 && host[1].includes("localhost")) || host.length === 3) && host[0] !== "www")
     {
-        const subdomain = host[0]
-        ReactDOM.render(<Profile username={subdomain}/>, document.getElementById('root'))
+        const subdomain = host[0];
+        root.render(<Profile username={subdomain}/>);
     }
     else
     {
-        ReactDOM.render(
-            <AppRoutes></AppRoutes>,
-            document.getElementById("root")
-        );
+        root.render(<AppRoutes/>);
     }
 }
 

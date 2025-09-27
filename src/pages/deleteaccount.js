@@ -1,5 +1,6 @@
 import React from 'react'
 import {deletionRequest, hasActiveSession} from "../utils/session.util";
+import Button from "../components/button";
 
 import '../index.css'
 import './form.css'
@@ -82,7 +83,7 @@ export default class DeleteAccount extends React.Component
             <h3 className="s p-no-margin-top">In order to delete your account, we need to verify that it's you.</h3>
             <input className={"m"} type="password" placeholder="Insert your password"
                    onChange={this.handlePassChange} disabled={this.state.requestDone}/>
-            <button className="mm login-button" disabled={this.state.requestDone}>Send deletion request</button>
+            <Button className="mm login-button" variant="primary" disabled={this.state.requestDone}>Send deletion request</Button>
         </form>
     }
 

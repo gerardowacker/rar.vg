@@ -5,8 +5,8 @@ body, html {
 }
 
 .dashboard-container {
-    background-color: #CFCFCF;
-    color: #111;
+    background-color: var(--color-gold);
+    color: var(--color-black);
     height: 100vh;
 }
 
@@ -15,7 +15,7 @@ body, html {
     justify-content: space-between;
     height: 70px;
     width: 100%;
-    background-color: rgb(255, 255, 255);
+    background-color: var(--color-white);
     display: flex;
     box-shadow: 0 1px 5px 0 rgba(0, 0, 0, .2), 0 6px 8px 0 rgba(0, 0, 0, .19);
 }
@@ -30,7 +30,7 @@ body, html {
 }
 
 .dashboard-container .dash-container .right {
-    background-color: rgb(255, 255, 255);
+    background-color: var(--color-white);
     display: block;
 }
 
@@ -44,7 +44,7 @@ body, html {
     padding: 20px;
     margin: 20px 0;
     width: calc(100% - 40px);
-    background: #eee;
+    background: var(--color-gray-light);
     border-radius: 20px;
 }
 
@@ -54,6 +54,7 @@ body, html {
     margin: 5px 0;
     border-radius: 13px;
     background: white;
+    color: black;
     border: black 3px solid;
 }
 
@@ -488,10 +489,10 @@ h3 {
 }
 
 .floating-publish .special-generate {
-    /** Remove when that thing is added /shrug */
-    display: none;
-    background: #c9639d;
-    background: linear-gradient(299deg, rgba(201, 99, 157, 1) 0%, rgba(99, 172, 255, 1) 100%);
+    background: #59C173;
+    background: -webkit-linear-gradient(to right, #5D26C1, #a17fe0, #59C173);
+    background: linear-gradient(to right, #5D26C1, #a17fe0, #59C173);
+
     color: white;
 }
 
@@ -656,4 +657,32 @@ h3 {
 
 dialog:-internal-dialog-in-top-layer::backdrop {
     background: rgba(0, 0, 0, 0.4);
+}
+
+/* Toast chico, fijo abajo a la izquierda; visible en mobile y desktop */
+.df-toast {
+  position: fixed;
+  top: 80px;           /* pegado abajo */
+  left: 10px;             /* pegado a la izquierda */
+  max-width: 300px;
+  background-color: #fff5f5;   /* fondo claro rojizo */
+  border: 1px solid #dc2626;   /* borde rojo */
+  color: #dc2626;              /* texto rojo */
+  padding: 12px 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0,0,0,.1);
+  font-size: 14px;
+  z-index: 200;
+  pointer-events: auto;
+}
+
+/* En pantallas chicas, que ocupe todo el ancho inferior */
+@media only screen and (max-width: 780px) {
+  .df-toast {
+    left: 15px;
+    right: 15px;         /* ocupar ancho casi completo */
+    top: 55px;
+    max-width: unset;    /* sin límite de ancho */
+    font-size: 16px;     /* texto un poco más grande para mobile */
+  }
 }
