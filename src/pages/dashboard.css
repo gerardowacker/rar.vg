@@ -511,7 +511,7 @@ h3 {
         width: 60%;
     }
 
-    .profile-container .content .card {
+    .profile-container .content .card, .profile-container .content .profile-bento-container {
         width: 80% !important;
         border-radius: 30px !important;
     }
@@ -522,6 +522,10 @@ h3 {
 }
 
 @media only screen and (max-width: 1000px) {
+    .profile-container .content {
+        background: var(--card-background) !important;
+    }
+
     .left-component {
         width: 50%;
     }
@@ -530,11 +534,12 @@ h3 {
         width: 50%;
     }
 
-    .content {
+    .profile-container .content {
         padding: 0;
     }
 
-    .profile-container .content .card {
+    .profile-container .content .card, .profile-container .content .profile-bento-container {
+        margin: 0 auto;
         width: 100% !important;
     }
 
@@ -661,28 +666,28 @@ dialog:-internal-dialog-in-top-layer::backdrop {
 
 /* Toast chico, fijo abajo a la izquierda; visible en mobile y desktop */
 .df-toast {
-  position: fixed;
-  top: 80px;           /* pegado abajo */
-  left: 10px;             /* pegado a la izquierda */
-  max-width: 300px;
-  background-color: #fff5f5;   /* fondo claro rojizo */
-  border: 1px solid #dc2626;   /* borde rojo */
-  color: #dc2626;              /* texto rojo */
-  padding: 12px 20px;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0,0,0,.1);
-  font-size: 14px;
-  z-index: 200;
-  pointer-events: auto;
+    position: fixed;
+    top: 80px; /* pegado abajo */
+    left: 10px; /* pegado a la izquierda */
+    max-width: 300px;
+    background-color: #fff5f5; /* fondo claro rojizo */
+    border: 1px solid #dc2626; /* borde rojo */
+    color: #dc2626; /* texto rojo */
+    padding: 12px 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, .1);
+    font-size: 14px;
+    z-index: 200;
+    pointer-events: auto;
 }
 
 /* En pantallas chicas, que ocupe todo el ancho inferior */
 @media only screen and (max-width: 780px) {
-  .df-toast {
-    left: 15px;
-    right: 15px;         /* ocupar ancho casi completo */
-    top: 55px;
-    max-width: unset;    /* sin límite de ancho */
-    font-size: 16px;     /* texto un poco más grande para mobile */
-  }
+    .df-toast {
+        left: 15px;
+        right: 15px; /* ocupar ancho casi completo */
+        top: 55px;
+        max-width: unset; /* sin límite de ancho */
+        font-size: 16px; /* texto un poco más grande para mobile */
+    }
 }

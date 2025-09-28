@@ -286,7 +286,7 @@ export default class Dashboard extends React.Component {
 
     updateProfileDesign = (design) =>
     {
-        if (design > 0 && design < 3)
+        if (design > 0 && design < 9)
         {
             this.pushHistory();
 

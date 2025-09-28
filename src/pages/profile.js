@@ -7,6 +7,7 @@ import LinklistComponent from "../components/linklist.component";
 
 import './profileDesigns/profile1.css'
 import './profileDesigns/profile2.css'
+import './profileDesigns/profile3.css'
 import {colours, styles} from './profileDesigns/colour.util'
 
 import '../index.css'
@@ -63,13 +64,42 @@ export default class Profile extends React.Component
         {
             return <div>Loading...</div>
         }
-        else
+        else {
+            const design = this.state.user.profileDesign.design;
+            if (design === 3) {
+                return (
+                    <div className={"content"} style={styles(this.state.user.profileDesign.colour || 0)}>
+                        <div className="profile-bento-container">
+                            <div className="profile-bento-header">
+                                <img
+                                    className="profile-bento-avatar"
+                                    src={config('HOST') + "/avatar/" + this.state.user.id + ".png"}
+                                    alt={"Profile picture"}
+                                />
+                                <div className="profile-bento-name">
+                                    {this.state.user.displayName}
+                                    <div className="username" style={{fontWeight: 400, fontSize: '1rem', color: '#888'}}>@{this.props.username}</div>
+                                </div>
+                            </div>
+                            <div className="profile-bento-socials">
+                                <ProfileLinks socials={this.state.user.sociallinks} design={3}/>
+                            </div>
+                        </div>
+                        <div className="card">
+                            {this.state.user.components.map((component, key) => this.component(component, key))}
+                            <div className={"footer"}>
+                                <a href={"https://rar.vg"} style={{color: "var(--profile-text-accent)"}}>rar.vg</a> powered 2025
+                            </div>
+                        </div>
+                    </div>
+                );
+            }
             return <div className={"content"} style={styles(this.state.user.profileDesign.colour || 0)}>
                 <div className="card">
-                    <div className={"header-d" + this.state.user.profileDesign.design}>
-                        <div className={"banner-d" + this.state.user.profileDesign.design}/>
+                    <div className={"header-d" + design}>
+                        <div className={"banner-d" + design}/>
                         <img
-                            className={"profile-picture-d" + this.state.user.profileDesign.design}
+                            className={"profile-picture-d" + design}
                             src={config('HOST') + "/avatar/" + this.state.user.id + ".png"}
                             alt={"Profile picture"}
                         />
@@ -77,7 +107,7 @@ export default class Profile extends React.Component
                             <h1 className={"p-no-margin-bottom"}>{this.state.user.displayName}</h1>
                             <h3 className={"username p-no-margin-top"}>@{this.props.username}</h3>
                             <ProfileLinks socials={this.state.user.sociallinks}
-                                          design={this.state.user.profileDesign.design}/>
+                                          design={design}/>
                         </div>
                     </div>
 
@@ -88,5 +118,6 @@ export default class Profile extends React.Component
                     </div>
                 </div>
             </div>
+        }
     }
 }
