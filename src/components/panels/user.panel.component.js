@@ -3,6 +3,7 @@ import config from "../../utils/config.util";
 import {AiFillEdit} from "react-icons/ai";
 import prof1 from "../../static/profile-type1.png";
 import prof2 from "../../static/profile-type2.png";
+import prof3 from "../../static/profile-type3.png";
 import {colours} from "../../pages/profileDesigns/colour.util";
 import Link from "../../router/link";
 import {upload} from "../../utils/session.util";
@@ -125,6 +126,10 @@ export default class UserPanel extends React.Component
                     <button style={{marginLeft: "10%"}} className="button unraised link-img"
                             onClick={() => this.props.updateProfileDesign(2)}>
                         <img src={prof2} alt={'Profile type 2'}/>
+                    </button>
+                    <button style={{marginLeft: "10%"}} className="button unraised link-img"
+                            onClick={() => this.props.updateProfileDesign(3)}>
+                        <img src={prof3} alt={'Profile type 3'}/>
                     </button>
                 </div>
                 <div className={"theme-picker-buttons"}>
