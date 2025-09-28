@@ -38,6 +38,12 @@ a:hover {
     border-radius: 40px;
 }
 
+.card .component hr {
+    background: var(--accent-lines);
+    border: none;
+    height: 1px;
+}
+
 .card .header-d2 {
     padding: 50px 50px 0 50px;
     display: flex;

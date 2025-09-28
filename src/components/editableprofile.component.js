@@ -102,7 +102,7 @@ export default class EditableProfile extends React.Component
                                     {this.props.user.displayName}
                                     <FiEdit3 size={18} style={{marginLeft: "10px", opacity: "70%"}}/>
                                 </div>
-                                <div className="username" style={{fontWeight: 400, fontSize: '1rem', color: '#888'}}>@{this.props.user.username}</div>
+                                <div className="username" style={{fontWeight: 400, fontSize: '1rem'}}>@{this.props.user.username}</div>
                             </div>
                         </div>
                         <div className="profile-bento-socials selectableComponent" onClick={() => this.selectComponent(-1)}>

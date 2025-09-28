@@ -139,7 +139,7 @@ a:hover {
 }
 
 .card .component hr {
-    background: #333333;
+    background: var(--accent-lines);
     border: none;
     height: 1px;
 }

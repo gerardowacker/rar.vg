@@ -78,7 +78,7 @@ export default class Profile extends React.Component
                                 />
                                 <div className="profile-bento-name">
                                     {this.state.user.displayName}
-                                    <div className="username" style={{fontWeight: 400, fontSize: '1rem', color: '#888'}}>@{this.props.username}</div>
+                                    <div className="username" style={{fontWeight: 400, fontSize: '1rem'}}>@{this.props.username}</div>
                                 </div>
                             </div>
                             <div className="profile-bento-socials">
