@@ -25,6 +25,7 @@ a:hover {
 }
 
 .content {
+    background: var(--profile-background) !important;
     margin: 0;
     padding: 70px 0
 }
@@ -168,7 +169,7 @@ a:hover {
     border-radius: 20px;
 }
 
-.card  .reordering {
+.card .reordering {
     background-image: radial-gradient(6px 6px at var(--dotDistance) calc(50% - 30px),
     var(--dotColor) 50%, transparent 50%), radial-gradient(6px 6px at var(--dotDistance) calc(50% - 10px),
     var(--dotColor) 50%, transparent 50%), radial-gradient(6px 6px at var(--dotDistance) calc(50% + 10px),

@@ -74,7 +74,7 @@ const colours = [
 let styles = (colour) =>
 {
     return {
-        "background": colours[colour].background,
+        "--profile-background": colours[colour].background,
         "--card-background": colours[colour].card,
         "--profile-text-accent": colours[colour].accent,
         "--add-comp-btn-clr": colours[colour].addComponentButton,
