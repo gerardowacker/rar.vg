@@ -85,9 +85,11 @@ export default class EditableProfile extends React.Component
     render()
     {
         const design = this.props.user.profileDesign.design;
-        if (design === 3) {
+        if (design === 3)
+        {
             return (
-                <div className={"content editableprofile-scroll"} style={styles(this.props.user.profileDesign.colour || 0)}>
+                <div className={"content editableprofile-scroll"}
+                     style={styles(this.props.user.profileDesign.colour || 0)}>
                     <div className="profile-bento-container-spacer"></div>
                     <div className="profile-bento-container">
                         <div className="profile-bento-header">
@@ -97,15 +99,18 @@ export default class EditableProfile extends React.Component
                                 alt={"Profile picture"}
                                 onClick={() => this.selectComponent(-2)}
                             />
-                            <div className="profile-bento-name selectableComponent" onClick={() => this.selectComponent(-2)}>
+                            <div className="profile-bento-name selectableComponent"
+                                 onClick={() => this.selectComponent(-2)}>
                                 <div style={{display: "flex", justifyContent: "flex-end", alignItems: "center"}}>
                                     {this.props.user.displayName}
                                     <FiEdit3 size={18} style={{marginLeft: "10px", opacity: "70%"}}/>
                                 </div>
-                                <div className="username" style={{fontWeight: 400, fontSize: '1rem'}}>@{this.props.user.username}</div>
+                                <div className="username"
+                                     style={{fontWeight: 400, fontSize: '1rem'}}>@{this.props.user.username}</div>
                             </div>
                         </div>
-                        <div className="profile-bento-socials selectableComponent" onClick={() => this.selectComponent(-1)}>
+                        <div className="profile-bento-socials selectableComponent"
+                             onClick={() => this.selectComponent(-1)}>
                             <ProfileLinks editing={true} socials={this.props.user.sociallinks} design={3}/>
                         </div>
                     </div>
@@ -128,7 +133,9 @@ export default class EditableProfile extends React.Component
             <div className="card">
                 <div className={"header-d" + this.props.user.profileDesign.design}>
                     <div className={(this.props.user.profileDesign.design !== 2 ? "selectableComponent" : "")}
-                         onClick={(this.props.user.profileDesign.design !== 2 ? () => this.selectComponent(-2) : () => { })}>
+                         onClick={(this.props.user.profileDesign.design !== 2 ? () => this.selectComponent(-2) : () =>
+                         {
+                         })}>
                         <div className={"banner-d" + this.props.user.profileDesign.design}/>
                         <img
                             className={"profile-picture-d" + this.props.user.profileDesign.design}
@@ -168,3 +175,4 @@ export default class EditableProfile extends React.Component
             </div>
         </div>
     }
+}
