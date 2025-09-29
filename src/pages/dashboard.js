@@ -609,7 +609,7 @@ export default class Dashboard extends React.Component {
                         <button onClick={() => this.updateProfile()} className={"button"}><IoMdCloudUpload size={26}/>Publish
                         </button>
                         <button onClick={() => this.toggleModal()} className={"button"}><IoMdAdd size={26}/>Add</button>
-                        <button className={"button no-margin-right special-generate"}><BsStars size={26}/>Generate
+                        <button onClick={() => this.setState({showAIChat: true})} className={"button no-margin-right special-generate"}><BsStars size={26}/>Pal
                         </button>
                     </div>
                     <div className={this.state.reordering === true

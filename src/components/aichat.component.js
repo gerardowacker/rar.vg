@@ -284,7 +284,7 @@ const AIChatComponent = ({ isVisible, onClose, user, onAcceptDesign }) => {
         <div className="ai-chat-overlay">
             <div className="ai-chat-container">
                 <div className="ai-chat-header">
-                    <h3 className="m">AI Design Assistant</h3>
+                    <h3 className="m">Design Pal</h3>
                     <div className="ai-chat-controls">
                         <button onClick={clearChat} className="clear-chat-btn">
                             <span className="s">Clear</span>
@@ -298,7 +298,7 @@ const AIChatComponent = ({ isVisible, onClose, user, onAcceptDesign }) => {
                 <div className="ai-chat-messages">
                     {messages.length === 0 && (
                         <div className="welcome-message">
-                            <h4 className="mm">Welcome to AI Design Assistant!</h4>
+                            <h4 className="mm">Welcome to Design Pal!</h4>
                             <p className="s">I can help you create profile designs with different components and layouts.</p>
                             <p className="s">Try asking me to "create a portfolio for a graphic designer" or "design a profile for a tech professional"</p>
                         </div>
