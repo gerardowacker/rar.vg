@@ -643,7 +643,7 @@ export default class Dashboard extends React.Component {
                     />
                 </div>
                 <div className="right-component">
-                    <div className="profile-container">
+                    <div className="profile-container editableprofile-scroll">
                         <EditableProfile reordering={this.state.reordering}
                                          selectComponent={this.selectComponent}
                                          toggleModal={this.toggleModal} user={this.state.user}

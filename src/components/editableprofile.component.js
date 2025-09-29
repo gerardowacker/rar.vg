@@ -83,7 +83,7 @@ export default class EditableProfile extends React.Component
 
     render()
     {
-        return <div className={"content"} style={styles(this.props.user.profileDesign.colour || 0)}>
+        return <div className={"content editableprofile-scroll"} style={styles(this.props.user.profileDesign.colour || 0)}>
             <div className="card">
                 <div className={"header-d" + this.props.user.profileDesign.design}>
                     <div className={(this.props.user.profileDesign.design !== 2 ? "selectableComponent" : "")}
