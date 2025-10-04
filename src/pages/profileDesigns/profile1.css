@@ -46,7 +46,6 @@ a:hover {
 .card .header-d1 {
     text-align: center;
     margin-bottom: 10px;
-    padding-bottom: 30px;
 }
 
 .card .header-d1 .banner-d1 {
@@ -81,6 +80,14 @@ a:hover {
 
 .reorder-buttons {
     display: none;
+}
+
+.component-list:first-child {
+    padding-top: 20px;
+}
+
+.component-list:last-child {
+    padding-bottom: 20px;
 }
 
 .reordering {

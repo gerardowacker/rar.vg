@@ -63,7 +63,7 @@ export default class EditableProfile extends React.Component
         };
 
         return <ReactDragListView {...dragProps}>
-            <ul style={{listStyle: "none", paddingInlineStart: 0}}>
+            <ul className={'component-list'} style={{listStyle: "none", paddingInlineStart: 0}}>
                 {this.props.user.components.map((component, key) => (
                     <li key={key} className={"selectableComponent" + (this.props.reordering ? " reordering" : "")}
                         onClick={() => this.selectComponent(key)}>
@@ -131,14 +131,6 @@ export default class EditableProfile extends React.Component
                     </div>
                     <div className="card">
                         {this.loadComponents()}
-                        <div className={"component add-component-button-container"}>
-                            {
-                                this.props.user.components.length >= 5 ? <></> :
-                                    <button onClick={() => this.toggleModal()} className={"add-component-button"}>
-                                        <IoIosAdd size={50}/>
-                                    </button>
-                            }
-                        </div>
                     </div>
                 </div>
             );
@@ -176,17 +168,7 @@ export default class EditableProfile extends React.Component
                         </div>
                     </div>
                 </div>
-
                 {this.loadComponents()}
-
-                <div className={"component add-component-button-container"}>
-                    {
-                        this.props.user.components.length >= 5 ? <></> :
-                            <button onClick={() => this.toggleModal()} className={"add-component-button"}>
-                                <IoIosAdd size={50}/>
-                            </button>
-                    }
-                </div>
             </div>
         </div>
     }
