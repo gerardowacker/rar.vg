@@ -21,17 +21,6 @@
   --color-accent1: #5200e0;
   --color-accent2: #8f2929;
   --color-accent3: #a7b0c3;
-
-  --profile-background: var(--color-blue-dark);
-  --profile-text-accent: var(--color-violet-accent);
-  --card-background: var(--color-white);
-  --username-text: var(--color-black);
-  --select-component: var(--color-gray-light);
-  --add-comp-btn-clr: var(--color-violet);
-  --accent-lines: var(--color-gray-dark);
-  --push-link: var(--color-violet-accent);
-  --push-bg1: var(--color-gray-dark);
-  --push-text: var(--color-black);
 }
 
 body {

@@ -20,8 +20,10 @@ a:hover {
 }
 
 .content {
+    background: var(--profile-background) !important;
     padding: 70px 0;
-    margin: 0
+    margin: 0;
+    font-family: var(--profile-font-family, 'Poppins', 'Raleway', Arial, sans-serif);
 }
 
 .card {
@@ -34,7 +36,13 @@ a:hover {
     width: 60%;
     max-width: 750px;
 
-    border-radius: 40px;
+    border-radius: var(--profile-border-radius, 40px);
+}
+
+.card .component hr {
+    background: var(--accent-lines);
+    border: none;
+    height: 1px;
 }
 
 .card .header-d2 {

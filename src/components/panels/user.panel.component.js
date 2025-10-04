@@ -3,9 +3,11 @@ import config from "../../utils/config.util";
 import {AiFillEdit} from "react-icons/ai";
 import prof1 from "../../static/profile-type1.png";
 import prof2 from "../../static/profile-type2.png";
+import prof3 from "../../static/profile-type3.png";
 import {colours} from "../../pages/profileDesigns/colour.util";
 import Link from "../../router/link";
 import {upload} from "../../utils/session.util";
+import "./user.panel.component.css";
 
 export default class UserPanel extends React.Component
 {
@@ -17,6 +19,7 @@ export default class UserPanel extends React.Component
             displayName: "",
             userMessage: null,
             lastReloaded: Date.now(),
+            localBorderRadius: this.props.user.profileDesign.borderRadius ?? 40
         }
         this.handleDisplayNameChange = this.handleDisplayNameChange.bind(this)
     }
@@ -79,8 +82,16 @@ export default class UserPanel extends React.Component
         }
     }
 
+    handleBorderRadiusChange = (event) =>
+    {
+        const value = parseInt(event.target.value, 10);
+        this.setState({localBorderRadius: value});
+        this.props.updateProfileBorderRadius(value);
+    }
+
     render()
     {
+        let currentFont = this.props.user.font || 'default';
         return <>
             <dialog ref={ref => this.uploadingDialog = ref} className={"dashboard-modal"}>
                 <span className={"m"}>Uploading...</span>
@@ -126,15 +137,59 @@ export default class UserPanel extends React.Component
                             onClick={() => this.props.updateProfileDesign(2)}>
                         <img src={prof2} alt={'Profile type 2'}/>
                     </button>
+                    <button style={{marginLeft: "10%"}} className="button unraised link-img"
+                            onClick={() => this.props.updateProfileDesign(3)}>
+                        <img src={prof3} alt={'Profile type 3'}/>
+                    </button>
                 </div>
                 <div className={"theme-picker-buttons"}>
                     {this.colourButtons(colours)}
+                </div>
+                <div className="font-picker-buttons">
+                    <button
+                        className={`font-picker-button${this.props.user.profileDesign.font === 'default' ? ' selected' : ''}`}
+                        type="button"
+                        onClick={() => this.props.updateProfileFont('default')}
+                    >
+                        <span className="font-sample font-default">Ag</span>
+                        <span className="font-label">Default</span>
+                    </button>
+                    <button
+                        className={`font-picker-button${this.props.user.profileDesign.font === 'serif' ? ' selected' : ''}`}
+                        type="button"
+                        onClick={() => this.props.updateProfileFont('serif')}
+                    >
+                        <span className="font-sample font-serif">Ag</span>
+                        <span className="font-label">Serif</span>
+                    </button>
+                    <button
+                        className={`font-picker-button${this.props.user.profileDesign.font === 'mono' ? ' selected' : ''}`}
+                        type="button"
+                        onClick={() => this.props.updateProfileFont('mono')}
+                    >
+                        <span className="font-sample font-mono">Ag</span>
+                        <span className="font-label">Mono</span>
+                    </button>
+                </div>
+                <div className="border-radius-config-block">
+                    <h2 className="border-radius-label s">Border radius</h2>
+                    <div className="border-radius-slider-container">
+                        <input
+                            id="borderRadiusSlider"
+                            type="range"
+                            min="0"
+                            max="40"
+                            value={this.state.localBorderRadius}
+                            onChange={this.handleBorderRadiusChange}
+                            className="border-radius-slider"
+                        />
+                        <span className="border-radius-value">{this.state.localBorderRadius}</span>
+                    </div>
                 </div>
                 <h4 className={'mm p-no-margin-bottom'}>Danger zone</h4>
                 <Link to={"/delete-account"}>
                     <button className="button delete-button">Delete account</button>
                 </Link>
-                <br/>
             </div>
         </>
     }
