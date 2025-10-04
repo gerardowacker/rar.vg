@@ -354,14 +354,13 @@ export default class Dashboard extends React.Component
         }
         this.cancelSelection()
     }
+    
     updateProfileFont = (font) =>
     {
         this.pushHistory();
 
         const user = JSON.parse(JSON.stringify(this.state.user));
         user.profileDesign = {...user.profileDesign, font};
-
-        console.log(font)
 
         this.setState({user}, () =>
             this.displayMessage({type: 'important', message: "You've got unsaved changes!"}, true)
