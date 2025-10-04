@@ -314,6 +314,21 @@ export default class Dashboard extends React.Component {
         }
     }
 
+    updateProfileBorderRadius = (borderRadius) =>
+    {
+        if (borderRadius >= 0 && borderRadius <= 40)
+        {
+            this.pushHistory();
+
+            const user = JSON.parse(JSON.stringify(this.state.user));
+            user.profileDesign = {...user.profileDesign, borderRadius};
+
+            this.setState({user}, () =>
+                this.displayMessage({type: 'important', message: "You've got unsaved changes!"}, true)
+            );
+        }
+    }
+
     updateDisplayName = (displayName) =>
     {
         if (displayName !== "")
@@ -637,6 +652,7 @@ export default class Dashboard extends React.Component {
                         deleteSelectedComponent={this.toggleRemoveComponentModal}
                         updateProfileDesign={this.updateProfileDesign}
                         updateProfileColours={this.updateProfileColours}
+                        updateProfileBorderRadius={this.updateProfileBorderRadius}
                         toggleReordering={this.toggleReordering}
                         reordering={this.state.reordering}
                         onOpenAIChat={() => this.setState({showAIChat: true})}

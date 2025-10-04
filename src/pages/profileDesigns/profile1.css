@@ -39,7 +39,7 @@ a:hover {
     width: 60%;
     max-width: 750px;
 
-    border-radius: 40px;
+    border-radius: var(--profile-border-radius, 40px);
 }
 
 .card .header-d1 {

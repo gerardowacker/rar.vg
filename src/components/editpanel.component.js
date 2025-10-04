@@ -160,6 +160,8 @@ export default class EditPanel extends React.Component
                                   user={this.props.user}
                                   updateProfileDesign={this.props.updateProfileDesign}
                                   updateProfileColours={this.props.updateProfileColours}
+                                  updateProfileBorderRadius={this.props.updateProfileBorderRadius}
+                                  borderRadius={(this.props.user.profileDesign?.design?.borderRadius ?? 40)}
                 />
             case 'generic':
                 return <GenericPanel component={this.props.selectedComponent}

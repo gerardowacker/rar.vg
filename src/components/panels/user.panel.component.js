@@ -7,6 +7,7 @@ import prof3 from "../../static/profile-type3.png";
 import {colours} from "../../pages/profileDesigns/colour.util";
 import Link from "../../router/link";
 import {upload} from "../../utils/session.util";
+import "./user.panel.component.css";
 
 export default class UserPanel extends React.Component
 {
@@ -18,6 +19,7 @@ export default class UserPanel extends React.Component
             displayName: "",
             userMessage: null,
             lastReloaded: Date.now(),
+            localBorderRadius: this.props.user.profileDesign.borderRadius ?? 40
         }
         this.handleDisplayNameChange = this.handleDisplayNameChange.bind(this)
     }
@@ -80,6 +82,13 @@ export default class UserPanel extends React.Component
         }
     }
 
+    handleBorderRadiusChange = (event) =>
+    {
+        const value = parseInt(event.target.value, 10);
+        this.setState({localBorderRadius: value});
+        this.props.updateProfileBorderRadius(value);
+    }
+
     render()
     {
         return <>
@@ -135,11 +144,25 @@ export default class UserPanel extends React.Component
                 <div className={"theme-picker-buttons"}>
                     {this.colourButtons(colours)}
                 </div>
+                <div className="border-radius-config-block">
+                    <h2 className="border-radius-label s">Border radius</h2>
+                    <div className="border-radius-slider-container">
+                        <input
+                            id="borderRadiusSlider"
+                            type="range"
+                            min="0"
+                            max="40"
+                            value={this.state.localBorderRadius}
+                            onChange={this.handleBorderRadiusChange}
+                            className="border-radius-slider"
+                        />
+                        <span className="border-radius-value">{this.state.localBorderRadius}</span>
+                    </div>
+                </div>
                 <h4 className={'mm p-no-margin-bottom'}>Danger zone</h4>
                 <Link to={"/delete-account"}>
                     <button className="button delete-button">Delete account</button>
                 </Link>
-                <br/>
             </div>
         </>
     }

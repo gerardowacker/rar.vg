@@ -66,9 +66,14 @@ export default class Profile extends React.Component
         }
         else {
             const design = this.state.user.profileDesign.design;
+            const borderRadius = (typeof this.state.user.profileDesign.borderRadius === 'number' ? this.state.user.profileDesign.borderRadius : 40) + 'px';
+            const customStyle = {
+                ...styles(this.state.user.profileDesign.colour || 0),
+                '--profile-border-radius': borderRadius
+            };
             if (design === 3) {
                 return (
-                    <div className={"content"} style={styles(this.state.user.profileDesign.colour || 0)}>
+                    <div className={"content"} style={customStyle}>
                         <div className="profile-bento-container">
                             <div className="profile-bento-header">
                                 <img
@@ -94,30 +99,33 @@ export default class Profile extends React.Component
                     </div>
                 );
             }
-            return <div className={"content"} style={styles(this.state.user.profileDesign.colour || 0)}>
-                <div className="card">
-                    <div className={"header-d" + design}>
-                        <div className={"banner-d" + design}/>
-                        <img
-                            className={"profile-picture-d" + design}
-                            src={config('HOST') + "/avatar/" + this.state.user.id + ".png"}
-                            alt={"Profile picture"}
-                        />
-                        <div style={{display: "block"}}>
-                            <h1 className={"p-no-margin-bottom"}>{this.state.user.displayName}</h1>
-                            <h3 className={"username p-no-margin-top"}>@{this.props.username}</h3>
-                            <ProfileLinks socials={this.state.user.sociallinks}
-                                          design={design}/>
+            // Para los otros diseños
+            return (
+                <div className={"content"} style={customStyle}>
+                    <div className="card">
+                        <div className={"header-d" + design}>
+                            <div className={"banner-d" + design}/>
+                            <img
+                                className={"profile-picture-d" + design}
+                                src={config('HOST') + "/avatar/" + this.state.user.id + ".png"}
+                                alt={"Profile picture"}
+                            />
+                            <div style={{display: "block"}}>
+                                <h1 className={"p-no-margin-bottom"}>{this.state.user.displayName}</h1>
+                                <h3 className={"username p-no-margin-top"}>@{this.props.username}</h3>
+                                <ProfileLinks socials={this.state.user.sociallinks}
+                                              design={design}/>
+                            </div>
+                        </div>
+
+                        {this.state.user.components.map((component, key) => this.component(component, key))}
+
+                        <div className={"footer"}>
+                            <a href={"https://rar.vg"} style={{color: "var(--profile-text-accent)"}}>rar.vg</a> powered 2025
                         </div>
                     </div>
-
-                    {this.state.user.components.map((component, key) => this.component(component, key))}
-
-                    <div className={"footer"}>
-                        <a href={"https://rar.vg"} style={{color: "var(--profile-text-accent)"}}>rar.vg</a> powered 2025
-                    </div>
                 </div>
-            </div>
+            );
         }
     }
 }
