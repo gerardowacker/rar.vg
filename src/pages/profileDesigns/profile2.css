@@ -22,7 +22,8 @@ a:hover {
 .content {
     background: var(--profile-background) !important;
     padding: 70px 0;
-    margin: 0
+    margin: 0;
+    font-family: var(--profile-font-family, 'Poppins', 'Raleway', Arial, sans-serif);
 }
 
 .card {

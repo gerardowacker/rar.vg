@@ -12,8 +12,10 @@ import Button from "../components/button";
 import {IoMdOpen, IoMdAdd, IoIosList, IoMdCloudUpload} from "react-icons/io";
 import {BsStars} from "react-icons/bs";
 
-export default class Dashboard extends React.Component {
-    constructor(props) {
+export default class Dashboard extends React.Component
+{
+    constructor(props)
+    {
         super(props);
 
         this.state = {
@@ -45,6 +47,7 @@ export default class Dashboard extends React.Component {
         this.changeInputValueRadio = this.changeInputValueRadio.bind(this)
         this.toggleAIChat = this.toggleAIChat.bind(this)
     }
+
     // =========================
     // UNDO / REDO - CORE
     // =========================
@@ -144,8 +147,10 @@ export default class Dashboard extends React.Component {
         }
     };
 
-    onUnload = e => {
-        if (this.state.unpublished) {
+    onUnload = e =>
+    {
+        if (this.state.unpublished)
+        {
             e.preventDefault();
             e.returnValue = 'You\'ve got unsaved changes! Are your sure you want to close?';
         }
@@ -154,7 +159,8 @@ export default class Dashboard extends React.Component {
     componentDidMount()
     {
         window.addEventListener("beforeunload", this.onUnload);
-        tryUserLoading().then(response => {
+        tryUserLoading().then(response =>
+        {
             if (!response.success)
                 return window.location.href = "/login"
 
@@ -209,10 +215,12 @@ export default class Dashboard extends React.Component {
         }
     }
 
-    updateProfile = () => {
+    updateProfile = () =>
+    {
         updateProfile(this.state.user.displayName, JSON.stringify(this.state.user.components),
             JSON.stringify(this.state.user.sociallinks), JSON.stringify(this.state.user.profileDesign))
-            .then(response => {
+            .then(response =>
+            {
                 if (!response.success)
                 {
                     console.error(response.content)
@@ -223,7 +231,8 @@ export default class Dashboard extends React.Component {
             })
     }
 
-    updateComponentOrder = (from, to) => {
+    updateComponentOrder = (from, to) =>
+    {
         if (this.state.reordering === false) return
 
         this.pushHistory(); // snapshot antes de mutar
@@ -237,7 +246,8 @@ export default class Dashboard extends React.Component {
         );
     }
 
-    selectComponent = (key) => {
+    selectComponent = (key) =>
+    {
         if (this.state.reordering === true) return
         // guardar selección anterior (para undo/redo de selección)
         this.pushHistory();
@@ -257,7 +267,7 @@ export default class Dashboard extends React.Component {
         this.editPanel.current?.clearState?.();
         this.setState({reordering: oldOrder})
     }
-  
+
     cancelSelection = () =>
     {
         // si querés que cancelar selección también sea undoable:
@@ -344,8 +354,22 @@ export default class Dashboard extends React.Component {
         }
         this.cancelSelection()
     }
+    updateProfileFont = (font) =>
+    {
+        this.pushHistory();
 
-    drawMessage(message) {
+        const user = JSON.parse(JSON.stringify(this.state.user));
+        user.profileDesign = {...user.profileDesign, font};
+
+        console.log(font)
+
+        this.setState({user}, () =>
+            this.displayMessage({type: 'important', message: "You've got unsaved changes!"}, true)
+        );
+    }
+
+    drawMessage(message)
+    {
         if (message) return (
             <div className={"notice " + message.type}>
                 {message.message}
@@ -372,7 +396,8 @@ export default class Dashboard extends React.Component {
     {
         this.pushHistory();
         let newComponent = {type: type, content: null}
-        switch (type) {
+        switch (type)
+        {
             case 'generic':
                 newComponent.content = {
                     title: "This is a generic component",
@@ -400,7 +425,7 @@ export default class Dashboard extends React.Component {
             default:
                 return;
         }
-      
+
         const user = JSON.parse(JSON.stringify(this.state.user));
         user.components.push(newComponent)
 
@@ -424,13 +449,16 @@ export default class Dashboard extends React.Component {
         );
     }
 
-    displayMessage = (message, persistent) => {
+    displayMessage = (message, persistent) =>
+    {
         this.setState({unpublished: message})
         if (!persistent) setTimeout(() => this.setState({unpublished: null}), 5000)
     }
 
-    getSelectedComponent(id) {
-        switch (id) {
+    getSelectedComponent(id)
+    {
+        switch (id)
+        {
             case -2:
                 return {type: 'user'}
             case -1:
@@ -440,23 +468,28 @@ export default class Dashboard extends React.Component {
         }
     }
 
-    showProfOptions = () => {
+    showProfOptions = () =>
+    {
         this.profOptions.open ? this.profOptions.close() : this.profOptions.showModal()
     }
 
-    toggleModal = () => {
+    toggleModal = () =>
+    {
         this.dialog.open ? this.dialog.close() : this.dialog.showModal()
     }
 
-    toggleLogOutModal = () => {
+    toggleLogOutModal = () =>
+    {
         this.logoutConfirmation.open ? this.logoutConfirmation.close() : this.logoutConfirmation.showModal()
     }
 
-    toggleRemoveComponentModal = () => {
+    toggleRemoveComponentModal = () =>
+    {
         this.removeComponentModal.open ? this.removeComponentModal.close() : this.removeComponentModal.showModal()
     }
 
-    reloadImage = () => {
+    reloadImage = () =>
+    {
         this.setState({lastReloaded: Date.now()})
     }
 
@@ -489,7 +522,7 @@ export default class Dashboard extends React.Component {
         // Show toast notification for AI design loaded
         this.displayToast("AI design loaded!");
 
-        // Show persistent message that changes are ready to be saved
+        // Show a persistent message that changes are ready to be saved
         this.displayMessage({type: 'important', message: "You've got unsaved changes."}, true);
 
         // Cancel any current component selection to show the full updated profile
@@ -504,7 +537,9 @@ export default class Dashboard extends React.Component {
         })
     }
 
-    render() {
+
+    render()
+    {
         if (!this.state.user) return 'Loading...'
         return <div className="dashboard-container">
 
@@ -593,7 +628,8 @@ export default class Dashboard extends React.Component {
                         ref={ref => this.profOptions = ref}>
                     <div onClick={e => e.stopPropagation()}>
                         <div className="photo-dialog-div">
-                            <button className="profile-button-dialog button unraised" onClick={() => {
+                            <button className="profile-button-dialog button unraised" onClick={() =>
+                            {
                                 this.selectComponent(-2)
                                 this.profOptions.close()
                             }}
@@ -624,7 +660,8 @@ export default class Dashboard extends React.Component {
                         <button onClick={() => this.updateProfile()} className={"button"}><IoMdCloudUpload size={26}/>Publish
                         </button>
                         <button onClick={() => this.toggleModal()} className={"button"}><IoMdAdd size={26}/>Add</button>
-                        <button onClick={() => this.setState({showAIChat: true})} className={"button no-margin-right special-generate"}><BsStars size={26}/>Pal
+                        <button onClick={() => this.setState({showAIChat: true})}
+                                className={"button no-margin-right special-generate"}><BsStars size={26}/>Pal
                         </button>
                     </div>
                     <div className={this.state.reordering === true
@@ -653,6 +690,7 @@ export default class Dashboard extends React.Component {
                         updateProfileDesign={this.updateProfileDesign}
                         updateProfileColours={this.updateProfileColours}
                         updateProfileBorderRadius={this.updateProfileBorderRadius}
+                        updateProfileFont={this.updateProfileFont}
                         toggleReordering={this.toggleReordering}
                         reordering={this.state.reordering}
                         onOpenAIChat={() => this.setState({showAIChat: true})}

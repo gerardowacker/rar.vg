@@ -91,6 +91,7 @@ export default class UserPanel extends React.Component
 
     render()
     {
+        let currentFont = this.props.user.font || 'default';
         return <>
             <dialog ref={ref => this.uploadingDialog = ref} className={"dashboard-modal"}>
                 <span className={"m"}>Uploading...</span>
@@ -143,6 +144,32 @@ export default class UserPanel extends React.Component
                 </div>
                 <div className={"theme-picker-buttons"}>
                     {this.colourButtons(colours)}
+                </div>
+                <div className="font-picker-buttons">
+                    <button
+                        className={`font-picker-button${this.props.user.profileDesign.font === 'default' ? ' selected' : ''}`}
+                        type="button"
+                        onClick={() => this.props.updateProfileFont('default')}
+                    >
+                        <span className="font-sample font-default">Ag</span>
+                        <span className="font-label">Default</span>
+                    </button>
+                    <button
+                        className={`font-picker-button${this.props.user.profileDesign.font === 'serif' ? ' selected' : ''}`}
+                        type="button"
+                        onClick={() => this.props.updateProfileFont('serif')}
+                    >
+                        <span className="font-sample font-serif">Ag</span>
+                        <span className="font-label">Serif</span>
+                    </button>
+                    <button
+                        className={`font-picker-button${this.props.user.profileDesign.font === 'mono' ? ' selected' : ''}`}
+                        type="button"
+                        onClick={() => this.props.updateProfileFont('mono')}
+                    >
+                        <span className="font-sample font-mono">Ag</span>
+                        <span className="font-label">Mono</span>
+                    </button>
                 </div>
                 <div className="border-radius-config-block">
                     <h2 className="border-radius-label s">Border radius</h2>

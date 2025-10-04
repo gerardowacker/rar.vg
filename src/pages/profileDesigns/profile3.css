@@ -21,6 +21,7 @@ body, html, #root {
 .content {
     background: var(--profile-background) !important;
     padding: 70px 0;
+    font-family: var(--profile-font-family, 'Poppins', 'Raleway', Arial, sans-serif);
 }
 
 @media only screen and (max-width: 880px) {

@@ -90,14 +90,21 @@ export default class EditableProfile extends React.Component
     render()
     {
         const design = this.props.user.profileDesign.design;
+        const font = this.props.user.profileDesign.font || 'default';
+        let fontFamily = "'Poppins', 'Raleway', Arial, sans-serif";
+        if (font === 'serif') fontFamily = "'Merriweather', serif";
+        if (font === 'mono') fontFamily = "'Fira Mono', 'Consolas', 'Menlo', monospace";
+        const customStyle = {
+            ...styles(this.props.user.profileDesign.colour || 0),
+            '--profile-border-radius': ((typeof this.props.user.profileDesign.borderRadius === 'number' ? this.props.user.profileDesign.borderRadius : 40) + 'px'),
+            '--profile-font-family': fontFamily
+        };
+
         if (design === 3)
         {
             return (
                 <div className={"content editableprofile-scroll"}
-                     style={{
-                        ...styles(this.props.user.profileDesign.colour || 0),
-                        '--profile-border-radius': ((typeof this.props.user.profileDesign.borderRadius === 'number' ? this.props.user.profileDesign.borderRadius : 40) + 'px')
-                     }}>
+                     style={customStyle}>
                     <div className="profile-bento-container-spacer"></div>
                     <div className="profile-bento-container">
                         <div className="profile-bento-header">
@@ -137,10 +144,7 @@ export default class EditableProfile extends React.Component
             );
         }
         return <div className={"content"}
-                    style={{
-                        ...styles(this.props.user.profileDesign.colour || 0),
-                        '--profile-border-radius': ((typeof this.props.user.profileDesign.borderRadius === 'number' ? this.props.user.profileDesign.borderRadius : 40) + 'px')
-                    }}>
+                    style={customStyle}>
             <div className="card">
                 <div className={"header-d" + this.props.user.profileDesign.design}>
                     <div className={(this.props.user.profileDesign.design !== 2 ? "selectableComponent" : "")}

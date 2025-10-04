@@ -67,9 +67,14 @@ export default class Profile extends React.Component
         else {
             const design = this.state.user.profileDesign.design;
             const borderRadius = (typeof this.state.user.profileDesign.borderRadius === 'number' ? this.state.user.profileDesign.borderRadius : 40) + 'px';
+            const font = this.state.user.profileDesign.font || 'default';
+            let fontFamily = "'Poppins', 'Raleway', Arial, sans-serif";
+            if (font === 'serif') fontFamily = "'Merriweather', serif";
+            if (font === 'mono') fontFamily = "'Fira Mono', 'Consolas', 'Menlo', monospace";
             const customStyle = {
                 ...styles(this.state.user.profileDesign.colour || 0),
-                '--profile-border-radius': borderRadius
+                '--profile-border-radius': borderRadius,
+                '--profile-font-family': fontFamily
             };
             if (design === 3) {
                 return (
