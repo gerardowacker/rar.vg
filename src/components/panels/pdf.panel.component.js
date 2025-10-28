@@ -30,7 +30,7 @@ export default class PDFPanel extends React.Component
                 if (result.success)
                 {
                     this.uploadingDialog.close()
-                    this.saveLocally({
+                    this.props.saveLocally({
                         fileId: result.content.split('.')[0]
                     })
                 }
