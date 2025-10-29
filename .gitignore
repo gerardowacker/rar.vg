@@ -1,4 +1,9 @@
-#Misc
+package-lock.json
+
+# Backups
+*.bak
+
+# Misc
 lazygit.exe
 .vscode
 .idea

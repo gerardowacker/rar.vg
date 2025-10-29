@@ -5,8 +5,8 @@ body, html {
 }
 
 .dashboard-container {
-    background-color: #CFCFCF;
-    color: #111;
+    background-color: var(--color-gold);
+    color: var(--color-black);
     height: 100vh;
 }
 
@@ -15,7 +15,7 @@ body, html {
     justify-content: space-between;
     height: 70px;
     width: 100%;
-    background-color: rgb(255, 255, 255);
+    background-color: var(--color-white);
     display: flex;
     box-shadow: 0 1px 5px 0 rgba(0, 0, 0, .2), 0 6px 8px 0 rgba(0, 0, 0, .19);
 }
@@ -30,7 +30,7 @@ body, html {
 }
 
 .dashboard-container .dash-container .right {
-    background-color: rgb(255, 255, 255);
+    background-color: var(--color-white);
     display: block;
 }
 
@@ -44,7 +44,7 @@ body, html {
     padding: 20px;
     margin: 20px 0;
     width: calc(100% - 40px);
-    background: #eee;
+    background: var(--color-gray-light);
     border-radius: 20px;
 }
 
@@ -54,6 +54,7 @@ body, html {
     margin: 5px 0;
     border-radius: 13px;
     background: white;
+    color: black;
     border: black 3px solid;
 }
 
@@ -113,7 +114,6 @@ body, html {
 
 .profile-container {
     overflow-y: scroll;
-    background: linear-gradient(135deg, rgb(45, 18, 107) 25%, rgb(50, 15, 74) 100%);
     margin: 20px;
     border-radius: 30px;
     box-shadow: 0 1px 5px 0 rgba(0, 0, 0, .2), 0 6px 8px 0 rgba(0, 0, 0, .19);
@@ -215,10 +215,7 @@ h3 {
     height: 100%;
     vertical-align: center;
     text-align: center;
-}
-
-.outer-mock .default div {
-    margin-top: 20px;
+    justify-content: space-evenly;
 }
 
 .unraised {
@@ -232,7 +229,6 @@ h3 {
     top: -58%;
     left: 78%;
     width: 300px;
-    border: none;
     border: none;
     border-radius: 25px;
     padding-top: 20px;
@@ -424,4 +420,274 @@ h3 {
     width: 200px;
     margin-left: 100px;
     margin-right: 50px;
+}
+
+.floating-publish {
+    display: none;
+
+    position: fixed;
+    width: calc(90% - 10px);
+    left: 50%;
+    bottom: 15px;
+    margin-left: calc(-45% - 5px);
+    height: 70px;
+
+    padding: 10px;
+    background: white;
+    border-radius: 25px;
+    box-shadow: 0 1px 5px 0 rgba(0, 0, 0, .12), 0 6px 8px 0 rgba(0, 0, 0, .10);
+
+    justify-content: space-between;
+
+    z-index: 13;
+}
+
+.floating-publish .floating-reordering-default {
+    width: 100%;
+    display: inherit;
+}
+
+.floating-publish .floating-reordering-hidden {
+    display: none;
+}
+
+.floating-publish .floating-reordering-default .button-reorder {
+    width: calc(50% - 5px);
+}
+
+.floating-publish .floating-reordering-default .button-coloured {
+    background: #ff9d9d;
+    color: #962e2e;
+}
+
+.floating-publish .button {
+    width: calc(33% - 5px);
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+
+    margin-right: 5px;
+    margin-left: 5px;
+
+    font-family: "Poppins", serif;
+    font-size: 13px;
+    text-align: center;
+    border-radius: 15px;
+    border-color: transparent;
+    background-color: #e3e3e3;
+    color: #575757;
+}
+
+.floating-publish .no-margin-right {
+    margin-right: 0;
+}
+
+.floating-publish .no-margin-left {
+    margin-left: 0;
+}
+
+.floating-publish .special-generate {
+    background: #59C173;
+    background: -webkit-linear-gradient(to right, #5D26C1, #a17fe0, #59C173);
+    background: linear-gradient(to right, #5D26C1, #a17fe0, #59C173);
+
+    color: white;
+}
+
+.floating-publish .special-publish {
+    background: #5d0e7d;
+    background: linear-gradient(118deg, rgba(93, 14, 125, 1) 0%, rgba(186, 107, 191, 1) 100%);
+    color: white;
+}
+
+@media only screen and (max-width: 1200px) {
+    .left-component {
+        width: 40%;
+    }
+
+    .right-component {
+        width: 60%;
+    }
+
+    .profile-container .content .card, .profile-container .content .profile-bento-container {
+        width: 80% !important;
+        border-radius: 30px !important;
+    }
+
+    .profile-container {
+        zoom: .7;
+    }
+}
+
+@media only screen and (max-width: 1000px) {
+    .profile-container .content {
+        background: var(--card-background) !important;
+    }
+
+    .left-component {
+        width: 50%;
+    }
+
+    .right-component {
+        width: 50%;
+    }
+
+    .profile-container .content {
+        padding: 0;
+    }
+
+    .profile-container .content .card, .profile-container .content .profile-bento-container {
+        margin: 0 auto;
+        width: 100% !important;
+    }
+
+    .profile-container {
+        zoom: .7;
+    }
+}
+
+
+@media only screen and (max-width: 780px) {
+    .dashboard-container .s {
+        font-size: calc(1.4vw + 1.7vh) !important;
+    }
+
+    .dashboard-container .ss {
+        font-size: 3vw !important;
+    }
+
+    .dashboard-container .mm {
+        font-size: 4vw !important;
+    }
+
+    .content {
+        padding: 50px;
+    }
+
+    .floating-publish {
+        display: flex;
+    }
+
+    .dash-container .right .publish-button {
+        display: none;
+    }
+
+    .dashboard-container .dashboard-modal {
+        padding: 25px !important;
+    }
+
+    .left-component {
+        position: fixed;
+        top: 100%;
+
+        width: 100%;
+        background: rgba(70, 70, 70, 0.5);
+
+        padding-top: 20vh;
+
+        z-index: 99;
+    }
+
+    .lc-active {
+        top: auto;
+        bottom: 0 !important;
+    }
+
+    .left-component .outer-mock {
+        width: calc(100% - 40px);
+        height: 80vh;
+
+        margin: 0;
+
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+
+        padding: 20px;
+    }
+
+    .right-component {
+        width: 100%;
+    }
+
+    .profile-popup {
+        position: fixed;
+        text-align: center;
+        left: 0;
+        width: calc(100% - 46px);
+        display: flex;
+        overflow-x: hidden;
+    }
+
+    .remove-component-modal {
+        padding: 30px;
+        width: calc(100% - 60px);
+    }
+
+    .remove-component-modal-buttons-container {
+        display: flex;
+        align-content: space-around;
+        align-items: center;
+    }
+
+    .remove-component-modal-button {
+        margin: auto !important;
+        width: 40% !important;
+    }
+
+    .profile-container {
+        zoom: .9;
+        margin: 20px 0 0 0;
+        width: 100%;
+        height: calc(100% - 20px);
+        border-bottom-right-radius: 0;
+        border-bottom-left-radius: 0;
+        overflow-x: hidden;
+    }
+
+    .welcome {
+        font-size: 28px;
+        margin: 0 !important;
+    }
+
+    .welcome-2 {
+        display: none;
+    }
+
+    .card .add-component-button-container {
+        padding: 30px 0 70px 0 !important;
+    }
+}
+
+dialog:-internal-dialog-in-top-layer::backdrop {
+    background: rgba(0, 0, 0, 0.4);
+}
+
+/* Toast chico, fijo abajo a la izquierda; visible en mobile y desktop */
+.df-toast {
+    position: fixed;
+    top: 80px; /* pegado abajo */
+    left: 10px; /* pegado a la izquierda */
+    max-width: 300px;
+    background-color: #fff5f5; /* fondo claro rojizo */
+    border: 1px solid #dc2626; /* borde rojo */
+    color: #dc2626; /* texto rojo */
+    padding: 12px 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, .1);
+    font-size: 14px;
+    z-index: 200;
+    pointer-events: auto;
+}
+
+/* En pantallas chicas, que ocupe todo el ancho inferior */
+@media only screen and (max-width: 780px) {
+    .df-toast {
+        left: 15px;
+        right: 15px; /* ocupar ancho casi completo */
+        top: 55px;
+        max-width: unset; /* sin límite de ancho */
+        font-size: 16px; /* texto un poco más grande para mobile */
+    }
 }

@@ -1,5 +1,6 @@
 import React from 'react'
 import {verifyAccount} from "../utils/session.util";
+import Button from "../components/button";
 
 import '../index.css'
 import './form.css'
@@ -36,7 +37,7 @@ export default class Verify extends React.Component
 
         return verified.success ? <form onSubmit={this.handleSubmit} className="login-form">
             <h1 className="m p-no-margin-top">Your account has been verified.</h1>
-            <button className="mm login-button">Log in</button>
+            <Button className="mm login-button" variant="primary">Log in</Button>
         </form> : <div className="login-form">
             <h1 className="m p-no-margin-top">{verified.content}</h1>
         </div>

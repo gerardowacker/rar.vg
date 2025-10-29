@@ -1,4 +1,9 @@
 html, body {
+
+    --buttonGap: 60px;
+    --dotColor: rgba(127, 127, 127, .7);
+    --dotDistance: 30px;
+
     background: var(--profile-background) !important;
     color: var(--profile-text-accent) !important;
 }
@@ -20,8 +25,10 @@ a:hover {
 }
 
 .content {
+    background: var(--profile-background) !important;
     margin: 0;
-    padding: 70px 0
+    padding: 70px 0;
+    font-family: var(--profile-font-family, 'Poppins', 'Raleway', Arial, sans-serif);
 }
 
 .card {
@@ -33,13 +40,12 @@ a:hover {
     width: 60%;
     max-width: 750px;
 
-    border-radius: 40px;
+    border-radius: var(--profile-border-radius, 40px);
 }
 
 .card .header-d1 {
     text-align: center;
     margin-bottom: 10px;
-    padding-bottom: 30px;
 }
 
 .card .header-d1 .banner-d1 {
@@ -72,12 +78,76 @@ a:hover {
     border-top: solid 1px #333333;
 }
 
+.reorder-buttons {
+    display: none;
+}
+
+.component-list:first-child {
+    padding-top: 20px;
+}
+
+.component-list:last-child {
+    padding-bottom: 20px;
+}
+
+.reordering {
+    background-image: radial-gradient(6px 6px at var(--dotDistance) calc(50% - 30px),
+    var(--dotColor) 50%, transparent 50%), radial-gradient(6px 6px at var(--dotDistance) calc(50% - 10px),
+    var(--dotColor) 50%, transparent 50%), radial-gradient(6px 6px at var(--dotDistance) calc(50% + 10px),
+    var(--dotColor) 50%, transparent 50%), radial-gradient(6px 6px at var(--dotDistance) calc(50% + 30px),
+    var(--dotColor) 50%, transparent 50%), radial-gradient(6px 6px at calc(var(--dotDistance) + 20px) calc(50% - 30px),
+    var(--dotColor) 50%, transparent 50%), radial-gradient(6px 6px at calc(var(--dotDistance) + 20px) calc(50% - 10px),
+    var(--dotColor) 50%, transparent 50%), radial-gradient(6px 6px at calc(var(--dotDistance) + 20px) calc(50% + 10px),
+    var(--dotColor) 50%, transparent 50%), radial-gradient(6px 6px at calc(var(--dotDistance) + 20px) calc(50% + 30px),
+    var(--dotColor) 50%, transparent 50%);
+    border-top: none;
+    max-height: 160px;
+    overflow: hidden;
+    border-radius: 30px;
+    margin: 15px 20px;
+    box-shadow: 0 2px 8px 0 var(--select-component), 0 2px 8px 0 var(--select-component);
+    display: flex;
+    justify-content: space-between;
+}
+
+.reordering .component {
+    margin-left: 0 !important;
+    padding-left: 80px !important;
+    width: 100%;
+}
+
+.reordering .editing {
+    border-top: none;
+    max-width: calc(100% - 200px);
+}
+
+.reordering .reorder-buttons {
+    display: flex;
+    flex-direction: column;
+    margin-right: 20px;
+    height: 160px;
+    justify-content: space-evenly;
+}
+
+.reordering .reorder-buttons button {
+    width: 40px;
+    height: 40px;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    border-radius: 16px;
+    color: var(--profile-text-accent);
+    background: rgb(255, 255, 255, 0.5);
+    border: none;
+    box-shadow: 0 2px 8px 0 var(--select-component), 0 2px 8px 0 var(--select-component);
+}
+
 .card .component img {
     max-width: 100%;
 }
 
 .card .component hr {
-    background: #333333;
+    background: var(--accent-lines);
     border: none;
     height: 1px;
 }
@@ -107,6 +177,18 @@ a:hover {
     border-radius: 20px;
 }
 
+.card .reordering {
+    background-image: radial-gradient(6px 6px at var(--dotDistance) calc(50% - 30px),
+    var(--dotColor) 50%, transparent 50%), radial-gradient(6px 6px at var(--dotDistance) calc(50% - 10px),
+    var(--dotColor) 50%, transparent 50%), radial-gradient(6px 6px at var(--dotDistance) calc(50% + 10px),
+    var(--dotColor) 50%, transparent 50%), radial-gradient(6px 6px at var(--dotDistance) calc(50% + 30px),
+    var(--dotColor) 50%, transparent 50%), radial-gradient(6px 6px at calc(var(--dotDistance) + 20px) calc(50% - 30px),
+    var(--dotColor) 50%, transparent 50%), radial-gradient(6px 6px at calc(var(--dotDistance) + 20px) calc(50% - 10px),
+    var(--dotColor) 50%, transparent 50%), radial-gradient(6px 6px at calc(var(--dotDistance) + 20px) calc(50% + 10px),
+    var(--dotColor) 50%, transparent 50%), radial-gradient(6px 6px at calc(var(--dotDistance) + 20px) calc(50% + 30px),
+    var(--dotColor) 50%, transparent 50%) !important;
+}
+
 .card .selectableComponent:hover {
     background: var(--select-component);
     cursor: pointer;
@@ -125,7 +207,7 @@ a:hover {
     text-align: end;
     font-size: 14px;
 
-    border-top: solid 1px var(--accent-lines);
+    border-top: solid 1px var(--color-gray-dark);
 }
 
 @media only screen and (max-width: 880px) {
@@ -137,6 +219,10 @@ a:hover {
     .card {
         width: 80%;
         min-width: 550px;
+    }
+
+    .reordering .editing {
+        padding-left: 80px !important;
     }
 }
 
@@ -178,9 +264,21 @@ a:hover {
         margin: 0 50px;
     }
 
+    .reordering {
+        overflow-x: hidden;
+    }
+
+    .reordering .editing {
+        padding-left: 80px !important;
+    }
+
     .card {
         min-width: 100%;
         border-radius: 0 !important;
+    }
+
+    .card .add-component-button-container .add-component-button {
+        display: none;
     }
 
     @media only screen and (max-width: 480px) {
@@ -191,5 +289,10 @@ a:hover {
         .card .component {
             margin: 0 20px !important;
         }
+
+        .reordering .editing {
+            padding-left: 60px !important;
+        }
+
     }
 }

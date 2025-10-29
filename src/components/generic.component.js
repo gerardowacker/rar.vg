@@ -8,7 +8,7 @@ export default class GenericComponent extends React.Component
     {
         return <div className={this.props.editing ? 'component editing' : 'component'}>
             <h2>{this.props.title}</h2>
-            <h4><ReactMarkdown remarkPlugins={[gfm]}>{this.props.description}</ReactMarkdown></h4>
+            <div><ReactMarkdown remarkPlugins={[gfm]}>{this.props.description}</ReactMarkdown></div>
         </div>
     }
 }

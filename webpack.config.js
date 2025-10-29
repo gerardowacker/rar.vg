@@ -3,24 +3,22 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const webpack = require("webpack");
 const TerserWebpackPlugin = require("terser-webpack-plugin");
-const OptimizeCssAssetsPlugin = require("optimize-css-assets-webpack-plugin");
-const {CleanWebpackPlugin} = require('clean-webpack-plugin');
-const RemarkHTML = "remark-html";
+const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 
-require('dotenv').config({path: './.env/production.env'});
+require("dotenv").config({ path: "./.env/production.env" });
 
-module.exports = function (_env, argv)
-{
+module.exports = function (_env, argv) {
     const isProduction = argv.mode === "production";
 
     return {
         target: "web",
-        devtool: 'source-map',
-        entry: argv.mode == "none" ? "./example/index.js" : "./src/index.js",
+        devtool: "source-map",
+        entry: "./src/index.js",
         output: {
             path: path.resolve(__dirname, "dist"),
             filename: "assets/js/[name].[contenthash:8].js",
-            publicPath: "/"
+            publicPath: "/",
+            clean: true
         },
         module: {
             rules: [
@@ -32,15 +30,16 @@ module.exports = function (_env, argv)
                         options: {
                             cacheDirectory: true,
                             cacheCompression: false,
-                            envName: isProduction ? "production" : "development"
-                        }
+                            envName: isProduction ? "production" : "development",
+                            presets: [
+                                ["@babel/preset-react", { "runtime": "automatic" }]
+                            ]
+                        },
                     }
                 },
                 {
                     test: /\.md$/,
-                    use: {
-                        loader: "raw-loader",
-                    },
+                    type: "asset/source"
                 },
                 {
                     test: /\.css$/,
@@ -50,22 +49,15 @@ module.exports = function (_env, argv)
                     ]
                 },
                 {
-                    test: /\.(png|jpg|jpeg|gif)$/i,
-                    use: {
-                        loader: "url-loader",
-                        options: {
-                            limit: 8192,
-                            name: "static/media/[name].[hash:8].[ext]"
-                        }
-                    }
+                    test: /\.(png|jpe?g|gif)$/i,
+                    type: "asset",
+                    parser: { dataUrlCondition: { maxSize: 8192 } },
+                    generator: { filename: "static/media/[name].[hash:8][ext]" }
                 },
                 {
-                    test: /\.(eot|otf|ttf|woff|woff2)$/, // If you encounter any transpilation errors, please add the
-                                                         // file extension here >w
-                    loader: require.resolve("file-loader"),
-                    options: {
-                        name: "static/media/[name].[hash:8].[ext]"
-                    }
+                    test: /\.(eot|otf|ttf|woff2?)$/,
+                    type: "asset/resource",
+                    generator: { filename: "static/media/[name].[hash:8][ext]" }
                 },
                 {
                     test: /\.svg$/,
@@ -73,9 +65,7 @@ module.exports = function (_env, argv)
                 }
             ]
         },
-        resolve: {
-            extensions: [".js", ".jsx"]
-        },
+        resolve: { extensions: [".js", ".jsx"] },
         plugins: [
             isProduction &&
             new MiniCssExtractPlugin({
@@ -87,34 +77,26 @@ module.exports = function (_env, argv)
                 inject: true
             }),
             new webpack.DefinePlugin({
-                "process.env": JSON.stringify(process.env),
+                "process.env": JSON.stringify(process.env)
             }),
             new webpack.DefinePlugin({
                 "process.env.NODE_ENV": JSON.stringify(
                     isProduction ? "production" : "development"
                 )
-            }),
-            new CleanWebpackPlugin(),
+            })
         ].filter(Boolean),
         optimization: {
             minimize: isProduction,
             minimizer: [
                 new TerserWebpackPlugin({
                     terserOptions: {
-                        compress: {
-                            comparisons: false
-                        },
-                        mangle: {
-                            safari10: true
-                        },
-                        output: {
-                            comments: false,
-                            ascii_only: true
-                        },
+                        compress: { comparisons: false },
+                        mangle: { safari10: true },
+                        output: { comments: false, ascii_only: true },
                         warnings: false
                     }
                 }),
-                new OptimizeCssAssetsPlugin()
+                new CssMinimizerPlugin()
             ],
             splitChunks: {
                 chunks: "all",
@@ -124,8 +106,7 @@ module.exports = function (_env, argv)
                 cacheGroups: {
                     vendors: {
                         test: /[\\/]node_modules[\\/]/,
-                        name(module, chunks, cacheGroupKey)
-                        {
+                        name(module, chunks, cacheGroupKey) {
                             const packageName = module.context.match(
                                 /[\\/]node_modules[\\/](.*?)([\\/]|$)/
                             )[1];
@@ -141,12 +122,12 @@ module.exports = function (_env, argv)
             runtimeChunk: "single"
         },
         devServer: {
-            contentBase: ['./src', './example', './public'],
-            watchContentBase: true,
+            static: { directory: path.join(__dirname, "public") },
             compress: true,
             historyApiFallback: true,
-            disableHostCheck: true,
-            inline: true,
+            allowedHosts: "all",
+            client: { overlay: true },
+            open: true
         }
     };
 };

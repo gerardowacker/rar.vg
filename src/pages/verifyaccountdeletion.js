@@ -1,5 +1,6 @@
 import React from 'react'
 import {deleteAccount, verifyDeletionToken} from "../utils/session.util";
+import Button from "../components/button";
 
 import '../index.css'
 import './form.css'
@@ -64,7 +65,7 @@ export default class VerifyAccountDeletion extends React.Component
                 {this.drawMessage(this.state.message)}
                 <h1 className="l p-no-margin-top">Do you want to confirm account deletion?</h1>
                 <h1 className="m p-no-margin-top">This action can't be undone!</h1>
-                <button className="mm login-button">Yes, I want to delete my account</button>
+                <Button className="mm login-button" variant="primary">Yes, I want to delete my account</Button>
             </form>
         else
             return <div className="login-form">

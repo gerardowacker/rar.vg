@@ -7,7 +7,7 @@ const colours = [
         username: "#444",
         accentLines: "#333",
         linkBackground: "linear-gradient(310deg, #181623, #1e1b2d)",
-        selectComponent: "rgba(255, 255, 255, 0.06)"
+        selectComponent: "rgba(255, 255, 255, 0.3)"
     },
     {
         background: "#fa6450",
@@ -69,12 +69,65 @@ const colours = [
         linkBackground: "#cfba76",
         selectComponent: "rgba(0, 0, 0, 0.2)"
     },
+    {
+        background: "#222823",
+        card: "#d1ffbd",
+        accent: "#222823",
+        addComponentButton: "#7ae582",
+        username: "#222823",
+        accentLines: "#222823",
+        linkBackground: "#b6f7c1",
+        selectComponent: "rgba(0, 0, 0, 0.15)"
+    },
+    {
+        background: "#2d232e",
+        card: "#e23e57",
+        accent: "#fff",
+        addComponentButton: "#88304e",
+        username: "#fff",
+        accentLines: "#fff",
+        linkBackground: "#88304e",
+        selectComponent: "rgba(255, 255, 255, 0.15)"
+    },
+    // Paleta Crema (ajuste de contraste entre card y background)
+    {
+        background: "#f8eedc",
+        card: "#fffbe6",
+        accent: "#5c4326",
+        addComponentButton: "#e6cfa7",
+        username: "#5c4326",
+        accentLines: "#5c4326",
+        linkBackground: "#f5e9c8",
+        selectComponent: "rgba(0,0,0,0.07)"
+    },
+    // Gruvbox
+    {
+        background: "#282828",
+        card: "#3c3836",
+        accent: "#fabd2f",
+        addComponentButton: "#b8bb26",
+        username: "#ebdbb2",
+        accentLines: "#fe8019",
+        linkBackground: "#504945",
+        selectComponent: "rgba(255,255,255,0.10)"
+    },
+    // Terracota
+    {
+        background: "#e2725b",
+        card: "#f7c59f",
+        accent: "#a0522d",
+        addComponentButton: "#a0522d",
+        username: "#6e2c00",
+        accentLines: "#a0522d",
+        linkBackground: "#dc9e7e",
+        selectComponent: "rgba(0,0,0,0.10)"
+    },
 ]
 
 let styles = (colour) =>
 {
     return {
-        "background": colours[colour].background,
+        "--profile-background": colours[colour].background,
         "--card-background": colours[colour].card,
         "--profile-text-accent": colours[colour].accent,
         "--add-comp-btn-clr": colours[colour].addComponentButton,
