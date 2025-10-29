@@ -594,8 +594,6 @@ export default class Dashboard extends React.Component
                     <div className={"component-types-container"}>
                         <Button onClick={() => this.addComponent('generic')} className={"component-to-select s"}
                                 variant="secondary">Generic component</Button>
-                        <Button onClick={() => this.addComponent('pdf')} className={"component-to-select s"}
-                                variant="secondary">PDF reader</Button>
                         <Button onClick={() => this.addComponent('linklist')} className={"component-to-select s"}
                                 variant="secondary">Custom link list</Button>
                         <Button onClick={() => this.addComponent('youtube')} className={"component-to-select s"}
