@@ -844,7 +844,7 @@ export default class Dashboard extends React.Component
                     {this.drawMessage(this.state.unpublished)}
                 </div>
                 <div className="right">
-                    <Button className="pdf-export-button" variant="primary"
+                    <Button className="publish-button" variant="primary"
                             onClick={this.handlePDFExport}
                             style={{marginRight: "10px"}}><FaFilePdf size={10} style={{marginRight: "5px"}}/>Save as PDF</Button>
                     <Button className="publish-button" variant="primary"
