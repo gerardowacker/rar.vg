@@ -664,6 +664,90 @@ dialog:-internal-dialog-in-top-layer::backdrop {
     background: rgba(0, 0, 0, 0.4);
 }
 
+.pdf-export-modal {
+    border: none;
+    text-align: center;
+    border-radius: 25px;
+    padding: 60px;
+}
+
+.question-pdf-export {
+    font-family: 'Raleway', sans-serif;
+    text-align: center;
+    font-size: 25px;
+    padding-bottom: 30px;
+}
+
+.pdf-filename-preview {
+    display: block;
+    font-size: 16px;
+    color: #666;
+    margin-top: 15px;
+}
+
+.pdf-export-modal-button.cancel {
+    padding: 10px;
+    font-family: 'Raleway', sans-serif;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 15px;
+    border: none;
+    width: 200px;
+    margin-left: 50px;
+    background-color: #b4b4b4 !important;
+    color: #000 !important;
+}
+
+.pdf-export-modal-button.done {
+    padding: 10px;
+    font-family: 'Raleway', sans-serif;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 17px;
+    background-color: #6a28d3;
+    color: white;
+    border: none;
+    width: 200px;
+    margin-left: 100px;
+    margin-right: 50px;
+}
+
+.pdf-export-modal-buttons-container {
+    text-align: center;
+    justify-content: center;
+    padding: 10px 0 0 0;
+}
+
+/* PDF Export Button Responsive Visibility */
+.pdf-export-button {
+    display: inline-flex;
+    align-items: center;
+}
+
+@media only screen and (max-width: 999px) {
+    .pdf-export-button {
+        display: none !important;
+    }
+}
+
+@media only screen and (max-width: 780px) {
+    .pdf-export-modal {
+        padding: 30px;
+        width: calc(100% - 60px);
+    }
+
+    .pdf-export-modal-buttons-container {
+        display: flex;
+        align-content: space-around;
+        align-items: center;
+    }
+
+    .pdf-export-modal-button {
+        margin: auto !important;
+        width: 40% !important;
+    }
+}
+
 /* Toast chico, fijo abajo a la izquierda; visible en mobile y desktop */
 .df-toast {
     position: fixed;

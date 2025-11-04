@@ -1,16 +1,19 @@
 import React from "react";
 import {tryLogout, tryUserLoading, updateProfile} from "../utils/session.util";
 import config from '../utils/config.util'
+import pdfExportService from '../utils/pdf-export.util';
 
 import './dashboard.css'
 import EditableProfile from "../components/editableprofile.component";
 import EditPanel from "../components/editpanel.component";
 import AIChatComponent from "../components/aichat.component";
+import PDFExportDialog from "../components/pdfexportdialog.component";
 import {colours} from "./profileDesigns/colour.util";
 import Button from "../components/button";
 
 import {IoMdOpen, IoMdAdd, IoIosList, IoMdCloudUpload} from "react-icons/io";
 import {BsStars} from "react-icons/bs";
+import {FaFilePdf} from "react-icons/fa";
 
 export default class Dashboard extends React.Component
 {
@@ -26,6 +29,7 @@ export default class Dashboard extends React.Component
             reordering: false,
             lastReloaded: Date.now(),
             showAIChat: false,
+            showPDFExportDialog: false,
 
             // Version history
             hist: [],
@@ -46,6 +50,9 @@ export default class Dashboard extends React.Component
         this.handleClickOutside = this.handleClickOutside.bind(this)
         this.changeInputValueRadio = this.changeInputValueRadio.bind(this)
         this.toggleAIChat = this.toggleAIChat.bind(this)
+        this.handlePDFExport = this.handlePDFExport.bind(this)
+        this.handlePDFExportConfirm = this.handlePDFExportConfirm.bind(this)
+        this.handlePDFExportCancel = this.handlePDFExportCancel.bind(this)
     }
 
     // =========================
@@ -182,6 +189,9 @@ export default class Dashboard extends React.Component
         {
             // no-op if storage is unavailable
         }
+
+        // Make debug method available globally
+        window.debugPDF = this.debugPDFElements;
     }
 
     componentWillUnmount()
@@ -502,6 +512,230 @@ export default class Dashboard extends React.Component
         this.setState(prevState => ({showAIChat: !prevState.showAIChat}))
     }
 
+    handlePDFExport()
+    {
+        this.setState({showPDFExportDialog: true});
+    }
+
+    // Temporary debug method - can be called from browser console
+    debugPDFElements = () => {
+        console.log('=== PDF Debug Analysis ===');
+        this.debugProfileElements();
+        
+        // Test element selection
+        const selectors = [
+            '.right-component .content',
+            '.profile-container .content',
+            '.content',
+            '.card',
+            '.profile-container'
+        ];
+        
+        selectors.forEach(selector => {
+            const element = document.querySelector(selector);
+            if (element) {
+                const rect = element.getBoundingClientRect();
+                console.log(`Testing ${selector}:`, {
+                    dimensions: `${rect.width}x${rect.height}`,
+                    suitable: rect.width > 0 && rect.height > 0
+                });
+            }
+        });
+        
+        // Make this method available globally for console testing
+        window.debugPDF = this.debugPDFElements;
+    }
+
+    // Debug function to analyze DOM structure
+    debugProfileElements() {
+        console.log('=== DOM Structure Analysis ===');
+        
+        const selectors = [
+            '.profile-container',
+            '.profile-container .content',
+            '.content',
+            '.right-component',
+            '.right-component .content',
+            '.editableprofile-scroll',
+            '.card',
+            '.profile-bento-container'
+        ];
+        
+        selectors.forEach(selector => {
+            const elements = document.querySelectorAll(selector);
+            console.log(`Selector "${selector}": found ${elements.length} elements`);
+            
+            elements.forEach((element, index) => {
+                const rect = element.getBoundingClientRect();
+                const computedStyle = window.getComputedStyle(element);
+                console.log(`  Element ${index}:`, {
+                    dimensions: `${rect.width}x${rect.height}`,
+                    position: `${rect.left}, ${rect.top}`,
+                    display: computedStyle.display,
+                    visibility: computedStyle.visibility,
+                    opacity: computedStyle.opacity,
+                    overflow: computedStyle.overflow,
+                    className: element.className,
+                    tagName: element.tagName,
+                    hasContent: element.textContent.trim().length > 0,
+                    childCount: element.children.length
+                });
+            });
+        });
+        
+        console.log('=== End DOM Analysis ===');
+    }
+
+    async handlePDFExportConfirm()
+    {
+        try {
+            // Close the dialog first
+            this.setState({showPDFExportDialog: false});
+            
+            // Show a toast notification that PDF generation is starting
+            this.displayToast("Generating PDF...", {duration: 0}); // Duration 0 means it won't auto-hide
+            
+            // Wait a moment for the dialog to close and UI to update
+            await new Promise(resolve => setTimeout(resolve, 300));
+            
+            // Debug the DOM structure
+            this.debugProfileElements();
+            
+            // Alternative approach: Create a temporary container with the profile content
+            let profileElement = null;
+            
+            // First, try the standard approach
+            const selectors = [
+                '.right-component .content',    // Content in right component (most specific)
+                '.profile-container .content',  // Content inside profile container
+                '.content',                     // Direct content element
+                '.card',                        // Card element inside content
+                '.profile-container',           // Profile container itself
+                '.editableprofile-scroll'       // Scrollable profile content
+            ];
+            
+            for (const selector of selectors) {
+                const element = document.querySelector(selector);
+                if (element) {
+                    const rect = element.getBoundingClientRect();
+                    const computedStyle = window.getComputedStyle(element);
+                    
+                    console.log(`Checking selector "${selector}":`, {
+                        width: rect.width,
+                        height: rect.height,
+                        visible: rect.width > 0 && rect.height > 0,
+                        display: computedStyle.display,
+                        visibility: computedStyle.visibility,
+                        opacity: computedStyle.opacity
+                    });
+                    
+                    if (rect.width > 0 && rect.height > 0 && 
+                        computedStyle.display !== 'none' && 
+                        computedStyle.visibility !== 'hidden' &&
+                        parseFloat(computedStyle.opacity) > 0) {
+                        profileElement = element;
+                        console.log(`Selected element with selector: ${selector}`);
+                        break;
+                    }
+                }
+            }
+            
+            // If no suitable element found, create a temporary visible container
+            if (!profileElement) {
+                console.log('No suitable element found, creating temporary container...');
+                
+                const originalContent = document.querySelector('.content') || document.querySelector('.profile-container');
+                if (!originalContent) {
+                    throw new Error('No profile content found to export.');
+                }
+                
+                // Create a temporary container
+                const tempContainer = document.createElement('div');
+                tempContainer.style.cssText = `
+                    position: fixed;
+                    top: -10000px;
+                    left: 0;
+                    width: 800px;
+                    min-height: 600px;
+                    background: white;
+                    padding: 20px;
+                    z-index: -1;
+                    visibility: visible;
+                    opacity: 1;
+                    display: block;
+                `;
+                
+                // Clone the content
+                const clonedContent = originalContent.cloneNode(true);
+                tempContainer.appendChild(clonedContent);
+                document.body.appendChild(tempContainer);
+                
+                // Force layout
+                tempContainer.offsetHeight;
+                
+                profileElement = tempContainer;
+                console.log('Created temporary container for PDF generation');
+                
+                // We'll clean this up after PDF generation
+                this.tempPDFContainer = tempContainer;
+            }
+            
+            // Ensure the profile element is scrolled into view and fully rendered
+            profileElement.scrollIntoView({ behavior: 'instant', block: 'start' });
+            
+            // Wait for any layout changes to complete
+            await new Promise(resolve => setTimeout(resolve, 800));
+            
+            // Final validation before PDF generation
+            const finalRect = profileElement.getBoundingClientRect();
+            console.log('Final element validation:', {
+                selector: profileElement.className || profileElement.tagName,
+                dimensions: `${finalRect.width}x${finalRect.height}`,
+                position: `${finalRect.left}, ${finalRect.top}`,
+                hasContent: profileElement.textContent.trim().length > 0,
+                childCount: profileElement.children.length,
+                isConnected: profileElement.isConnected,
+                offsetParent: profileElement.offsetParent
+            });
+            
+            // Double-check dimensions right before PDF generation
+            if (finalRect.width === 0 || finalRect.height === 0) {
+                throw new Error(`Selected element lost its dimensions: ${finalRect.width}x${finalRect.height}. This might be a timing or CSS issue.`);
+            }
+            
+            // Generate filename using username from session data
+            const filename = `${this.state.user.username}.pdf`;
+            
+            // Generate and download the PDF
+            await pdfExportService.generateProfilePDF(profileElement, filename);
+            
+            // Clean up temporary container if it was created
+            if (this.tempPDFContainer) {
+                document.body.removeChild(this.tempPDFContainer);
+                this.tempPDFContainer = null;
+            }
+            
+            // Show success message
+            this.displayToast("PDF downloaded successfully!", {duration: 4000});
+            
+        } catch (error) {
+            console.error('PDF export failed:', error);
+            
+            // Clean up temporary container if it was created
+            if (this.tempPDFContainer) {
+                document.body.removeChild(this.tempPDFContainer);
+                this.tempPDFContainer = null;
+            }
+            
+            this.displayToast(`PDF export failed: ${error.message}`, {duration: 6000});
+        }
+    }
+
+    handlePDFExportCancel()
+    {
+        this.setState({showPDFExportDialog: false});
+    }
+
     handleAcceptDesign = (acceptedDesign) =>
     {
         console.log('Accepting design in Dashboard:', acceptedDesign);
@@ -594,8 +828,6 @@ export default class Dashboard extends React.Component
                     <div className={"component-types-container"}>
                         <Button onClick={() => this.addComponent('generic')} className={"component-to-select s"}
                                 variant="secondary">Generic component</Button>
-                        <Button onClick={() => this.addComponent('pdf')} className={"component-to-select s"}
-                                variant="secondary">PDF reader</Button>
                         <Button onClick={() => this.addComponent('linklist')} className={"component-to-select s"}
                                 variant="secondary">Custom link list</Button>
                         <Button onClick={() => this.addComponent('youtube')} className={"component-to-select s"}
@@ -612,6 +844,9 @@ export default class Dashboard extends React.Component
                     {this.drawMessage(this.state.unpublished)}
                 </div>
                 <div className="right">
+                    <Button className="publish-button" variant="primary"
+                            onClick={this.handlePDFExport}
+                            style={{marginRight: "10px"}}><FaFilePdf size={10} style={{marginRight: "5px"}}/>Save as PDF</Button>
                     <Button className="publish-button" variant="primary"
                             onClick={() => window.open('https://' + this.state.user.username + '.rar.vg', '_blank')}
                             style={{marginRight: "10px"}}><IoMdOpen size={10} style={{marginRight: "5px"}}/>Open profile</Button>
@@ -710,6 +945,13 @@ export default class Dashboard extends React.Component
                 onClose={this.toggleAIChat}
                 user={this.state.user}
                 onAcceptDesign={this.handleAcceptDesign}
+            />
+
+            <PDFExportDialog
+                isOpen={this.state.showPDFExportDialog}
+                username={this.state.user.username}
+                onConfirm={this.handlePDFExportConfirm}
+                onCancel={this.handlePDFExportCancel}
             />
 
         </div>
